@@ -1,4 +1,4 @@
-import conf.build.DomainTask
+import confbuild.DomainTask
 
 tasks.register<DomainTask>("domainTask") {
     input.set("Hello, world!")
