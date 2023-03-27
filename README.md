@@ -1,3 +1,5 @@
+![CI](https://github.com/gradle/gradle-kotlinconf-2023-app/actions/workflows/ci.yml/badge.svg?branch=main)
+
 # KotlinConf
 
 * 45 minutes slot
