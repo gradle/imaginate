@@ -1,0 +1,10 @@
+[versions]
+jvm = "11"
+kotlin = "1.8.20-RC2"
+
+[libraries]
+
+[bundles]
+
+[plugins]
+kotlin-mpp = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }

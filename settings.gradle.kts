@@ -1,7 +1,3 @@
-pluginManagement {
-    includeBuild("build-logic")
-}
-
 plugins {
     `gradle-enterprise`
     id("org.gradle.toolchains.foojay-resolver-convention") version "0.4.0"
@@ -15,6 +11,12 @@ include("common-logic")
 include("desktop-app")
 include("android-app")
 include("web-app")
+
+dependencyResolutionManagement {
+    repositories {
+        mavenCentral()
+    }
+}
 
 val isCI = System.getenv("CI") == "true"
 if (isCI) {
