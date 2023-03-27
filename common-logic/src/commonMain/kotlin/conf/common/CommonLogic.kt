@@ -1,6 +1,7 @@
 package conf.common
 
 import conf.domain.domainFunction
+import java.util.*
 
-fun commonLogic(): String =
-    domainFunction("Some input")
+fun commonLogic(input: String): String =
+    domainFunction(input.reversed()).uppercase(Locale.getDefault())
