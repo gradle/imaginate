@@ -19,7 +19,7 @@ abstract class DomainTask : DefaultTask() {
     abstract val output: RegularFileProperty
 
     @TaskAction
-    fun aciton() {
+    fun action() {
         output.get().asFile.writeText(domainFunction(input.get()))
     }
 }
