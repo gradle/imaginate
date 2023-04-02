@@ -1,9 +1,7 @@
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import conf.domain.ImageGenerator
 import io.ktor.util.encodeBase64
 import kotlinx.coroutines.launch
@@ -20,16 +18,15 @@ object MyStyleSheet : StyleSheet()
 fun App() {
 
     val prompt = remember { mutableStateOf("") }
-    var imageSrc: String by mutableStateOf("")
+    val imageSrc = remember { mutableStateOf<String?>(null) }
 
     val coroutineScope = rememberCoroutineScope()
     val imageGenerator = ImageGenerator()
 
-    fun loadNewImage() {
-        coroutineScope.launch {
-            val imageData = imageGenerator.generate(prompt.value).encodeBase64()
-            imageSrc = "data:image/jpeg;charset=utf-8;base64,$imageData"
-        }
+    fun loadNewImage() = coroutineScope.launch {
+        imageSrc.value = "data:image/jpeg;charset=utf-8;base64,${
+            imageGenerator.generate(prompt.value).encodeBase64()
+        }"
     }
 
     Div({ style { padding(25.px) } }) {
@@ -42,8 +39,10 @@ fun App() {
             Text("Generate new image!")
         }
     }
-    Div({ style { padding(25.px) } }) {
-        Img(imageSrc)
+    if (imageSrc.value != null) {
+        Div({ style { padding(25.px) } }) {
+            Img(imageSrc.value!!)
+        }
     }
 }
 
