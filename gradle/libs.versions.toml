@@ -6,11 +6,19 @@ android = "7.4.2"
 android-sdk-compile = "33"
 android-sdk-min = "26"
 android-sdk-target = "33"
+ktor = "2.2.4"
+coroutines = "1.6.4"
 
 [libraries]
 androidx-appcompat = "androidx.appcompat:appcompat:1.6.1"
 androidx-core-ktx = "androidx.core:core-ktx:1.9.0"
 androidx-activity-compose = "androidx.activity:activity-compose:1.7.0"
+ktor-utils = { group = "io.ktor", name = "ktor-utils", version.ref = "ktor" }
+ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
+ktor-client-okhttp = { group = "io.ktor", name = "ktor-client-okhttp", version.ref = "ktor" }
+ktor-client-js = { group = "io.ktor", name = "ktor-client-js", version.ref = "ktor" }
+coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutines" }
+coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutines" }
 
 [bundles]
 

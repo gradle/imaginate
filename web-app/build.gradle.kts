@@ -15,6 +15,7 @@ kotlin {
                 implementation(compose.web.core)
                 implementation(compose.runtime)
                 implementation(projects.sharedLogic)
+                implementation(libs.ktor.utils)
             }
         }
     }

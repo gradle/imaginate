@@ -16,4 +16,24 @@ kotlin {
         browser()
         binaries.library()
     }
+
+    sourceSets {
+
+        named("commonMain") {
+            dependencies {
+                api(libs.coroutines.core)
+                implementation(libs.ktor.client.core)
+            }
+        }
+        named("jvmMain") {
+            dependencies {
+                implementation(libs.ktor.client.okhttp)
+            }
+        }
+        named("jsMain") {
+            dependencies {
+                implementation(libs.ktor.client.js)
+            }
+        }
+    }
 }

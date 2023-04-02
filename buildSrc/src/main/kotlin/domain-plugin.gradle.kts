@@ -1,6 +1,5 @@
-import confbuild.DomainTask
+import confbuild.ImageGeneratorTask
 
-tasks.register<DomainTask>("domainTask") {
-    input.set("Hello, world!")
-    output.set(layout.buildDirectory.file("domain-output.txt"))
+tasks.register<ImageGeneratorTask>("generateIcon") {
+    image.set(layout.buildDirectory.file("generated-icon.jpg"))
 }
