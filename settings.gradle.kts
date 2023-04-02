@@ -14,6 +14,7 @@ rootProject.name = "gradle-kotlinconf-2023-app"
 
 includeBuild("domain-library")
 
+include("shared-resources")
 include("shared-ui")
 include("desktop-app")
 include("android-app")

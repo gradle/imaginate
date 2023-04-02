@@ -9,8 +9,12 @@ class ImageGenerator {
     private
     val client = HttpClient()
 
-    suspend fun generate(prompt: String): ByteArray {
-        val response = client.get("https://picsum.photos/320.jpg")
+    suspend fun generate(
+        prompt: String,
+        width: Int = 320,
+        height: Int = width,
+    ): ByteArray {
+        val response = client.get("https://picsum.photos/$width/$height.jpg")
         if (response.status.value in 200..299) {
             return response.body()
         } else {

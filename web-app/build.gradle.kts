@@ -1,7 +1,6 @@
 plugins {
     alias(libs.plugins.kotlin.mpp)
     alias(libs.plugins.compose)
-    id("domain-plugin")
 }
 
 kotlin {
