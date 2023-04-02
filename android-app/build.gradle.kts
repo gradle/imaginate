@@ -24,7 +24,7 @@ android {
 }
 
 dependencies {
-    implementation(projects.commonUi)
+    implementation(projects.sharedUi)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.activity.compose)
