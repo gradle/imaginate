@@ -15,9 +15,12 @@ rootProject.name = "gradle-kotlinconf-2023-app"
 includeBuild("domain-library")
 
 include("common-logic")
+include("common-ui")
 include("desktop-app")
 include("android-app")
 include("web-app")
+
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 dependencyResolutionManagement {
     repositories {

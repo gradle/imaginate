@@ -24,7 +24,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":common-logic"))
+    implementation(projects.commonUi)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.activity.compose)

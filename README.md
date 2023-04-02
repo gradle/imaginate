@@ -1,6 +1,44 @@
 ![CI](https://github.com/gradle/gradle-kotlinconf-2023-app/actions/workflows/ci.yml/badge.svg?branch=main)
 
-# KotlinConf
+# Kotlin, one language to build them all!
+
+## Desktop Application
+
+Run application
+```shell
+./gradlew :desktop-app:run
+```
+
+Run application, rebuild on source code changes, close the app to trigger rebuild
+```shell
+./gradlew :desktop-app:run --continuous
+```
+
+## Browser Application
+
+Run application in a browser
+```shell
+./gradlew :web-app:jsBrowserRun 
+```
+
+Run application, rebuild on source code changes with live-reload
+```shell
+./gradlew :web-app:jsBrowserRun --continuous
+```
+
+Produce the output in `web-app/build/distributions`
+```shell
+./gradlew :web-app:jsBrowserProductionWebpack
+```
+
+## Android Application
+
+* Open the project in Android Studio >= Giraffe
+* Click the run button
+
+----
+
+## Notes
 
 * 45 minutes slot
 * demo a build for a multi-platform application

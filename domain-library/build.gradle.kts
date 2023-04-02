@@ -6,10 +6,14 @@ group = "conf"
 
 kotlin {
     jvm {
-        jvmToolchain(libs.versions.jvm.get().toInt())
         withJava()
+        jvmToolchain(libs.versions.jvm.get().toInt())
         testRuns["test"].executionTask.configure {
             useJUnitPlatform()
         }
+    }
+    js(IR) {
+        browser()
+        binaries.library()
     }
 }
