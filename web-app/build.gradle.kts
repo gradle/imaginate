@@ -1,19 +1,12 @@
 plugins {
-    alias(libs.plugins.kotlin.mpp)
-    alias(libs.plugins.compose)
+    id("web-app")
 }
 
 kotlin {
-    js(IR) {
-        browser()
-        binaries.executable()
-    }
     sourceSets {
-        named("jsMain") {
+        jsMain {
             dependencies {
-                implementation(compose.web.core)
-                implementation(compose.runtime)
-                implementation("conf:domain-library")
+                implementation(libs.conf.domainLibrary)
                 implementation(libs.ktor.utils)
             }
         }

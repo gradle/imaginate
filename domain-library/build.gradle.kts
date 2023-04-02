@@ -18,7 +18,6 @@ kotlin {
     }
 
     sourceSets {
-
         named("commonMain") {
             dependencies {
                 api(libs.coroutines.core)

@@ -1,22 +1,11 @@
 plugins {
-    alias(libs.plugins.kotlin.mpp)
-    alias(libs.plugins.compose)
+    id("desktop-app")
 }
 
 kotlin {
-
-    jvm {
-        jvmToolchain(libs.versions.jvm.get().toInt())
-        withJava()
-        testRuns["test"].executionTask.configure {
-            useJUnitPlatform()
-        }
-    }
-
     sourceSets {
-        named("jvmMain") {
+        jvmMain {
             dependencies {
-                implementation(compose.desktop.currentOs)
                 implementation(projects.sharedUi)
             }
         }
