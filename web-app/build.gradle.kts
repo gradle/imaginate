@@ -14,7 +14,7 @@ kotlin {
             dependencies {
                 implementation(compose.web.core)
                 implementation(compose.runtime)
-                implementation(projects.sharedLogic)
+                implementation("conf:domain-library")
                 implementation(libs.ktor.utils)
             }
         }

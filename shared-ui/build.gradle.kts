@@ -20,7 +20,6 @@ kotlin {
                 api(compose.runtime)
                 api(compose.foundation)
                 api(compose.material)
-                implementation(projects.sharedLogic)
                 implementation("conf:domain-library")
                 implementation(compose.preview) {
                     because("Needed only for preview")
