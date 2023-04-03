@@ -59,8 +59,8 @@ generatedImages.all {
         isCanBeResolved = false
     }
     artifacts {
-        add(sharedConfiguration.name, generation)
-        add(sharedConfiguration.name, vectorization)
-        add(sharedConfiguration.name, drawable)
+        add(sharedConfiguration.name, generation.flatMap { it.image })
+        add(sharedConfiguration.name, vectorization.flatMap { it.vector })
+        add(sharedConfiguration.name, drawable.flatMap { it.drawable })
     }
 }
