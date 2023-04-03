@@ -35,12 +35,13 @@ interface ImageVectorizationInputs {
 abstract class VectorizeImage : DefaultTask(), ImageVectorizationInputs {
 
     @get:Classpath
-    abstract val imageTracerClasspath: ConfigurableFileCollection
+    internal
+    abstract val workerClasspath: ConfigurableFileCollection
 
     @TaskAction
     fun action() {
         workers.classLoaderIsolation {
-            classpath.from(imageTracerClasspath)
+            classpath.from(workerClasspath)
         }.submit(ImageVectorizationWork::class.java) {
             image.set(this@VectorizeImage.image)
             palleteSize.set(this@VectorizeImage.palleteSize)

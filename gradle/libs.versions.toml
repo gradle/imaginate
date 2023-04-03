@@ -21,6 +21,7 @@ ktor-client-js = { group = "io.ktor", name = "ktor-client-js", version.ref = "kt
 coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutines" }
 coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutines" }
 imageTracer = "top.xuegao-tzx:ImageTracerJava:1.1.4.516"
+svg2vector = "com.android.tools:sdk-common:30.4.2"
 
 [bundles]
 

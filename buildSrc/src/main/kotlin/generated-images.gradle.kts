@@ -1,18 +1,27 @@
+import confbuild.DrawAndroidImage
 import confbuild.capitalized
 import confbuild.Image
 import confbuild.imageTracer
 import confbuild.GenerateImage
 import confbuild.libs
+import confbuild.svg2vector
 import confbuild.VectorizeImage
-import java.util.Properties
 
 plugins {
     id("base")
 }
 
-val imageTracerConfiguration = configurations.register("imageTracerClasspath")
+val imageTracerConfiguration = configurations.register("imageTracerClasspath") {
+    isCanBeResolved = true
+    isCanBeConsumed = false
+}
+val svgToDrawableConfiguration = configurations.register("svgToDrawableClasspath") {
+    isCanBeResolved = true
+    isCanBeConsumed = false
+}
 dependencies {
     imageTracerConfiguration.name(libs.imageTracer)
+    svgToDrawableConfiguration.name(libs.svg2vector)
 }
 
 val generatedImages = objects.domainObjectContainer(Image::class)
@@ -30,12 +39,17 @@ generatedImages.all {
         image.set(layout.buildDirectory.file("generated-images/${inputs.name}.jpg"))
     }
     val vectorization = tasks.register("vectorize$baseTaskName", VectorizeImage::class) {
-        imageTracerClasspath.from(imageTracerConfiguration)
+        workerClasspath.from(imageTracerConfiguration)
         image.set(generation.flatMap { it.image })
         palleteSize.set(8)
         vector.set(layout.buildDirectory.file("generated-vectors/${inputs.name}.svg"))
     }
+    val drawable = tasks.register("draw$baseTaskName", DrawAndroidImage::class) {
+        workerClasspath.from(svgToDrawableConfiguration)
+        vector.set(vectorization.flatMap { it.vector })
+        drawable.set(layout.buildDirectory.file("generated-drawables/${inputs.name}.xml"))
+    }
     lifecycleTask {
-        dependsOn(vectorization)
+        dependsOn(drawable)
     }
 }

@@ -11,6 +11,7 @@ java {
 dependencies {
 
     compileOnly(libs.imageTracer)
+    compileOnly(libs.svg2vector)
 
     implementation(libs.conf.domainLibrary)
     implementation(libs.plugins.kotlin.mpp)
@@ -21,9 +22,6 @@ dependencies {
 }
 
 fun DependencyHandler.implementation(pluginDependency: Provider<PluginDependency>): Dependency? =
-    add(
-        "implementation",
-        pluginDependency.map {
-            "${it.pluginId}:${it.pluginId}.gradle.plugin:${it.version.requiredVersion}"
-        }.get()
-    )
+    add("implementation", pluginDependency.map {
+        "${it.pluginId}:${it.pluginId}.gradle.plugin:${it.version.requiredVersion}"
+    }.get())

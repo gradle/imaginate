@@ -38,3 +38,7 @@ val VersionCatalog.androidxActivityCompose: Provider<MinimalExternalModuleDepend
 internal
 val VersionCatalog.imageTracer: Provider<MinimalExternalModuleDependency>
     get() = findLibrary("imageTracer").get()
+
+internal
+val VersionCatalog.svg2vector: Provider<MinimalExternalModuleDependency>
+    get() = findLibrary("svg2vector").get()
