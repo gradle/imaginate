@@ -1,19 +1,18 @@
 import confbuild.capitalized
 import confbuild.Image
+import confbuild.imageTracer
 import confbuild.GenerateImage
+import confbuild.libs
 import confbuild.VectorizeImage
-import org.jetbrains.kotlin.gradle.utils.loadPropertyFromResources
+import java.util.Properties
 
 plugins {
     id("base")
 }
 
-val imageTracerCoordinates: String
-    get() = loadPropertyFromResources("tool-coordinates.properties", "imageTracer")
-
 val imageTracerConfiguration = configurations.register("imageTracerClasspath")
 dependencies {
-    imageTracerConfiguration.name(imageTracerCoordinates)
+    imageTracerConfiguration.name(libs.imageTracer)
 }
 
 val generatedImages = objects.domainObjectContainer(Image::class)

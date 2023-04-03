@@ -34,3 +34,7 @@ val VersionCatalog.androidxCoreKtx: Provider<MinimalExternalModuleDependency>
 internal
 val VersionCatalog.androidxActivityCompose: Provider<MinimalExternalModuleDependency>
     get() = findLibrary("androidx-activity-compose").get()
+
+internal
+val VersionCatalog.imageTracer: Provider<MinimalExternalModuleDependency>
+    get() = findLibrary("imageTracer").get()
