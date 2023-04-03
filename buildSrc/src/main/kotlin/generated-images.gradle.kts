@@ -52,4 +52,15 @@ generatedImages.all {
     lifecycleTask {
         dependsOn(drawable)
     }
+
+    // Sharing outputs to other projects
+    val sharedConfiguration = configurations.create("shared${inputs.name.capitalized()}") {
+        isCanBeConsumed = true
+        isCanBeResolved = false
+    }
+    artifacts {
+        add(sharedConfiguration.name, generation)
+        add(sharedConfiguration.name, vectorization)
+        add(sharedConfiguration.name, drawable)
+    }
 }
