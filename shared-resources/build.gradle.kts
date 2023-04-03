@@ -1,5 +1,5 @@
 plugins {
-    id("image-generator")
+    id("generated-images")
 }
 
 generatedImages {

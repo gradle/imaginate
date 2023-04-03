@@ -15,7 +15,7 @@ import org.gradle.workers.WorkParameters
 import org.gradle.workers.WorkerExecutor
 import javax.inject.Inject
 
-abstract class GeneratedImage(private val name: String) : Named, ImageInputs {
+abstract class Image(private val name: String) : Named, ImageInputs {
 
     override fun getName(): String = name
 
@@ -44,15 +44,15 @@ interface ImageOutputs {
 }
 
 @CacheableTask
-abstract class ImageGeneratorTask : DefaultTask(), ImageInputs, ImageOutputs {
+abstract class GenerateImage : DefaultTask(), ImageInputs, ImageOutputs {
 
     @TaskAction
     fun action() {
-        workers.noIsolation().submit(ImageGeneratorWork::class.java) {
-            prompt.set(this@ImageGeneratorTask.prompt)
-            width.set(this@ImageGeneratorTask.width)
-            height.set(this@ImageGeneratorTask.height)
-            image.set(this@ImageGeneratorTask.image)
+        workers.noIsolation().submit(GenerateImageWork::class.java) {
+            prompt.set(this@GenerateImage.prompt)
+            width.set(this@GenerateImage.width)
+            height.set(this@GenerateImage.height)
+            image.set(this@GenerateImage.image)
         }
     }
 
@@ -62,10 +62,10 @@ abstract class ImageGeneratorTask : DefaultTask(), ImageInputs, ImageOutputs {
 }
 
 internal
-abstract class ImageGeneratorParameters : WorkParameters, ImageInputs, ImageOutputs
+abstract class GenerateImageParameters : WorkParameters, ImageInputs, ImageOutputs
 
 internal
-abstract class ImageGeneratorWork : WorkAction<ImageGeneratorParameters> {
+abstract class GenerateImageWork : WorkAction<GenerateImageParameters> {
     override fun execute(): Unit = runBlocking {
         parameters.apply {
             image.get().asFile.writeBytes(
