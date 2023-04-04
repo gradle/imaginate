@@ -6,7 +6,7 @@ import confbuild.libs
 plugins {
     id("com.android.library")
     id("kotlin-jvm-component")
-    id("org.jetbrains.compose")
+    id("kotlin-compose-component")
 }
 
 kotlin {

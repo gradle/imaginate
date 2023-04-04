@@ -1,6 +1,6 @@
 plugins {
     id("org.jetbrains.kotlin.multiplatform")
-    id("org.jetbrains.compose")
+    id("kotlin-compose-component")
 }
 
 kotlin {

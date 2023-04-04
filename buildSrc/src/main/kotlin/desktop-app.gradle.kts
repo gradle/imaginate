@@ -3,7 +3,7 @@ import confbuild.libs
 
 plugins {
     id("kotlin-jvm-component")
-    id("org.jetbrains.compose")
+    id("kotlin-compose-component")
 }
 
 kotlin {

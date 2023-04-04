@@ -9,7 +9,7 @@ import confbuild.libs
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    id("org.jetbrains.compose")
+    id("kotlin-compose-component")
 }
 
 android {
