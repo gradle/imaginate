@@ -10,10 +10,10 @@ java {
 
 dependencies {
 
+    compileOnly(libs.conf.domainLibrary)
     compileOnly(libs.imageTracer)
     compileOnly(libs.svg2vector)
 
-    implementation(libs.conf.domainLibrary)
     implementation(libs.plugins.kotlin.mpp)
     implementation(libs.plugins.kotlin.android)
     implementation(libs.plugins.android.application)
@@ -21,6 +21,8 @@ dependencies {
     implementation(libs.plugins.compose)
 }
 
+// This is a future Gradle feature to make declaring dependencies to plugins simpler
+// See an upvote https://docs.google.com/document/d/1P7aTeeVNhkhwxcS5sQNFrSsmqJOhDo3G8kUdhtp_vyM
 fun DependencyHandler.implementation(pluginDependency: Provider<PluginDependency>): Dependency? =
     add("implementation", pluginDependency.map {
         "${it.pluginId}:${it.pluginId}.gradle.plugin:${it.version.requiredVersion}"

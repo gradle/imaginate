@@ -20,6 +20,10 @@ include("desktop-app")
 include("android-app")
 include("web-app")
 
+for (project in rootProject.children) {
+    project.projectDir = file("subprojects/${project.name}")
+}
+
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 dependencyResolutionManagement {

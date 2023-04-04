@@ -3,12 +3,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import conf.domain.ImageGenerator
-import io.ktor.util.encodeBase64
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.web.attributes.*
 import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.dom.*
 import org.jetbrains.compose.web.renderComposable
+import kotlin.io.encoding.Base64
+import kotlin.io.encoding.ExperimentalEncodingApi
 
 
 object MyStyleSheet : StyleSheet()
@@ -19,13 +20,14 @@ fun App() {
 
     val prompt = remember { mutableStateOf("") }
     val imageSrc = remember { mutableStateOf<String?>(null) }
+    val imageGenerator = remember { ImageGenerator() }
 
     val coroutineScope = rememberCoroutineScope()
-    val imageGenerator = ImageGenerator()
 
+    @OptIn(ExperimentalEncodingApi::class)
     fun loadNewImage() = coroutineScope.launch {
         imageSrc.value = "data:image/jpeg;charset=utf-8;base64,${
-            imageGenerator.generate(prompt.value).encodeBase64()
+            Base64.encode(imageGenerator.generate(prompt.value))
         }"
     }
 

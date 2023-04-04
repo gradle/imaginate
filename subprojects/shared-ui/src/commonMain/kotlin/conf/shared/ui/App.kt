@@ -24,9 +24,9 @@ fun App() {
 
     val prompt = remember { mutableStateOf("") }
     val image = remember { mutableStateOf<ImageBitmap?>(null) }
+    val imageGenerator = remember { ImageGenerator() }
 
     val coroutineScope = rememberCoroutineScope()
-    val imageGenerator = ImageGenerator()
 
     fun loadNewImage() = coroutineScope.launch {
         image.value = imageBitmapFromBytes(imageGenerator.generate(prompt.value))

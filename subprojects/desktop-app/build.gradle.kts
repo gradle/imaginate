@@ -15,5 +15,10 @@ kotlin {
 compose.desktop {
     application {
         mainClass = "conf.desktop.DesktopMainKt"
+        nativeDistributions {
+            linux {
+                iconFile
+            }
+        }
     }
 }

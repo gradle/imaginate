@@ -1,3 +1,4 @@
+import confbuild.domainLibrary
 import confbuild.DrawAndroidImage
 import confbuild.capitalized
 import confbuild.ImageSpec
@@ -11,6 +12,10 @@ plugins {
     id("base")
 }
 
+val domainLibraryConfiguration = configurations.register("domainLibraryClasspath") {
+    isCanBeResolved = true
+    isCanBeConsumed = false
+}
 val imageTracerConfiguration = configurations.register("imageTracerClasspath") {
     isCanBeResolved = true
     isCanBeConsumed = false
@@ -19,7 +24,9 @@ val svgToDrawableConfiguration = configurations.register("svgToDrawableClasspath
     isCanBeResolved = true
     isCanBeConsumed = false
 }
+
 dependencies {
+    domainLibraryConfiguration.name(libs.domainLibrary)
     imageTracerConfiguration.name(libs.imageTracer)
     svgToDrawableConfiguration.name(libs.svg2vector)
 }
@@ -33,6 +40,7 @@ generatedImages.all {
     val inputs = this
     val baseTaskName = "${inputs.name.capitalized()}Image"
     val generation = tasks.register("generate$baseTaskName", GenerateImage::class) {
+        workerClasspath.from(domainLibraryConfiguration)
         prompt = inputs.prompt
         width = inputs.width
         height = inputs.height
