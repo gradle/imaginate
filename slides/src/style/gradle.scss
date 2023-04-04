@@ -1,0 +1,152 @@
+
+// Default mixins and settings -----------------
+@import "_mixins";
+@import "_settings";
+// ---------------------------------------------
+
+
+// Include theme-specific fonts
+@import url(https://fonts.googleapis.com/css?family=News+Cycle:400,700);
+@import url(https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic);
+
+$darkColor: #02303a;
+
+// Override theme settings (see _settings.scss)
+$mainFont: 'Lato', 'Helvetica Neue', Arial, sans-serif;
+$mainColor: $darkColor;
+$mainFontSize: 36px;
+$headingFont: 'Lato', 'Helvetica Neue', Arial, sans-serif;
+$headingColor: $darkColor;
+$headingTextShadow: none;
+$headingTextTransform: none;
+$backgroundColor: white;
+$linkColor: #1ba8cb;
+$linkColorHover: lighten( $linkColor, 20% );
+$selectionBackgroundColor: rgba(0, 0, 0, 0.99);
+
+$heading1Size: 2em;
+$heading2Size: 1.75em;
+$heading3Size: 1.5em;
+$heading4Size: 1em;
+
+$blockMargin: 16px;
+
+section.has-dark-background {
+	&, h1, h2, h3, h4, h5, h6 {
+		color: #fff;
+	}
+}
+
+.reveal {
+    background-image: url("../images/logo-kotlin.svg"), url("../images/logo-gradle-elephant.svg");
+    background-size: 90px, 80px;
+    background-repeat: no-repeat, no-repeat;
+    background-position: bottom 6px left 8px, bottom 20px right 28px;
+}
+
+.reveal section img {
+    background: none;
+    border: none;
+    box-shadow: none;
+    margin: 0;
+}
+
+// Theme template ------------------------------
+@import "_theme";
+// ---------------------------------------------
+
+html.title h1, html.title div.preamble {
+    padding-left: 2em;
+    text-align: right;
+}
+
+.reveal .slides {
+    text-align: left;
+}
+
+.reveal .slides .imageblock {
+    text-align: center;
+}
+
+.reveal .slides .center {
+    text-align: center;
+}
+
+.reveal pre {
+    width: 100%;
+    font-size: 0.4em;
+}
+
+.reveal table.who-gradle {
+    margin-top: 2em;
+}
+.reveal table.who-gradle td {
+    margin: 0;
+    padding: 0;
+}
+.reveal table.who-gradle img {
+    margin: 0;
+    padding: 0;
+    max-width: 75%;
+    max-height: 3em;
+}
+
+div.product-logo-as-title img {
+    margin: 0;
+    padding: 0;
+    max-height: 3.5em;
+}
+
+.reveal span.inline-logo img {
+    max-height: 1em;
+    max-width: 4em;
+    margin-right: 0.75em;
+}
+
+.reveal .tiny p {
+    font-size: 0.25em;
+}
+
+.reveal div.small div.content {
+    font-size: 0.75em;
+}
+
+.reveal div.listingblock div.title {
+    font-size: 0.3em;
+    text-align: left;
+    margin: 0;
+    padding: 0;
+    line-height: 0;
+}
+
+.reveal .colist table {
+    margin: 0;
+    border: 0;
+    font-size: 0.4em;
+}
+
+.reveal table th {
+    padding: 0.2em;
+}
+
+.reveal table td {
+    padding: 0.2em;
+}
+
+.reveal .colist td {
+    padding: 0;
+    border: 0;
+    vertical-align: top;
+}
+
+.reveal .colist .conum {
+    margin: 0 0.75em 0 0;
+}
+
+.reveal .line-through {
+    text-decoration: line-through;
+}
+
+.reveal .top-margin {
+    margin-top: 1em;
+}

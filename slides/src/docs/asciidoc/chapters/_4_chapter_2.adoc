@@ -1,0 +1,10 @@
+[background-color="#02303a"]
+== Chapter 2 TBD
+image::gradle/bg-6.png[background, size=cover]
+
+&#x1F418;
+
+=== Chapter 2 - Section 1
+image::gradle/bg-6.png[background, size=cover]
+
+include::../fragments/_diagram_task-graph.adoc[]

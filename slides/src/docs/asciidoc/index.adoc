@@ -1,0 +1,20 @@
+:source-highlighter: highlightjs
+:highlightjs-languages: java, groovy, kotlin, toml, json, xml, properties, shell
+:title-slide-background-image: gradle/intro.png
+:title-slide-background-size: cover
+:title-slide-background-color: #02303a
+:hide-uri-scheme:
+
+= Kotlin, one language to build them all!
+
+Rodrigo Oliveira & Paul Merlin
+
+include::chapters/_1_agenda.adoc[]
+
+include::chapters/_2_who.adoc[]
+
+include::chapters/_3_chapter_1.adoc[]
+
+include::chapters/_4_chapter_2.adoc[]
+
+include::chapters/_9_closing.adoc[]

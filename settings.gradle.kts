@@ -13,6 +13,7 @@ plugins {
 rootProject.name = "gradle-kotlinconf-2023-app"
 
 includeBuild("domain-library")
+includeBuild("slides")
 
 include("shared-resources")
 include("shared-ui")

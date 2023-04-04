@@ -1,0 +1,8 @@
+[background-color="#02303a"]
+== Agenda
+image::gradle/bg-8.png[background, size=cover]
+
+* Foo
+* Bar
+* Bazar
+* Cathedral

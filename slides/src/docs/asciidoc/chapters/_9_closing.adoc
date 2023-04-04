@@ -1,0 +1,28 @@
+[background-color="#02303a"]
+== We recruit!
+image::gradle/bg-1.png[background, size=cover]
+
+If what we're going to talk about Today is of interest to you, come work with us!
+
+image::team_map.png[width=65%]
+
+[.center]
+https://gradle.com/careers
+
+
+[background-color="#02303a"]
+== Questions
+image::gradle/bg-10.png[background, size=cover]
+
+❓
+
+image::gradle/folks.png[width=33%]
+
+
+[background-color="#02303a"]
+== Thank you!
+image::gradle/bg-10.png[background, size=cover]
+
+&#x1F647;
+
+image::gradle/folks.png[width=33%]
