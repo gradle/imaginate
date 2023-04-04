@@ -38,6 +38,12 @@ Produce the output in `web-app/build/distributions`
 
 ----
 
+## Slides
+
+```shell
+./gradlew :slides:asciidoctorRevealJs --continuous
+```
+
 ## Notes
 
 * 45 minutes slot

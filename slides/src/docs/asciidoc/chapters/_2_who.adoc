@@ -1,0 +1,170 @@
+[background-color="#02303a"]
+== Who are we?
+image::gradle/bg-1.png[background, size=cover]
+
+&#x1F9D1;&#x200D;&#x1F4BB; &#x1F9D1;&#x200D;&#x1F4BB;
+
+[%notitle]
+=== Rodrigo
+image::gradle/bg-1.png[background, size=cover]
+
+image::rodrigo.png[height=250,width=250]
+
+[source,kotlin]
+----
+speaker {
+    name = "Rodrigo B. de Oliveira"
+    company = "Gradle"
+    joined = 2015
+}
+----
+
+[%notitle]
+=== Paul
+image::gradle/bg-1.png[background, size=cover]
+
+image::paul.png[height=250,width=250]
+
+[source,kotlin]
+----
+speaker {
+    name = "Paul Merlin"
+    company = "Gradle"
+    joined = 2015
+    position = "Senior Lead Developer"
+    previously = "Configuration Cache and Kotlin DSL Project Lead"
+    successes = listOf(
+        "BASIC 'Hello, World!'" in 1986,
+        "C 'Hello, World!'" in 1989,
+        "Java 'Hello, World!'" in 1996,
+        "Kotlin 'Hello, World!'" in 2015,
+        "tools", "daemons", "apps", "frameworks", "libs"
+    )
+    failures = generateSequence(code) { bugs }
+    github = "eskatos"
+    mastodon = "@eskatos@mastodon.social"
+    twitter = "@eskat0s"
+}
+----
+
+
+=== Gradle
+image::gradle/bg-1.png[background, size=cover]
+
+[cols="^.^1,^.^1,^.^1",frame=none,grid=none,role=who-gradle]
+|===
+a|image::logo-gradleware.svg[]
+a|image::logo-gradle-old.svg[]
+a|image::logo-gradle-elephant-old.png[]
+|===
+
+Since 2008, our mission is to +
+accelerate developer productivity.
+
+[cols="^.^1,^.^1,^.^1",frame=none,grid=none,role=who-gradle]
+|===
+a|image::logo-gradle-elephant-geometrics.svg[]
+a|image::logo-gradle-elephant.svg[]
+a|image::logo-gradle-elephant-outline.svg[]
+|===
+
+
+[%notitle]
+=== Gradle Build Tool
+image::gradle/bg-1.png[background, size=cover]
+
+image::logo-gradle-build-tool.svg[role=product-logo-as-title]
+
+https://github.com/gradle/gradle/blob/master/LICENSE[Apache] licenced sofware build tool
+
+// TODO Ideally we find something more recent than a piece from 2017 ...
+With more than 30M monthly downloads, this is one of the top 20 popular open source projects according to https://techcrunch.com/2017/04/07/tracking-the-explosive-growth-of-open-source-software/[TechCrunch].
+
+
+[%notitle]
+=== Gradle Enterprise
+image::gradle/bg-1.png[background, size=cover]
+
+image::logo-gradle-enterprise.svg[role=product-logo-as-title]
+
+Gradle Enterprise, commercial product, is the first Developer Productivity Engineering (DPE) integrated solution.
+
+image::gradle/ge-1.png[width=70%]
+
+[.notes]
+--
+metadata of all the builds +
+outputs of all the builds +
+observability: scans, performance trends, test dashboard etc... +
+acceleration: build-cache, test distribution, predictive test selection etc..
+--
+
+
+=== Developer Productivity Engineering
+image::gradle/bg-1.png[background, size=cover]
+
+DPE is an emerging software practice that relies on acceleration technologies and data analysis to improve developer productivity.
+
+[cols="<.^1,^.^1",frame=none,grid=none]
+|===
+a|
+* make builds and tests faster
+* make problem research more efficient
+
+a|image::dpe-showdown.jpeg[]
+
+[.small]
+https://twitter.com/DpeShowdown
+|===
+
+
+[.notes]
+--
+DevProdEng Showdown is a series of 30min live events broadcasted during which experts debate about developer productivity engineering.
+
+Two shows
+* showdown: game show with multiple participants
+* lowdown: face to face interviews
+
+How Netflix, Microsoft, LinkedIn and other teams do DPE?
+--
+
+
+=== Build Scans
+image::gradle/bg-1.png[background, size=cover]
+
+A permanent record +
+of what happens during a build.
+
+[cols="<.^65,^.^35",frame=none,grid=none]
+|===
+a|image::buildscan-example.png[]
+
+image:build-scan-link.svg[link=https://scans.gradle.com/s/rcqiowuogd2xu]
+a|
+[.small]
+--
+*Gradle & Maven build speed challenge*
+
+// https://gradle.com/gradle-and-maven-build-speed-challenge
+image::qrcode-build-speed-challenge.svg[link=images/qrcode-build-speed-challenge.svg]
+
+Get some swag :)
+--
+|===
+
+[.notes]
+--
+We will use build scans during this task to illustrate some points.
+--
+
+
+=== We recruit!
+image::gradle/bg-1.png[background, size=cover]
+
+If what we're going to talk about Today is of interest to you, come work with us!
+
+image::team_map.png[width=65%]
+
+[.center]
+https://gradle.com/careers

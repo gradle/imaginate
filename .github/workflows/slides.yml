@@ -1,0 +1,42 @@
+name: Build slides
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  slides:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          java-version: 11
+          java-package: jdk+fx
+          distribution: zulu
+
+      - name: Install graphviz
+        run: sudo apt-get install -y graphviz
+
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+
+      - name: Build Slides
+        run: xvfb-run ./gradlew :slides:build
+
+      - name: Upload Slides Archive
+        uses: actions/upload-artifact@v3
+        with:
+          name: slides.zip
+          path: slides/build/distributions/slides.zip
+          if-no-files-found: error
+
+      - name: Upload Slides PDF
+        uses: actions/upload-artifact@v3
+        with:
+          name: slides.pdf
+          path: slides/build/pdf/slides.pdf
+          if-no-files-found: error
