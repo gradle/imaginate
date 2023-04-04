@@ -24,6 +24,7 @@ val svgToDrawableConfiguration = configurations.register("svgToDrawableClasspath
     isCanBeResolved = true
     isCanBeConsumed = false
 }
+
 dependencies {
     domainLibraryConfiguration.name(libs.domainLibrary)
     imageTracerConfiguration.name(libs.imageTracer)
