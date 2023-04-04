@@ -4,9 +4,11 @@ import conf.domain.ImageGenerator
 import kotlinx.coroutines.runBlocking
 import org.gradle.api.DefaultTask
 import org.gradle.api.Named
+import org.gradle.api.file.ConfigurableFileCollection
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.CacheableTask
+import org.gradle.api.tasks.Classpath
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.OutputFile
 import org.gradle.api.tasks.TaskAction
@@ -47,9 +49,15 @@ interface ImageOutputs {
 @CacheableTask
 abstract class GenerateImage : DefaultTask(), ImageInputs, ImageOutputs {
 
+    @get:Classpath
+    internal
+    abstract val workerClasspath: ConfigurableFileCollection
+
     @TaskAction
     fun action() {
-        workers.noIsolation().submit(GenerateImageWork::class) {
+        workers.classLoaderIsolation {
+            classpath.from(workerClasspath)
+        }.submit(GenerateImageWork::class) {
             prompt.set(this@GenerateImage.prompt)
             width.set(this@GenerateImage.width)
             height.set(this@GenerateImage.height)

@@ -10,10 +10,10 @@ java {
 
 dependencies {
 
+    compileOnly(libs.conf.domainLibrary)
     compileOnly(libs.imageTracer)
     compileOnly(libs.svg2vector)
 
-    implementation(libs.conf.domainLibrary)
     implementation(libs.plugins.kotlin.mpp)
     implementation(libs.plugins.kotlin.android)
     implementation(libs.plugins.android.application)

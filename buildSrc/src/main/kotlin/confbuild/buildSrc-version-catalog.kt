@@ -36,6 +36,10 @@ val VersionCatalog.androidxActivityCompose: Provider<MinimalExternalModuleDepend
     get() = findLibrary("androidx-activity-compose").get()
 
 internal
+val VersionCatalog.domainLibrary: Provider<MinimalExternalModuleDependency>
+    get() = findLibrary("conf.domainLibrary").get()
+
+internal
 val VersionCatalog.imageTracer: Provider<MinimalExternalModuleDependency>
     get() = findLibrary("imageTracer").get()
 
