@@ -7,7 +7,6 @@ kotlin {
         jsMain {
             dependencies {
                 implementation(libs.conf.domainLibrary)
-                implementation(libs.ktor.utils)
             }
         }
     }
