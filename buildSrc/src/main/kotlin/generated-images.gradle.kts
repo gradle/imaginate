@@ -26,7 +26,6 @@ val svgToDrawableConfiguration = configurations.register("svgToDrawableClasspath
 }
 
 dependencies {
-    // TODO add extensions as future feature - can't do context receivers ...
     domainLibraryConfiguration.name(libs.domainLibrary)
     imageTracerConfiguration.name(libs.imageTracer)
     svgToDrawableConfiguration.name(libs.svg2vector)

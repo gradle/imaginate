@@ -8,7 +8,6 @@ buildscript {
 }
 
 // Imperatively applying this is required in order to support Android Studio
-// TODO try to fix this
 apply(plugin = "org.gradle.toolchains.foojay-resolver-convention")
 
 rootProject.name = "buildSrc"
