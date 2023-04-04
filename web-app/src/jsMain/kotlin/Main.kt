@@ -19,9 +19,9 @@ fun App() {
 
     val prompt = remember { mutableStateOf("") }
     val imageSrc = remember { mutableStateOf<String?>(null) }
+    val imageGenerator = remember { ImageGenerator() }
 
     val coroutineScope = rememberCoroutineScope()
-    val imageGenerator = ImageGenerator()
 
     fun loadNewImage() = coroutineScope.launch {
         imageSrc.value = "data:image/jpeg;charset=utf-8;base64,${
