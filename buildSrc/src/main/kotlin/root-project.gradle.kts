@@ -5,7 +5,7 @@ plugins {
     id("base")
 }
 
-plugins.withType<YarnPlugin> {
+plugins.withType(YarnPlugin::class) {
     configure<YarnRootExtension> {
         lockFileDirectory = layout.projectDirectory.dir("gradle/kotlin-js-store").asFile
     }

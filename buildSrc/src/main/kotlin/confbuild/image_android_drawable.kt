@@ -11,6 +11,7 @@ import org.gradle.api.tasks.OutputFile
 import org.gradle.api.tasks.PathSensitive
 import org.gradle.api.tasks.PathSensitivity
 import org.gradle.api.tasks.TaskAction
+import org.gradle.kotlin.dsl.submit
 import org.gradle.workers.WorkAction
 import org.gradle.workers.WorkParameters
 import org.gradle.workers.WorkerExecutor
@@ -37,7 +38,7 @@ abstract class DrawAndroidImage : DefaultTask(), DrawAndroidImageInputs {
     fun action() {
         workers.classLoaderIsolation {
             classpath.from(workerClasspath)
-        }.submit(DrawAndroidImageWork::class.java) {
+        }.submit(DrawAndroidImageWork::class) {
             vector.set(this@DrawAndroidImage.vector)
             drawable.set(this@DrawAndroidImage.drawable)
         }

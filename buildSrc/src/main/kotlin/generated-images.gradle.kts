@@ -1,6 +1,6 @@
 import confbuild.DrawAndroidImage
 import confbuild.capitalized
-import confbuild.Image
+import confbuild.ImageSpec
 import confbuild.imageTracer
 import confbuild.GenerateImage
 import confbuild.libs
@@ -24,7 +24,7 @@ dependencies {
     svgToDrawableConfiguration.name(libs.svg2vector)
 }
 
-val generatedImages = objects.domainObjectContainer(Image::class)
+val generatedImages = objects.domainObjectContainer(ImageSpec::class)
 extensions.add("generatedImages", generatedImages)
 
 val lifecycleTask = tasks.register("generateImages")

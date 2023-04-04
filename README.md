@@ -41,10 +41,12 @@ Produce the output in `web-app/build/distributions`
 ## Notes
 
 * 45 minutes slot
+  * 35 minutes effectively
 * demo a build for a multi-platform application
   * code shared between build and application
   * library that does an API request to generate an image from an prompt
     * code would be used in Java for build, Android for the App and Javascript for a web
+    * initially the library could be a stub
 * presentation
   * show the final result first then describe the build
   * navigate code in the IDE
@@ -64,6 +66,7 @@ Produce the output in `web-app/build/distributions`
     * core library
     * build logic
       * reuses the core library to generate assets
+        * api key https://github.com/etiennestuder/gradle-credentials-plugin
         * splash screen?
         * icon?
         * cacheable task that does a remote call
@@ -72,8 +75,11 @@ Produce the output in `web-app/build/distributions`
             * src/prompts/splash.txt
     * app
       * reuses the library
-  * core library that accepts a prompt and returns a image
-    * initially the library could be a stub
+      * asks for the api key and store it https://github.com/russhwolf/multiplatform-settings
+    * :shared-logic subproject
+      * with the app model
+      * state machine like for no-key / key
+  * move root build subprojects to a subfolder
   * multi-platform app that consumes the library
     * compose?
     * short feedback loops for development?

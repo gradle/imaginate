@@ -10,12 +10,13 @@ import org.gradle.api.tasks.CacheableTask
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.OutputFile
 import org.gradle.api.tasks.TaskAction
+import org.gradle.kotlin.dsl.submit
 import org.gradle.workers.WorkAction
 import org.gradle.workers.WorkParameters
 import org.gradle.workers.WorkerExecutor
 import javax.inject.Inject
 
-abstract class Image(private val name: String) : Named, ImageInputs {
+abstract class ImageSpec(private val name: String) : Named, ImageInputs {
 
     override fun getName(): String = name
 
@@ -48,7 +49,7 @@ abstract class GenerateImage : DefaultTask(), ImageInputs, ImageOutputs {
 
     @TaskAction
     fun action() {
-        workers.noIsolation().submit(GenerateImageWork::class.java) {
+        workers.noIsolation().submit(GenerateImageWork::class) {
             prompt.set(this@GenerateImage.prompt)
             width.set(this@GenerateImage.width)
             height.set(this@GenerateImage.height)
