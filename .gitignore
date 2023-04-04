@@ -2,3 +2,6 @@
 build/
 .idea/
 local.properties
+.asciidoctor
+diag-*.png
+diag-*.svg
