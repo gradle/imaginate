@@ -33,21 +33,21 @@ generatedImages.all {
     val inputs = this
     val baseTaskName = "${inputs.name.capitalized()}Image"
     val generation = tasks.register("generate$baseTaskName", GenerateImage::class) {
-        prompt.set(inputs.prompt)
-        width.set(inputs.width)
-        height.set(inputs.height)
-        image.set(layout.buildDirectory.file("generated-images/${inputs.name}.jpg"))
+        prompt = inputs.prompt
+        width = inputs.width
+        height = inputs.height
+        image = layout.buildDirectory.file("generated-images/${inputs.name}.jpg")
     }
     val vectorization = tasks.register("vectorize$baseTaskName", VectorizeImage::class) {
         workerClasspath.from(imageTracerConfiguration)
-        image.set(generation.flatMap { it.image })
-        palleteSize.set(8)
-        vector.set(layout.buildDirectory.file("generated-vectors/${inputs.name}.svg"))
+        image = generation.flatMap { it.image }
+        palleteSize = 8
+        vector = layout.buildDirectory.file("generated-vectors/${inputs.name}.svg")
     }
     val drawable = tasks.register("draw$baseTaskName", DrawAndroidImage::class) {
         workerClasspath.from(svgToDrawableConfiguration)
-        vector.set(vectorization.flatMap { it.vector })
-        drawable.set(layout.buildDirectory.file("generated-drawables/${inputs.name}.xml"))
+        vector = vectorization.flatMap { it.vector }
+        drawable = layout.buildDirectory.file("generated-drawables/${inputs.name}.xml")
     }
     lifecycleTask {
         dependsOn(drawable)
