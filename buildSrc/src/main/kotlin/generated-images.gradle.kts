@@ -1,3 +1,4 @@
+import confbuild.buildCredentials
 import confbuild.domainLibrary
 import confbuild.DrawAndroidImage
 import confbuild.capitalized
@@ -10,6 +11,7 @@ import confbuild.VectorizeImage
 
 plugins {
     id("base")
+    id("build-credentials")
 }
 
 val domainLibraryConfiguration = configurations.register("domainLibraryClasspath") {
@@ -40,6 +42,7 @@ generatedImages.all {
     val inputs = this
     val baseTaskName = "${inputs.name.capitalized()}Image"
     val generation = tasks.register("generate$baseTaskName", GenerateImage::class) {
+        apiKey = buildCredentials.stableDiffusionApiKey
         workerClasspath.from(domainLibraryConfiguration)
         prompt = inputs.prompt
         width = inputs.width

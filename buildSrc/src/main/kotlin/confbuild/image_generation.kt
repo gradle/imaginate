@@ -32,6 +32,9 @@ abstract class ImageSpec(private val name: String) : Named, ImageInputs {
 interface ImageInputs {
 
     @get:Input
+    val apiKey: Property<String>
+
+    @get:Input
     val prompt: Property<String>
 
     @get:Input
@@ -58,6 +61,7 @@ abstract class GenerateImage : DefaultTask(), ImageInputs, ImageOutputs {
         workers.classLoaderIsolation {
             classpath.from(workerClasspath)
         }.submit(GenerateImageWork::class) {
+            apiKey.set(this@GenerateImage.apiKey)
             prompt.set(this@GenerateImage.prompt)
             width.set(this@GenerateImage.width)
             height.set(this@GenerateImage.height)

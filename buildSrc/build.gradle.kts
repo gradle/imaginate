@@ -19,6 +19,7 @@ dependencies {
     implementation(libs.plugins.android.application)
     implementation(libs.plugins.android.library)
     implementation(libs.plugins.compose)
+    implementation(libs.plugins.credentials)
 }
 
 // This is a future Gradle feature to make declaring dependencies to plugins simpler
