@@ -2,12 +2,17 @@ package conf.domain
 
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
+import io.ktor.client.engine.HttpClientEngine
 import io.ktor.client.request.get
 
-class ImageGenerator {
+class ImageGenerator private constructor(
+    private val client: HttpClient
+) {
 
-    private
-    val client = HttpClient()
+    constructor() : this(HttpClient())
+
+    internal
+    constructor(client: HttpClientEngine) : this(HttpClient(client))
 
     suspend fun generate(
         prompt: String,

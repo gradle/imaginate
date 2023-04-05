@@ -34,5 +34,11 @@ kotlin {
                 implementation(libs.ktor.client.js)
             }
         }
+        named("jvmTest") {
+            dependencies {
+                implementation(libs.ktor.client.mock)
+                implementation(kotlin("test"))
+            }
+        }
     }
 }
