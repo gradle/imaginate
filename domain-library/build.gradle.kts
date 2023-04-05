@@ -8,7 +8,7 @@ kotlin {
     jvm {
         withJava()
         jvmToolchain(libs.versions.jvm.get().toInt())
-        testRuns["test"].executionTask.configure {
+        testRuns["test"].executionTask {
             useJUnitPlatform()
         }
     }
