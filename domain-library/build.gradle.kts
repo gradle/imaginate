@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.kotlin.mpp)
+    alias(libs.plugins.kotlin.plugin.serialization)
 }
 
 group = "conf"
@@ -22,6 +23,7 @@ kotlin {
             dependencies {
                 api(libs.coroutines.core)
                 implementation(libs.ktor.client.core)
+                implementation(libs.ktor.serialization.kotlinx.json)
             }
         }
         named("jvmMain") {
