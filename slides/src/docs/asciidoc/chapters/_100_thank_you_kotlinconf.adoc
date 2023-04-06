@@ -1,0 +1,7 @@
+[background-color="#02303a"]
+== Thank you!
+image::kotlinconf/vote.png[background, size=cover]
+
+Don't forget to vote!
+
+image::gradle/folks.png[width=33%, align="left"]
