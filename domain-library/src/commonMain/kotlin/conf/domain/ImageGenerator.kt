@@ -7,6 +7,7 @@ import io.ktor.client.request.get
 import io.ktor.client.request.headers
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
+import io.ktor.client.statement.bodyAsText
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.encodeToString
@@ -56,7 +57,7 @@ class ImageGenerator private constructor(
         if (response.status.value in 200..299) {
             return response.body()
         } else {
-            throw Exception("Failed to generate image")
+            throw Exception("Failed to generate image '${response.bodyAsText()}'")
         }
     }
 
