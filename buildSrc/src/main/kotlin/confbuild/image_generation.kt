@@ -7,6 +7,8 @@ import org.gradle.api.Named
 import org.gradle.api.file.ConfigurableFileCollection
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.provider.Property
+import org.gradle.api.services.BuildService
+import org.gradle.api.services.BuildServiceParameters
 import org.gradle.api.tasks.CacheableTask
 import org.gradle.api.tasks.Classpath
 import org.gradle.api.tasks.Input
@@ -50,6 +52,8 @@ interface ImageOutputs {
     @get:OutputFile
     abstract val image: RegularFileProperty
 }
+
+abstract class ImageGenerationSemaphore : BuildService<BuildServiceParameters.None>
 
 @CacheableTask
 abstract class GenerateImage : DefaultTask(), ImageInputs, ImageOutputs {
