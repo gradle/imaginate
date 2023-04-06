@@ -14,10 +14,14 @@ val Project.buildCredentials: BuildCredentials
     get() = the()
 
 internal
-val CredentialsContainer.stableDiffusionBuildApiKey: String
-    get() = requireNotNull(forKey("stableDiffusionBuildApiKey")) {
-        """
-            |This build requires a Stable Diffusion API key.
+val CredentialsContainer.stableDiffusionBuildApiKey: String?
+    get() {
+        val apiKey = forKey("stableDiffusionBuildApiKey")
+        if (apiKey == null) {
+            println("""
+            |
+            |This build needs a Stable Diffusion API key.
+            |None was provided, image generation will fallback to simple random images.
             |Get one from https://stablediffusionapi.com/settings/api
             |
             |Then, run the following to store the API key: 
@@ -25,5 +29,8 @@ val CredentialsContainer.stableDiffusionBuildApiKey: String
             |
             |To remove the API key run:
             |  ./gradlew removeCredentials --key someKey
-        """.trimMargin()
+            |
+            """.trimMargin())
+        }
+        return apiKey
     }

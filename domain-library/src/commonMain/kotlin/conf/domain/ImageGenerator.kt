@@ -13,15 +13,14 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
 class ImageGenerator private constructor(
-    private val client: HttpClient
+    private val client: HttpClient,
+    private val apiKey: String?,
 ) {
 
-    constructor() : this(HttpClient())
+    constructor(apiKey: String? = null) : this(HttpClient(), apiKey)
 
     internal
-    constructor(client: HttpClientEngine) : this(HttpClient(client))
-
-    var apiKey: String? = null
+    constructor(client: HttpClientEngine, apiKey: String? = null) : this(HttpClient(client), apiKey)
 
     suspend fun generate(
         prompt: String,

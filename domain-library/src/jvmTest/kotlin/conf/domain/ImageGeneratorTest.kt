@@ -57,10 +57,9 @@ class ImageGeneratorTest {
                         status = HttpStatusCode.OK,
                         headers = headersOf(HttpHeaders.ContentType, "image/png")
                     )
-                }
-            ).also {
-                it.apiKey = apiKey
-            }
+                },
+                apiKey
+            )
             assertContentEquals(
                 responseBody,
                 subject.generate(prompt, width = width, height = height)

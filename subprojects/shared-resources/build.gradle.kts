@@ -9,7 +9,7 @@ generatedImages {
     }
     register("splash") {
         prompt = "a steampunk splash screen for a fancy image generation application"
-        width = 720
-        height = 480
+        width = 1024
+        height = 640
     }
 }
