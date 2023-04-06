@@ -9,6 +9,8 @@
 
 Rodrigo Oliveira & Paul Merlin
 
+image::kotlinconf/logo-kotlinconf.png[width=20%, align="right"]
+
 include::chapters/_1_agenda.adoc[]
 
 include::chapters/_2_who.adoc[]
