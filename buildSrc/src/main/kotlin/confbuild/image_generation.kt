@@ -16,6 +16,7 @@ import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.OutputFile
 import org.gradle.api.tasks.TaskAction
 import org.gradle.kotlin.dsl.submit
+import org.gradle.work.DisableCachingByDefault
 import org.gradle.workers.WorkAction
 import org.gradle.workers.WorkParameters
 import org.gradle.workers.WorkerExecutor
@@ -55,12 +56,18 @@ interface ImageOutputs {
 
 abstract class ImageGenerationSemaphore : BuildService<BuildServiceParameters.None>
 
-@CacheableTask
+@DisableCachingByDefault(because = "Outputs are commited to git")
 abstract class GenerateImage : DefaultTask(), ImageInputs, ImageOutputs {
 
     @get:Classpath
     internal
     abstract val workerClasspath: ConfigurableFileCollection
+
+    init {
+        outputs.upToDateWhen {
+            image.get().asFile.isFile
+        }
+    }
 
     @TaskAction
     fun action() {
