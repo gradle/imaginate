@@ -4,11 +4,11 @@ plugins {
 
 generatedImages {
     register("icon") {
-        prompt = "abstract logo that mixes Gradle and Kotlin brands with transparent background"
+        prompt = "round logo that mixes Gradle and Kotlin brands with transparent background and space around it"
         width = 512
     }
     register("splash") {
-        prompt = "complex machinery in a steampunk style"
+        prompt = "complex steampunk machinery in an abstract style with a wooden frame"
         width = 512
     }
 }

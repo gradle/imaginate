@@ -56,7 +56,7 @@ generatedImages.all {
         prompt = inputs.prompt
         width = inputs.width
         height = inputs.height
-        image = layout.buildDirectory.file("generated-images/${inputs.name}.jpg")
+        image = layout.projectDirectory.file("src/images/${inputs.name}.jpg")
     }
     val vectorization = tasks.register("vectorize$baseTaskName", VectorizeImage::class) {
         workerClasspath.from(imageTracerConfiguration)
