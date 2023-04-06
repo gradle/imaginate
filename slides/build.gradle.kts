@@ -53,10 +53,10 @@ dependencies {
 }
 
 tasks {
-    withType<Copy>().configureEach {
+    withType(Copy::class).configureEach {
         duplicatesStrategy = DuplicatesStrategy.WARN
     }
-    val sassCompile by registering(SassCompile::class) {
+    val sass = register("sassCompile", SassCompile::class) {
         source(layout.projectDirectory.dir("src/style"))
         destinationDir = layout.buildDirectory.dir("style")
     }
@@ -64,7 +64,7 @@ tasks {
         outputs.cacheIf { false }
     }
     asciidoctorRevealJs {
-        dependsOn(sassCompile)
+        dependsOn(sass)
         baseDirFollowsSourceDir()
         inputs.dir(layout.projectDirectory.dir("src/docs/asciidoc"))
         sourceDirProperty = layout.projectDirectory.dir("src/docs/asciidoc")
@@ -73,7 +73,7 @@ tasks {
                 include("**")
                 into("images")
             }
-            from(sassCompile.map { it.destinationDir }) {
+            from(sass.map { it.destinationDir }) {
                 into("style")
             }
         }
@@ -107,7 +107,7 @@ tasks {
             from(layout.projectDirectory.dir("src/docs/resources"))
         }
     }
-    val exportPdf by registering(JavaExec::class) {
+    val pdf = register("exportPdf", JavaExec::class) {
         dependsOn(asciidoctorRevealJs)
 
         classpath = pdfConfiguration
@@ -134,13 +134,13 @@ tasks {
             }
         }
     }
-    val zipHtml by registering(Zip::class) {
+    val html = register("zipHtml", Zip::class) {
         archiveBaseName = "slides"
         from(asciidoctorRevealJs.map { it.outputDir })
         into("slides")
     }
     assemble {
-        dependsOn(asciidoctorRevealJs, zipHtml, exportPdf)
+        dependsOn(asciidoctorRevealJs, html, pdf)
     }
 }
 
