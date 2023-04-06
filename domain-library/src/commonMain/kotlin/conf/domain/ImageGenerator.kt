@@ -1,27 +1,28 @@
 package conf.domain
 
 import io.ktor.client.HttpClient
+import io.ktor.client.HttpClientConfig
 import io.ktor.client.call.body
 import io.ktor.client.engine.HttpClientEngine
 import io.ktor.client.request.get
 import io.ktor.client.request.headers
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
+import io.ktor.client.statement.bodyAsText
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
 class ImageGenerator private constructor(
-    private val client: HttpClient
+    private val client: HttpClient,
+    private val apiKey: String?,
 ) {
 
-    constructor() : this(HttpClient())
+    constructor(apiKey: String? = null) : this(HttpClient(httpClientConfig), apiKey)
 
     internal
-    constructor(client: HttpClientEngine) : this(HttpClient(client))
-
-    var apiKey: String? = null
+    constructor(client: HttpClientEngine, apiKey: String? = null) : this(HttpClient(client, httpClientConfig), apiKey)
 
     suspend fun generate(
         prompt: String,
@@ -57,7 +58,7 @@ class ImageGenerator private constructor(
         if (response.status.value in 200..299) {
             return response.body()
         } else {
-            throw Exception("Failed to generate image")
+            throw Exception("Failed to generate image '${response.bodyAsText()}'")
         }
     }
 
@@ -79,12 +80,15 @@ class ImageGenerator private constructor(
         check("width", width)
         check("height", width)
         require((height * width) in 262_144..1_048_576) {
-            "262,144 <= width*height <= 1,048,576"
+            "262,144 <= width*height <= 1,048,576 where width=$width, height=$height and width*height=${width * height}"
         }
     }
 
     private
     companion object {
+
+        val httpClientConfig: HttpClientConfig<*>.() -> Unit = {}
+
         const val engineId = "stable-diffusion-512-v2-1"
         const val textToImage = "https://api.stability.ai/v1/generation/$engineId/text-to-image"
     }

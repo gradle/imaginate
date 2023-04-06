@@ -2,6 +2,7 @@ import confbuild.buildCredentials
 import confbuild.domainLibrary
 import confbuild.DrawAndroidImage
 import confbuild.capitalized
+import confbuild.ImageGenerationSemaphore
 import confbuild.ImageSpec
 import confbuild.imageTracer
 import confbuild.GenerateImage
@@ -38,10 +39,18 @@ extensions.add("generatedImages", generatedImages)
 
 val lifecycleTask = tasks.register("generateImages")
 
+val imageGenerationSemaphore = gradle.sharedServices.registerIfAbsent(
+    "imageGenerationSemaphore",
+    ImageGenerationSemaphore::class
+) {
+    maxParallelUsages = 1
+}
+
 generatedImages.all {
     val inputs = this
     val baseTaskName = "${inputs.name.capitalized()}Image"
     val generation = tasks.register("generate$baseTaskName", GenerateImage::class) {
+        usesService(imageGenerationSemaphore)
         apiKey = buildCredentials.stableDiffusionApiKey
         workerClasspath.from(domainLibraryConfiguration)
         prompt = inputs.prompt

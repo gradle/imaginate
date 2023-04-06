@@ -7,9 +7,12 @@ import org.gradle.api.Named
 import org.gradle.api.file.ConfigurableFileCollection
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.provider.Property
+import org.gradle.api.services.BuildService
+import org.gradle.api.services.BuildServiceParameters
 import org.gradle.api.tasks.CacheableTask
 import org.gradle.api.tasks.Classpath
 import org.gradle.api.tasks.Input
+import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.OutputFile
 import org.gradle.api.tasks.TaskAction
 import org.gradle.kotlin.dsl.submit
@@ -32,6 +35,7 @@ abstract class ImageSpec(private val name: String) : Named, ImageInputs {
 interface ImageInputs {
 
     @get:Input
+    @get:Optional
     val apiKey: Property<String>
 
     @get:Input
@@ -48,6 +52,8 @@ interface ImageOutputs {
     @get:OutputFile
     abstract val image: RegularFileProperty
 }
+
+abstract class ImageGenerationSemaphore : BuildService<BuildServiceParameters.None>
 
 @CacheableTask
 abstract class GenerateImage : DefaultTask(), ImageInputs, ImageOutputs {
@@ -82,7 +88,7 @@ abstract class GenerateImageWork : WorkAction<GenerateImageParameters> {
     override fun execute(): Unit = runBlocking {
         parameters.apply {
             image.get().asFile.writeBytes(
-                ImageGenerator().generate(prompt.get(), width.get(), height.get())
+                ImageGenerator(apiKey.orNull).generate(prompt.get(), width.get(), height.get())
             )
         }
     }
