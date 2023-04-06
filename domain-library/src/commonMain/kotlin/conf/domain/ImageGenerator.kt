@@ -1,6 +1,7 @@
 package conf.domain
 
 import io.ktor.client.HttpClient
+import io.ktor.client.HttpClientConfig
 import io.ktor.client.call.body
 import io.ktor.client.engine.HttpClientEngine
 import io.ktor.client.request.get
@@ -18,10 +19,10 @@ class ImageGenerator private constructor(
     private val apiKey: String?,
 ) {
 
-    constructor(apiKey: String? = null) : this(HttpClient(), apiKey)
+    constructor(apiKey: String? = null) : this(HttpClient(httpClientConfig), apiKey)
 
     internal
-    constructor(client: HttpClientEngine, apiKey: String? = null) : this(HttpClient(client), apiKey)
+    constructor(client: HttpClientEngine, apiKey: String? = null) : this(HttpClient(client, httpClientConfig), apiKey)
 
     suspend fun generate(
         prompt: String,
@@ -79,12 +80,15 @@ class ImageGenerator private constructor(
         check("width", width)
         check("height", width)
         require((height * width) in 262_144..1_048_576) {
-            "262,144 <= width*height <= 1,048,576"
+            "262,144 <= width*height <= 1,048,576 where width=$width, height=$height and width*height=${width * height}"
         }
     }
 
     private
     companion object {
+
+        val httpClientConfig: HttpClientConfig<*>.() -> Unit = {}
+
         const val engineId = "stable-diffusion-512-v2-1"
         const val textToImage = "https://api.stability.ai/v1/generation/$engineId/text-to-image"
     }
