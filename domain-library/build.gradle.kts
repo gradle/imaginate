@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.kotlin.mpp)
+    alias(libs.plugins.kotlin.plugin.serialization)
 }
 
 group = "conf"
@@ -8,7 +9,7 @@ kotlin {
     jvm {
         withJava()
         jvmToolchain(libs.versions.jvm.get().toInt())
-        testRuns["test"].executionTask.configure {
+        testRuns["test"].executionTask {
             useJUnitPlatform()
         }
     }
@@ -22,6 +23,7 @@ kotlin {
             dependencies {
                 api(libs.coroutines.core)
                 implementation(libs.ktor.client.core)
+                implementation(libs.ktor.serialization.kotlinx.json)
             }
         }
         named("jvmMain") {
@@ -32,6 +34,12 @@ kotlin {
         named("jsMain") {
             dependencies {
                 implementation(libs.ktor.client.js)
+            }
+        }
+        named("jvmTest") {
+            dependencies {
+                implementation(libs.ktor.client.mock)
+                implementation(kotlin("test"))
             }
         }
     }
