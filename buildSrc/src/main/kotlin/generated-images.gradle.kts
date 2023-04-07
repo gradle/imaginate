@@ -1,14 +1,14 @@
-import confbuild.buildCredentials
-import confbuild.imageGeneration
-import confbuild.DrawAndroidImage
-import confbuild.capitalized
-import confbuild.ImageGenerationSemaphore
-import confbuild.ImageSpec
-import confbuild.imageTracer
-import confbuild.GenerateImage
-import confbuild.libs
-import confbuild.svg2vector
-import confbuild.VectorizeImage
+import imaginate.buildCredentials
+import imaginate.imageGeneration
+import imaginate.DrawAndroidImage
+import imaginate.capitalized
+import imaginate.ImageGenerationSemaphore
+import imaginate.ImageSpec
+import imaginate.imageTracer
+import imaginate.GenerateImage
+import imaginate.libs
+import imaginate.svg2vector
+import imaginate.VectorizeImage
 
 plugins {
     id("base")

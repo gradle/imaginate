@@ -1,7 +1,7 @@
-import confbuild.androidCompileSdk
-import confbuild.androidMinSdk
-import confbuild.jvm
-import confbuild.libs
+import imaginate.androidCompileSdk
+import imaginate.androidMinSdk
+import imaginate.jvm
+import imaginate.libs
 
 plugins {
     id("com.android.library")

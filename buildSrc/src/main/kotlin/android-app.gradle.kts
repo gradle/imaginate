@@ -1,10 +1,10 @@
-import confbuild.androidCompileSdk
-import confbuild.androidMinSdk
-import confbuild.androidxActivityCompose
-import confbuild.androidxAppcompat
-import confbuild.androidxCoreKtx
-import confbuild.jvm
-import confbuild.libs
+import imaginate.androidCompileSdk
+import imaginate.androidMinSdk
+import imaginate.androidxActivityCompose
+import imaginate.androidxAppcompat
+import imaginate.androidxCoreKtx
+import imaginate.jvm
+import imaginate.libs
 
 plugins {
     id("com.android.application")

@@ -1,4 +1,4 @@
-package confbuild
+package imaginate
 
 import nu.studer.gradle.credentials.domain.CredentialsContainer
 import org.gradle.api.Project

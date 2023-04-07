@@ -1,4 +1,4 @@
-package confbuild
+package imaginate
 
 import imaginate.generation.ImageGenerator
 import kotlinx.coroutines.runBlocking

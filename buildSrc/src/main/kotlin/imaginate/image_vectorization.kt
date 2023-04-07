@@ -1,4 +1,4 @@
-package confbuild
+package imaginate
 
 import com.xcl.imagetracer_mod.ImageTracer
 import org.gradle.api.DefaultTask

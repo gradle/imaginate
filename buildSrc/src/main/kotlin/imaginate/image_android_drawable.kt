@@ -1,4 +1,4 @@
-package confbuild
+package imaginate
 
 import com.android.ide.common.vectordrawable.Svg2Vector
 import org.gradle.api.DefaultTask

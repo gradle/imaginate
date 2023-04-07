@@ -1,6 +1,6 @@
 import nu.studer.gradle.credentials.domain.CredentialsContainer
-import confbuild.BuildCredentials
-import confbuild.stableDiffusionBuildApiKey
+import imaginate.BuildCredentials
+import imaginate.stableDiffusionBuildApiKey
 
 plugins {
     id("nu.studer.credentials")

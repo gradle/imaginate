@@ -1,4 +1,4 @@
-package confbuild
+package imaginate
 
 import java.util.Locale
 
