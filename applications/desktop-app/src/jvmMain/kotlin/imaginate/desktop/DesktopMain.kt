@@ -5,7 +5,10 @@ import androidx.compose.ui.window.application
 import imaginate.shared.logic.ui.App
 
 fun main() = application {
-    Window(onCloseRequest = ::exitApplication) {
+    Window(
+        title = "Imaginate",
+        onCloseRequest = ::exitApplication,
+    ) {
         App()
     }
 }
