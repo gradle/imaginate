@@ -6,12 +6,12 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
-                implementation(libs.conf.imageGeneration)
+                implementation(libs.imaginate.imageGeneration)
             }
         }
     }
 }
 
 android {
-    namespace = "conf.shared.logic"
+    namespace = "imaginate.shared.logic"
 }

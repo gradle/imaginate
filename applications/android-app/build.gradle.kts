@@ -21,7 +21,7 @@ val launcherIcon = tasks.register("launcherIcon", Sync::class) {
 }
 
 android {
-    namespace = "conf.android"
+    namespace = "imaginate.android"
     applicationVariants.all {
         registerGeneratedResFolders(files(generatedResDir) {
             builtBy(launcherIcon)

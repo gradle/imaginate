@@ -37,7 +37,7 @@ val VersionCatalog.androidxActivityCompose: Provider<MinimalExternalModuleDepend
 
 internal
 val VersionCatalog.imageGeneration: Provider<MinimalExternalModuleDependency>
-    get() = findLibrary("conf.imageGeneration").get()
+    get() = findLibrary("imaginate.imageGeneration").get()
 
 internal
 val VersionCatalog.imageTracer: Provider<MinimalExternalModuleDependency>

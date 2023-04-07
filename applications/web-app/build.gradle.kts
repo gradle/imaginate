@@ -6,7 +6,7 @@ kotlin {
     sourceSets {
         jsMain {
             dependencies {
-                implementation(libs.conf.imageGeneration)
+                implementation(libs.imaginate.imageGeneration)
             }
         }
     }

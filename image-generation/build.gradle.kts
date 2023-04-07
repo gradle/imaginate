@@ -3,7 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.plugin.serialization)
 }
 
-group = "conf"
+group = "imaginate"
 
 kotlin {
     jvm {
