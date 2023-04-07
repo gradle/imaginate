@@ -1,5 +1,5 @@
 import confbuild.buildCredentials
-import confbuild.domainLibrary
+import confbuild.imageGeneration
 import confbuild.DrawAndroidImage
 import confbuild.capitalized
 import confbuild.ImageGenerationSemaphore
@@ -15,7 +15,7 @@ plugins {
     id("build-credentials")
 }
 
-val domainLibraryConfiguration = configurations.register("domainLibraryClasspath") {
+val imageGenerationConfiguration = configurations.register("imageGenerationClasspath") {
     isCanBeResolved = true
     isCanBeConsumed = false
 }
@@ -29,7 +29,7 @@ val svgToDrawableConfiguration = configurations.register("svgToDrawableClasspath
 }
 
 dependencies {
-    domainLibraryConfiguration.name(libs.domainLibrary)
+    imageGenerationConfiguration.name(libs.imageGeneration)
     imageTracerConfiguration.name(libs.imageTracer)
     svgToDrawableConfiguration.name(libs.svg2vector)
 }
@@ -52,7 +52,7 @@ generatedImages.all {
     val generation = tasks.register("generate$baseTaskName", GenerateImage::class) {
         usesService(imageGenerationSemaphore)
         apiKey = buildCredentials.stableDiffusionApiKey
-        workerClasspath.from(domainLibraryConfiguration)
+        workerClasspath.from(imageGenerationConfiguration)
         prompt = inputs.prompt
         width = inputs.width
         height = inputs.height

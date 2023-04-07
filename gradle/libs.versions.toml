@@ -10,7 +10,7 @@ ktor = "2.2.4"
 coroutines = "1.6.4"
 
 [libraries]
-conf-domainLibrary = "conf:domain-library:latest"
+conf-imageGeneration = "conf:image-generation:latest"
 androidx-appcompat = "androidx.appcompat:appcompat:1.6.1"
 androidx-core-ktx = "androidx.core:core-ktx:1.9.0"
 androidx-activity-compose = "androidx.activity:activity-compose:1.7.0"

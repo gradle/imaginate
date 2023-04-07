@@ -6,7 +6,7 @@ kotlin {
     sourceSets {
         jsMain {
             dependencies {
-                implementation(libs.conf.domainLibrary)
+                implementation(libs.conf.imageGeneration)
             }
         }
     }

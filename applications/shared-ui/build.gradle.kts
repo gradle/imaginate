@@ -6,7 +6,7 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
-                implementation(libs.conf.domainLibrary)
+                implementation(libs.conf.imageGeneration)
             }
         }
     }

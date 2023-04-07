@@ -12,7 +12,7 @@ plugins {
 
 rootProject.name = "gradle-kotlinconf-2023-app"
 
-includeBuild("domain-library")
+includeBuild("image-generation")
 includeBuild("slides")
 
 include("shared-resources")
@@ -22,7 +22,7 @@ include("android-app")
 include("web-app")
 
 for (project in rootProject.children) {
-    project.projectDir = file("subprojects/${project.name}")
+    project.projectDir = file("applications/${project.name}")
 }
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
