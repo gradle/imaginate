@@ -1,4 +1,4 @@
-package conf.desktop
+package imaginate.desktop
 
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application

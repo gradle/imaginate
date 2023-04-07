@@ -14,7 +14,7 @@ kotlin {
 
 compose.desktop {
     application {
-        mainClass = "conf.desktop.DesktopMainKt"
+        mainClass = "imaginate.desktop.DesktopMainKt"
         nativeDistributions {
             linux {
                 iconFile
