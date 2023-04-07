@@ -1,4 +1,4 @@
-package conf.domain
+package imaginate.generation
 
 import io.ktor.client.HttpClient
 import io.ktor.client.HttpClientConfig

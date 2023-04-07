@@ -1,6 +1,6 @@
 package confbuild
 
-import conf.domain.ImageGenerator
+import imaginate.generation.ImageGenerator
 import kotlinx.coroutines.runBlocking
 import org.gradle.api.DefaultTask
 import org.gradle.api.Named

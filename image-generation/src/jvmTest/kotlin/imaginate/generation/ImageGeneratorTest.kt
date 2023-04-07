@@ -1,4 +1,4 @@
-package conf.domain
+package imaginate.generation
 
 import io.ktor.client.engine.mock.MockEngine
 import io.ktor.client.engine.mock.respond
