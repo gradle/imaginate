@@ -10,7 +10,7 @@ java {
 
 dependencies {
 
-    compileOnly(libs.conf.domainLibrary)
+    compileOnly(libs.imaginate.imageGeneration)
     compileOnly(libs.imageTracer)
     compileOnly(libs.svg2vector)
 

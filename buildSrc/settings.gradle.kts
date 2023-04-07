@@ -12,7 +12,7 @@ apply(plugin = "org.gradle.toolchains.foojay-resolver-convention")
 
 rootProject.name = "buildSrc"
 
-includeBuild("../domain-library")
+includeBuild("../image-generation")
 
 dependencyResolutionManagement {
     versionCatalogs {

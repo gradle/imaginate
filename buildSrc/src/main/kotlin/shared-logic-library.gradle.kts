@@ -1,20 +1,25 @@
 import imaginate.androidCompileSdk
 import imaginate.androidMinSdk
-import imaginate.androidxActivityCompose
-import imaginate.androidxAppcompat
-import imaginate.androidxCoreKtx
 import imaginate.jvm
 import imaginate.libs
 
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
+    id("com.android.library")
+    id("kotlin-jvm-component")
     id("kotlin-compose-component")
 }
 
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(libs.jvm)
+kotlin {
+    android()
+    sourceSets {
+        named("commonMain") {
+            dependencies {
+                implementation(compose.foundation)
+                implementation(compose.material)
+                implementation(compose.runtime)
+                implementation(compose.preview)
+            }
+        }
     }
 }
 
@@ -30,10 +35,4 @@ android {
         sourceCompatibility = JavaVersion.toVersion(libs.jvm)
         targetCompatibility = JavaVersion.toVersion(libs.jvm)
     }
-}
-
-dependencies {
-    implementation(libs.androidxAppcompat)
-    implementation(libs.androidxCoreKtx)
-    implementation(libs.androidxActivityCompose)
 }

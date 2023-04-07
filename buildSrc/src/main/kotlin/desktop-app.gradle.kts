@@ -1,5 +1,5 @@
-import confbuild.jvm
-import confbuild.libs
+import imaginate.jvm
+import imaginate.libs
 
 plugins {
     id("kotlin-jvm-component")

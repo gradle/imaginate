@@ -10,19 +10,19 @@ plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "0.4.0"
 }
 
-rootProject.name = "gradle-kotlinconf-2023-app"
+rootProject.name = "imaginate"
 
-includeBuild("domain-library")
+includeBuild("image-generation")
 includeBuild("slides")
 
 include("shared-resources")
-include("shared-ui")
+include("shared-logic")
 include("desktop-app")
 include("android-app")
 include("web-app")
 
 for (project in rootProject.children) {
-    project.projectDir = file("subprojects/${project.name}")
+    project.projectDir = file("applications/${project.name}")
 }
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")

@@ -1,21 +1,21 @@
-import confbuild.buildCredentials
-import confbuild.domainLibrary
-import confbuild.DrawAndroidImage
-import confbuild.capitalized
-import confbuild.ImageGenerationSemaphore
-import confbuild.ImageSpec
-import confbuild.imageTracer
-import confbuild.GenerateImage
-import confbuild.libs
-import confbuild.svg2vector
-import confbuild.VectorizeImage
+import imaginate.buildCredentials
+import imaginate.imageGeneration
+import imaginate.DrawAndroidImage
+import imaginate.capitalized
+import imaginate.ImageGenerationSemaphore
+import imaginate.ImageSpec
+import imaginate.imageTracer
+import imaginate.GenerateImage
+import imaginate.libs
+import imaginate.svg2vector
+import imaginate.VectorizeImage
 
 plugins {
     id("base")
     id("build-credentials")
 }
 
-val domainLibraryConfiguration = configurations.register("domainLibraryClasspath") {
+val imageGenerationConfiguration = configurations.register("imageGenerationClasspath") {
     isCanBeResolved = true
     isCanBeConsumed = false
 }
@@ -29,7 +29,7 @@ val svgToDrawableConfiguration = configurations.register("svgToDrawableClasspath
 }
 
 dependencies {
-    domainLibraryConfiguration.name(libs.domainLibrary)
+    imageGenerationConfiguration.name(libs.imageGeneration)
     imageTracerConfiguration.name(libs.imageTracer)
     svgToDrawableConfiguration.name(libs.svg2vector)
 }
@@ -52,7 +52,7 @@ generatedImages.all {
     val generation = tasks.register("generate$baseTaskName", GenerateImage::class) {
         usesService(imageGenerationSemaphore)
         apiKey = buildCredentials.stableDiffusionApiKey
-        workerClasspath.from(domainLibraryConfiguration)
+        workerClasspath.from(imageGenerationConfiguration)
         prompt = inputs.prompt
         width = inputs.width
         height = inputs.height
