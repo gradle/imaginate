@@ -6,7 +6,7 @@ kotlin {
     sourceSets {
         jvmMain {
             dependencies {
-                implementation(projects.sharedUi)
+                implementation(projects.sharedLogic)
             }
         }
     }

@@ -1,5 +1,5 @@
 plugins {
-    id("shared-ui-library")
+    id("shared-logic-library")
 }
 
 kotlin {
@@ -13,5 +13,5 @@ kotlin {
 }
 
 android {
-    namespace = "conf.shared.ui"
+    namespace = "conf.shared.logic"
 }

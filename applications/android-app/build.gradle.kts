@@ -8,7 +8,7 @@ val sharedIcon = configurations.register("sharedIcon") {
 }
 
 dependencies {
-    implementation(projects.sharedUi)
+    implementation(projects.sharedLogic)
     sharedIcon.name(project(":shared-resources", configuration = "sharedIcon"))
 }
 
