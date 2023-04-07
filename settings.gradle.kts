@@ -10,7 +10,7 @@ plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "0.4.0"
 }
 
-rootProject.name = "gradle-kotlinconf-2023-app"
+rootProject.name = "imaginate"
 
 includeBuild("image-generation")
 includeBuild("slides")
