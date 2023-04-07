@@ -1,4 +1,4 @@
-package conf.android
+package imaginate.android
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
