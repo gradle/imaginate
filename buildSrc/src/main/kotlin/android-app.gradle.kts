@@ -12,6 +12,12 @@ plugins {
     id("kotlin-compose-component")
 }
 
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(libs.jvm)
+    }
+}
+
 android {
 
     compileSdk = libs.androidCompileSdk
