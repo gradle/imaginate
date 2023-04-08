@@ -12,7 +12,24 @@ import kotlin.io.encoding.Base64
 import kotlin.io.encoding.ExperimentalEncodingApi
 
 
-object MyStyleSheet : StyleSheet()
+object MyStyleSheet : StyleSheet() {
+
+    val logo by style {
+        width(25.px)
+        height(25.px)
+        paddingRight(12.px)
+    }
+    init {
+        "body" style {
+            paddingLeft(25.px)
+        }
+        "h1" style {
+        }
+        "img" style {
+            marginTop(25.px)
+        }
+    }
+}
 
 
 @Composable
@@ -31,18 +48,20 @@ fun App() {
         }"
     }
 
-    Div({ style { padding(25.px) } }) {
-        TextInput {
-            placeholder("Type your prompt")
-            value(prompt.value)
-            onInput { event -> prompt.value = event.value }
-        }
-        Button({ onClick { loadNewImage() } }) {
-            Text("Generate new image!")
-        }
+    H1 {
+        Img(src = "icon.jpg", attrs = { classes(MyStyleSheet.logo)})
+        Text("imaginate")
+    }
+    TextInput {
+        placeholder("Type your prompt")
+        value(prompt.value)
+        onInput { event -> prompt.value = event.value }
+    }
+    Button({ onClick { loadNewImage() } }) {
+        Text("Generate new image!")
     }
     if (imageSrc.value != null) {
-        Div({ style { padding(25.px) } }) {
+        Div {
             Img(imageSrc.value!!)
         }
     }

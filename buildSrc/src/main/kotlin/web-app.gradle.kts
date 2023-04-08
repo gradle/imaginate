@@ -11,7 +11,7 @@ kotlin {
     sourceSets {
         named("jsMain") {
             dependencies {
-                implementation(compose.web.core)
+                implementation(compose.html.core)
                 implementation(compose.runtime)
             }
         }

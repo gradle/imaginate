@@ -8,12 +8,3 @@ image::team_map.png[width=65%]
 
 [.center]
 https://gradle.com/careers
-
-
-[background-color="#02303a"]
-== Questions
-image::gradle/bg-10.png[background, size=cover]
-
-❓
-
-image::gradle/folks.png[width=33%]
