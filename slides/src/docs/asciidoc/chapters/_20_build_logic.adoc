@@ -1,0 +1,79 @@
+[background-color="#02303a"]
+== Gradle & Kotlin &#x2764;
+image::gradle/bg-7.png[background, size=cover]
+
+Build logic
+
+
+=== Build logic - Overview
+image::gradle/bg-7.png[background, size=cover]
+
+include::../fragments/_diagram_imaginate_overview_build_logic.adoc[]
+
+
+=== Build logic - Overview
+image::gradle/bg-7.png[background, size=cover]
+
+[cols="<.^6,<.^4",frame=none,grid=none]
+|===
+a|
+image::imaginate_tree.png[width=50%]
+a|
+* Reuse shared code
+* Composite builds
+* Convention plugins
+|===
+
+
+=== Build logic - Exploration
+image::gradle/bg-7.png[background, size=cover]
+
+image::gradle/folks.png[width=50%]
+
+[.notes]
+****
+* start from the image generation
+* used in the build logic
+* shared resources
+* applications
+****
+
+=== Build logic - Kotlin!
+image::gradle/bg-7.png[background, size=cover]
+
+* Gradle's Kotlin DSL
+** extensions and tasks
+** projects and version catalogs
+** assignment operator
+
+include::../fragments/_diagram_build-logic-parts.adoc[]
+
+
+=== Build logic - Building blocks
+image::gradle/bg-7.png[background, size=cover]
+
+* plugins!
+* custom DSL
+* custom Tasks
+* build service
+* helpers
+
+
+=== Build logic - Dependency management
+image::gradle/bg-7.png[background, size=cover]
+
+* version catalogs
+* dependencies on projects
+* dependencies across included builds
+
+
+=== Build logic - Configuration cache
+image::gradle/bg-7.png[background, size=cover]
+
+* goal
+* stable
+* usage
+* overview
+* constraints
+
+include::../fragments/_diagram_task-graph.adoc[]
