@@ -4,19 +4,19 @@
 | c2BD                                |
 |             Build scripts           |
 |                                     |
-|            (Kotlin/Groovy)          |
+|               (Kotlin)              |
 |                                     |
 +-------------------+--------+--------+
 | c085              |        |        |
-|      Plugins      |        |        |
+|    Plugins        |        |        |
 |                   |        |        |
-|  (Kotlin/Groovy)  |        |        |
+|    (Kotlin)       |        |        |
 |                   |        |        |
 |        +----------+        |        |
 |        | c034              |        |
-|        |    Gradle DSL     |        |
-| (Java) |                   |        |
-|        |  (Kotlin/Groovy)  |        |
+|        |     Gradle DSL    |        |
+|        |                   |        |
+|        |      (Kotlin)     |        |
 |        |                   |        |
 +--------+-------------------+        |
 | c034                                |

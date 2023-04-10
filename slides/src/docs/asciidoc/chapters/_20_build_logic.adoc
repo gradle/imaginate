@@ -5,27 +5,29 @@ image::gradle/bg-7.png[background, size=cover]
 Build logic
 
 
-=== Build logic - Overview
+=== Build logic [.small]#- Overview#
 image::gradle/bg-7.png[background, size=cover]
 
 include::../fragments/_diagram_imaginate_overview_build_logic.adoc[]
 
 
-=== Build logic - Overview
+=== Build logic [.small]#- Overview#
 image::gradle/bg-7.png[background, size=cover]
 
-[cols="<.^6,<.^4",frame=none,grid=none]
+[cols="<.^3,<.^7",frame=none,grid=none]
 |===
+a|
+Reuse shared code
+
+Composite builds
+
+Convention plugins
 a|
 image::imaginate_tree.png[width=50%]
-a|
-* Reuse shared code
-* Composite builds
-* Convention plugins
 |===
 
 
-=== Build logic - Exploration
+=== Build logic [.small]#- Exploration#
 image::gradle/bg-7.png[background, size=cover]
 
 image::gradle/folks.png[width=50%]
@@ -38,18 +40,75 @@ image::gradle/folks.png[width=50%]
 * applications
 ****
 
-=== Build logic - Kotlin!
+
+=== Build logic [.small]#- Kotlin!#
 image::gradle/bg-7.png[background, size=cover]
 
-* Gradle's Kotlin DSL
-** extensions and tasks
-** projects and version catalogs
-** assignment operator
+[cols="<.^6,<.^4",frame=none,grid=none]
+|===
+a|
+Gradle's Kotlin DSL
+[.small]
+--
+* Kotlin DSL on top of Gradle's Java API
+* Low ceremony thanks to Kotlin Scripting
+* IDE assistance, code navigation etc...
+* Assignment operator overload compiler plugin
+--
+a| include::fragments/_diagram_build-logic-parts.adoc[]
+|===
 
-include::../fragments/_diagram_build-logic-parts.adoc[]
+
+=== Build logic [.small]#- Kotlin DSL#
+image::gradle/bg-7.png[background, size=cover]
+
+[cols="<.^6,<.^4",frame=none,grid=none]
+|===
+a|
+[.small]
+--
+Gradle plugins contribute to a dynamic model
+
+Kotlin DSL provides static accessors
+
+* extensions and tasks
+* projects and version catalogs
+
+IDE assistance, code navigation etc...
+--
+a|
+.Extensions and tasks
+[source,kotlin]
+----
+plugins {
+    id("org.jetbrains.kotlin.jvm")
+}
+
+kotlin {
+    // Extension from the Kotlin plugin
+}
+
+tasks.compileKotlin {
+    // Task from the Kotlin plugin
+}
+----
+
+.Projects and version catalogs
+[source,kotlin]
+----
+dependencies {
+
+    // Static project accessor
+    api(projects.sharedLogic)
+
+    // Static version catalog accessor
+    implementation(libs.wonderfulLibrary)
+}
+----
+|===
 
 
-=== Build logic - Building blocks
+=== Build logic [.small]#- Building blocks#
 image::gradle/bg-7.png[background, size=cover]
 
 * plugins!
@@ -59,7 +118,7 @@ image::gradle/bg-7.png[background, size=cover]
 * helpers
 
 
-=== Build logic - Dependency management
+=== Build logic [.small]#- Dependency management#
 image::gradle/bg-7.png[background, size=cover]
 
 * version catalogs
@@ -67,13 +126,18 @@ image::gradle/bg-7.png[background, size=cover]
 * dependencies across included builds
 
 
-=== Build logic - Configuration cache
+=== Build logic [.small]#- Configuration cache#
 image::gradle/bg-7.png[background, size=cover]
 
-* goal
-* stable
-* usage
-* overview
+* goal and benefits
+* stable in Gradle 8.1
+* how to use
+
+
+=== Build logic [.small]#- Configuration cache#
+image::gradle/bg-7.png[background, size=cover]
+
+* how it works
 * constraints
 
 include::../fragments/_diagram_task-graph.adoc[]
