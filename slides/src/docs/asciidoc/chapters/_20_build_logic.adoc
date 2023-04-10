@@ -124,20 +124,3 @@ image::gradle/bg-7.png[background, size=cover]
 * version catalogs
 * dependencies on projects
 * dependencies across included builds
-
-
-=== Build logic [.small]#- Configuration cache#
-image::gradle/bg-7.png[background, size=cover]
-
-* goal and benefits
-* stable in Gradle 8.1
-* how to use
-
-
-=== Build logic [.small]#- Configuration cache#
-image::gradle/bg-7.png[background, size=cover]
-
-* how it works
-* constraints
-
-include::../fragments/_diagram_task-graph.adoc[]

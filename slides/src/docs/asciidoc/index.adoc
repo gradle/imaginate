@@ -19,6 +19,8 @@ include::chapters/_10_imaginate.adoc[]
 
 include::chapters/_20_build_logic.adoc[]
 
-include::chapters/_9_closing.adoc[]
+include::chapters/_30_build_logic_cc.adoc[]
+
+include::chapters/_90_closing.adoc[]
 
 include::chapters/_100_thank_you_kotlinconf.adoc[]
