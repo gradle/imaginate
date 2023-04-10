@@ -14,7 +14,7 @@ $darkColor: #02303a;
 // Override theme settings (see _settings.scss)
 $mainFont: 'Lato', 'Helvetica Neue', Arial, sans-serif;
 $mainColor: $darkColor;
-$mainFontSize: 36px;
+$mainFontSize: 32px;
 $headingFont: 'Lato', 'Helvetica Neue', Arial, sans-serif;
 $headingColor: $darkColor;
 $headingTextShadow: none;
@@ -105,6 +105,10 @@ div.product-logo-as-title img {
 
 .reveal .tiny p {
     font-size: 0.25em;
+}
+
+.reveal span.small {
+    font-size: 0.75em;
 }
 
 .reveal div.small div.content {

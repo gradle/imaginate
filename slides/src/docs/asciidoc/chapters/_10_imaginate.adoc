@@ -5,17 +5,17 @@ image::gradle/bg-7.png[background, size=cover]
 An imaginary image generator
 
 
-=== Imaginate - Demo
+=== Imaginate [.small]#- Demo#
 image::gradle/bg-7.png[background, size=cover]
 
 
-=== Imaginate - Overview
+=== Imaginate [.small]#- Overview#
 image::gradle/bg-7.png[background, size=cover]
 
 include::../fragments/_diagram_imaginate_overview.adoc[]
 
 
-=== Imaginate - Exploration
+=== Imaginate [.small]#- Exploration#
 image::gradle/bg-7.png[background, size=cover]
 
 image::gradle/folks.png[width=50%]
