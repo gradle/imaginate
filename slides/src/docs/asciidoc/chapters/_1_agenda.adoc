@@ -2,12 +2,5 @@
 == Agenda
 image::gradle/bg-8.png[background, size=cover]
 
-* Imaginate!
-** App demo
-** Overview of the codebase (diagram)
-** Explore with code navigation (start from the apps => reuse/sharing logic => image generation => also used in build logic)
-* Build logic
-** Reusing shared code (composite builds, convention plugins, build service)
-** Kotlin code (Kotlin DSL, assignment operator, accessors, projects, catalogs)
-** Dependency management (version catalogs + composite builds)
-** Configuration cache (stable, usage, concept, constraints)
+Imaginate &#x1F5BC;:: An imaginary image generator
+Gradle & Kotlin &#x2764;:: Build logic

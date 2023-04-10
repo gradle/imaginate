@@ -1,0 +1,29 @@
+[background-color="#02303a"]
+== Imaginate &#x1F5BC;
+image::gradle/bg-7.png[background, size=cover]
+
+An imaginary image generator
+
+
+=== Imaginate - Demo
+image::gradle/bg-7.png[background, size=cover]
+
+
+=== Imaginate - Overview
+image::gradle/bg-7.png[background, size=cover]
+
+include::../fragments/_diagram_imaginate_overview.adoc[]
+
+
+=== Imaginate - Exploration
+image::gradle/bg-7.png[background, size=cover]
+
+image::gradle/folks.png[width=50%]
+
+[.notes]
+****
+* start from the apps
+* reused/shared logic
+* image generation
+* also used in build logic
+****

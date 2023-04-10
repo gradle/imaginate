@@ -15,9 +15,9 @@ include::chapters/_1_agenda.adoc[]
 
 include::chapters/_2_who.adoc[]
 
-include::chapters/_3_chapter_1.adoc[]
+include::chapters/_10_imaginate.adoc[]
 
-include::chapters/_4_chapter_2.adoc[]
+include::chapters/_20_build_logic.adoc[]
 
 include::chapters/_9_closing.adoc[]
 
