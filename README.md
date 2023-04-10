@@ -41,7 +41,7 @@ Run the application on a device or emulator
 * Select the `android-app` run target and a device or emulator
 * Click the run button
 
-Build the APK in [](applications/android-app/build/outputs/apk/debug/android-app-debug.apk)
+Build the APK in [applications/android-app/build/outputs/apk/debug](applications/android-app/build/outputs/apk/debug)
 ```shell
 ./gradlew :android-app:assembleDebug
 ```
