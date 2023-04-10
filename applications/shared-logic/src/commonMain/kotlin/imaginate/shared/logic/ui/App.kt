@@ -55,25 +55,25 @@ fun ApiKeyPrompt(onApiKey: (String) -> Unit) {
 
 @Composable
 fun ImagePrompt(apiKey: String) {
-    val prompt = remember { mutableStateOf("") }
-    val image = remember { mutableStateOf<ImageBitmap?>(null) }
+    val (prompt, setPrompt) = remember { mutableStateOf("") }
+    val (image, setImage) = remember { mutableStateOf<ImageBitmap?>(null) }
     val imageGenerator = remember { ImageGenerator(apiKey) }
 
     val coroutineScope = rememberCoroutineScope()
 
     fun loadNewImage() = coroutineScope.launch {
-        image.value = imageBitmapFromBytes(imageGenerator.generate(prompt.value))
+        setImage(imageBitmapFromBytes(imageGenerator.generate(prompt)))
     }
 
     TextField(
-        prompt.value,
-        onValueChange = { value -> prompt.value = value },
+        prompt,
+        onValueChange = setPrompt,
         placeholder = { Text("Type your prompt") }
     )
     Button(onClick = ::loadNewImage) {
         Text("Generate new image!")
     }
-    if (image.value != null) {
-        Image(image.value!!, prompt.value)
+    if (image != null) {
+        Image(image, prompt)
     }
 }
