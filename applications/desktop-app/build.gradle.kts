@@ -7,6 +7,7 @@ kotlin {
         jvmMain {
             dependencies {
                 implementation(projects.sharedLogic)
+                implementation(projects.sharedSettings)
             }
         }
     }

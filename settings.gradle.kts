@@ -16,6 +16,7 @@ includeBuild("image-generation")
 includeBuild("slides")
 
 include("shared-resources")
+include("shared-settings")
 include("shared-logic")
 include("desktop-app")
 include("android-app")

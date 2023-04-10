@@ -2,6 +2,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import com.russhwolf.settings.Settings
+import com.russhwolf.settings.StorageSettings
+import com.russhwolf.settings.set
 import imaginate.generation.ImageGenerator
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.web.attributes.*
@@ -34,13 +37,12 @@ object MyStyleSheet : StyleSheet() {
 
 
 @Composable
-fun App() {
+fun App(settings: ImaginateSettings) {
     AppHeader()
 
-    val (apiKey, setApiKey) = remember { mutableStateOf<String?>(null) }
-    when (apiKey) {
+    when (val apiKey = settings.apiKey) {
         null -> {
-            ApiKeyPrompt(onApiKey = setApiKey)
+            ApiKeyPrompt(onApiKey = { settings.apiKey = it })
         }
 
         else -> {
@@ -103,10 +105,25 @@ fun ImagePrompt(apiKey: String) {
     }
 }
 
+class ImaginateSettings(
+    private val settings: Settings
+) {
+
+    private
+    val apiKeyState = mutableStateOf(settings.getStringOrNull("api-key"))
+
+    var apiKey: String?
+        get() = apiKeyState.value
+        set(value) {
+            settings["api-key"] = value
+            apiKeyState.value = value
+        }
+}
+
 
 fun main() {
     renderComposable(rootElementId = "root") {
         Style(MyStyleSheet)
-        App()
+        App(ImaginateSettings(StorageSettings()))
     }
 }
