@@ -19,6 +19,7 @@ object MyStyleSheet : StyleSheet() {
         height(25.px)
         paddingRight(12.px)
     }
+
     init {
         "body" style {
             paddingLeft(25.px)
@@ -34,10 +35,49 @@ object MyStyleSheet : StyleSheet() {
 
 @Composable
 fun App() {
+    AppHeader()
 
+    val (apiKey, setApiKey) = remember { mutableStateOf<String?>(null) }
+    when (apiKey) {
+        null -> {
+            ApiKeyPrompt(onApiKey = setApiKey)
+        }
+
+        else -> {
+            ImagePrompt(apiKey)
+        }
+    }
+}
+
+
+@Composable
+fun AppHeader() {
+    H1 {
+        Img(src = "icon.jpg", attrs = { classes(MyStyleSheet.logo) })
+        Text("imaginate")
+    }
+}
+
+
+@Composable
+fun ApiKeyPrompt(onApiKey: (String) -> Unit) {
+    val (apiKey, setApiKey) = remember { mutableStateOf("") }
+    TextInput {
+        placeholder("Type your API key")
+        value(apiKey)
+        onInput { event -> setApiKey(event.value) }
+    }
+    Button({ onClick { onApiKey(apiKey) } }) {
+        Text("Accept")
+    }
+}
+
+
+@Composable
+fun ImagePrompt(apiKey: String) {
     val prompt = remember { mutableStateOf("") }
     val imageSrc = remember { mutableStateOf<String?>(null) }
-    val imageGenerator = remember { ImageGenerator() }
+    val imageGenerator = remember { ImageGenerator(apiKey) }
 
     val coroutineScope = rememberCoroutineScope()
 
@@ -48,10 +88,6 @@ fun App() {
         }"
     }
 
-    H1 {
-        Img(src = "icon.jpg", attrs = { classes(MyStyleSheet.logo)})
-        Text("imaginate")
-    }
     TextInput {
         placeholder("Type your prompt")
         value(prompt.value)

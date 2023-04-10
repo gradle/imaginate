@@ -21,10 +21,43 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun App() {
+    val (apiKey, setApiKey) = remember { mutableStateOf<String?>(null) }
 
+    MaterialTheme {
+        Column(Modifier.fillMaxSize(), Arrangement.spacedBy(8.dp), Alignment.CenterHorizontally) {
+
+            when (apiKey) {
+                null -> {
+                    ApiKeyPrompt(onApiKey = setApiKey)
+                }
+
+                else -> {
+                    ImagePrompt(apiKey)
+                }
+            }
+
+        }
+    }
+}
+
+@Composable
+fun ApiKeyPrompt(onApiKey: (String) -> Unit) {
+    val (apiKey, setApiKey) = remember { mutableStateOf("") }
+    TextField(
+        apiKey,
+        onValueChange = setApiKey,
+        placeholder = { Text("Type your API key") }
+    )
+    Button(onClick = { onApiKey(apiKey) }) {
+        Text("Accept")
+    }
+}
+
+@Composable
+fun ImagePrompt(apiKey: String) {
     val prompt = remember { mutableStateOf("") }
     val image = remember { mutableStateOf<ImageBitmap?>(null) }
-    val imageGenerator = remember { ImageGenerator() }
+    val imageGenerator = remember { ImageGenerator(apiKey) }
 
     val coroutineScope = rememberCoroutineScope()
 
@@ -32,19 +65,15 @@ fun App() {
         image.value = imageBitmapFromBytes(imageGenerator.generate(prompt.value))
     }
 
-    MaterialTheme {
-        Column(Modifier.fillMaxSize(), Arrangement.spacedBy(8.dp), Alignment.CenterHorizontally) {
-            TextField(
-                prompt.value,
-                onValueChange = { value -> prompt.value = value },
-                placeholder = { Text("Type your prompt") }
-            )
-            Button(onClick = ::loadNewImage) {
-                Text("Generate new image!")
-            }
-            if (image.value != null) {
-                Image(image.value!!, prompt.value)
-            }
-        }
+    TextField(
+        prompt.value,
+        onValueChange = { value -> prompt.value = value },
+        placeholder = { Text("Type your prompt") }
+    )
+    Button(onClick = ::loadNewImage) {
+        Text("Generate new image!")
+    }
+    if (image.value != null) {
+        Image(image.value!!, prompt.value)
     }
 }
