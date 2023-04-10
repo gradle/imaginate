@@ -17,18 +17,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.unit.dp
 import imaginate.generation.ImageGenerator
+import imaginate.shared.settings.ImaginateSettings
 import kotlinx.coroutines.launch
 
 @Composable
-fun App() {
-    val (apiKey, setApiKey) = remember { mutableStateOf<String?>(null) }
-
+fun App(settings: ImaginateSettings) {
     MaterialTheme {
         Column(Modifier.fillMaxSize(), Arrangement.spacedBy(8.dp), Alignment.CenterHorizontally) {
 
-            when (apiKey) {
+            when (val apiKey = settings.apiKey) {
                 null -> {
-                    ApiKeyPrompt(onApiKey = setApiKey)
+                    ApiKeyPrompt(onApiKey = { settings.apiKey = it })
                 }
 
                 else -> {

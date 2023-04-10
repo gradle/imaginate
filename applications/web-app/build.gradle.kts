@@ -7,6 +7,7 @@ kotlin {
         jsMain {
             dependencies {
                 implementation(libs.imaginate.imageGeneration)
+                implementation(libs.multiplatform.settings)
             }
         }
     }
