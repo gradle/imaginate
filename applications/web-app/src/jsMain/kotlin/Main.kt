@@ -75,30 +75,30 @@ fun ApiKeyPrompt(onApiKey: (String) -> Unit) {
 
 @Composable
 fun ImagePrompt(apiKey: String) {
-    val prompt = remember { mutableStateOf("") }
-    val imageSrc = remember { mutableStateOf<String?>(null) }
+    val (prompt, setPrompt) = remember { mutableStateOf("") }
+    val (imageSrc, setImageSrc) = remember { mutableStateOf<String?>(null) }
     val imageGenerator = remember { ImageGenerator(apiKey) }
 
     val coroutineScope = rememberCoroutineScope()
 
     @OptIn(ExperimentalEncodingApi::class)
     fun loadNewImage() = coroutineScope.launch {
-        imageSrc.value = "data:image/jpeg;charset=utf-8;base64,${
-            Base64.encode(imageGenerator.generate(prompt.value))
-        }"
+        setImageSrc("data:image/jpeg;charset=utf-8;base64,${
+            Base64.encode(imageGenerator.generate(prompt))
+        }")
     }
 
     TextInput {
         placeholder("Type your prompt")
-        value(prompt.value)
-        onInput { event -> prompt.value = event.value }
+        value(prompt)
+        onInput { event -> setPrompt(event.value) }
     }
     Button({ onClick { loadNewImage() } }) {
         Text("Generate new image!")
     }
-    if (imageSrc.value != null) {
+    if (imageSrc != null) {
         Div {
-            Img(imageSrc.value!!)
+            Img(imageSrc)
         }
     }
 }
