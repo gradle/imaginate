@@ -1,7 +1,12 @@
+# Gradle
 .gradle/
 build/
-.idea/
+
+# Android
 local.properties
+
+# IDE
+.idea/
 .asciidoctor
 diag-*.png
 diag-*.svg

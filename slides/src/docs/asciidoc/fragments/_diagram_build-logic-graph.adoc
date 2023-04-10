@@ -1,0 +1,41 @@
+[plantuml]
+....
+@startuml
+!theme spacelab
+skinparam shadowing false
+skinparam defaultFontSize 20
+skinparam defaultFontName Helvetica
+skinparam defaultFontColor white
+skinparam usecase {
+  BackgroundColor 1ba8cb
+  BorderColor 02303a
+  ArrowColor 02303a
+}
+top to bottom direction
+"**:shared-resources**" as (sharedResources) #008855
+"**:shared-logic**" as (sharedLogic) #008855
+"**:image-generation-task**" as (imageGenerationTask) #02303a
+"**:image-generation**" as (imageGeneration)
+"**:buildSrc**" as (buildLogic) #02303a
+"**:web-app**" as (webApp)
+"**:desktop-app**" as (desktopApp)
+"**:android-app**" as (androidApp)
+"**:slides**" as (slides)
+
+buildLogic --> imageGenerationTask
+imageGenerationTask --> imageGeneration
+sharedLogic --> imageGeneration
+sharedResources --> imageGenerationTask
+
+androidApp --> sharedResources
+androidApp --> sharedLogic
+
+desktopApp --> sharedResources
+desktopApp --> sharedLogic
+
+webApp --> sharedResources
+webApp --> imageGeneration
+
+slides --> imageGeneration
+@enduml
+....

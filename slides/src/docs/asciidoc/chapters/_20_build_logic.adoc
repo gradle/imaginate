@@ -5,10 +5,22 @@ image::gradle/bg-7.png[background, size=cover]
 Build logic
 
 
-=== Build logic [.small]#- Overview#
+=== Build logic [.small]#- Kotlin!#
 image::gradle/bg-7.png[background, size=cover]
 
-include::../fragments/_diagram_imaginate_overview_build_logic.adoc[]
+[cols="<.^6,<.^4",frame=none,grid=none]
+|===
+a|
+Gradle's Kotlin DSL
+[.small]
+--
+* Kotlin DSL on top of Gradle's Java API
+* Low ceremony thanks to Kotlin Scripting
+* Official Kotlin compiler plugins
+* IDE assistance, code navigation etc...
+--
+a| include::fragments/_diagram_build-logic-parts.adoc[]
+|===
 
 
 === Build logic [.small]#- Overview#
@@ -17,13 +29,73 @@ image::gradle/bg-7.png[background, size=cover]
 [cols="<.^3,<.^7",frame=none,grid=none]
 |===
 a|
-Reuse shared code
+.`settings.gradle.kts`
+[source,kotlin]
+----
+includeBuild("image-generation")
+includeBuild("slides")
 
-Composite builds
+include("shared-resources")
+include("shared-logic")
+include("desktop-app")
+include("android-app")
+include("web-app")
 
-Convention plugins
+for (project in rootProject.children) {
+    project.projectDir = file("applications/${project.name}")
+}
+----
+
+.`buildSrc/settings.gradle.kts`
+[source,kotlin]
+----
+includeBuild("../image-generation")
+----
 a|
-image::imaginate_tree.png[width=50%]
+image::imaginate_tree.png[]
+|===
+
+
+=== Build logic [.small]#- Overview#
+image::gradle/bg-7.png[background, size=cover]
+
+[cols="<.^4,<.^6",frame=none,grid=none]
+|===
+a| include::fragments/_diagram_imaginate_overview_build_logic.adoc[]
+a| include::fragments/_diagram_build-logic-graph.adoc[]
+|===
+
+
+=== Build logic [.small]#- `buildSrc`#
+image::gradle/bg-7.png[background, size=cover]
+
+[cols="<.^4,<.^6",frame=none,grid=none]
+|===
+a|
+image::imaginate_buildSrc_tree.png[]
+a|
+Convention plugins
+
+Composition over inheritance
+
+.`applications/android-app/build.gradle.kts`
+[source,kotlin]
+----
+plugins {
+    id("android-app")
+}
+
+android {
+    namespace = "imaginate.android"
+}
+
+dependencies {
+    implementation(projects.sharedLogic)
+}
+----
+[.small]
+No imperative code in the projects build scripts, +
+only declarative dsl.
 |===
 
 
@@ -36,27 +108,11 @@ image::gradle/folks.png[width=50%]
 ****
 * start from the image generation
 * used in the build logic
+* buildSrc
+* `kotlin-dsl` plugin, sam-with-receiver, assignment operator overload
 * shared resources
 * applications
 ****
-
-
-=== Build logic [.small]#- Kotlin!#
-image::gradle/bg-7.png[background, size=cover]
-
-[cols="<.^6,<.^4",frame=none,grid=none]
-|===
-a|
-Gradle's Kotlin DSL
-[.small]
---
-* Kotlin DSL on top of Gradle's Java API
-* Low ceremony thanks to Kotlin Scripting
-* IDE assistance, code navigation etc...
-* Assignment operator overload compiler plugin
---
-a| include::fragments/_diagram_build-logic-parts.adoc[]
-|===
 
 
 === Build logic [.small]#- Kotlin DSL#
@@ -124,20 +180,3 @@ image::gradle/bg-7.png[background, size=cover]
 * version catalogs
 * dependencies on projects
 * dependencies across included builds
-
-
-=== Build logic [.small]#- Configuration cache#
-image::gradle/bg-7.png[background, size=cover]
-
-* goal and benefits
-* stable in Gradle 8.1
-* how to use
-
-
-=== Build logic [.small]#- Configuration cache#
-image::gradle/bg-7.png[background, size=cover]
-
-* how it works
-* constraints
-
-include::../fragments/_diagram_task-graph.adoc[]
