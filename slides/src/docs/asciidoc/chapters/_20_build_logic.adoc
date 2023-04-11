@@ -118,6 +118,23 @@ image::gradle/folks.png[width=50%]
 ****
 
 
+=== Build logic [.small]#- `buildSrc`?#
+image::gradle/bg-7.png[background, size=cover]
+
+`buildSrc` vs `includeBuild` for build logic
+
+The main difference is that everything in `buildSrc` is made available in the owner build's root project, thus all its projects.
+With included builds you need to declare dependencies in order to use them.
+A `plugins {}` request for a plugin from an included build brings the jar build by the projects that contain the plugin.
+Regular `group:name(:version)` dependencies can also be used from `buildSrc`, or from `buildscript {}` blocks if necessary.
+
+Start with `buildSrc` and move to included builds if you need.
+For example as we showed Today for sharing logic between the build and the applications.
+Or if you want to isolate a portion of build logic.
+
+Since Gradle 8 `buildSrc` is much more like using included builds + link, making it simple to transition
+
+
 === Build logic [.small]#- Kotlin DSL#
 image::gradle/bg-7.png[background, size=cover]
 
