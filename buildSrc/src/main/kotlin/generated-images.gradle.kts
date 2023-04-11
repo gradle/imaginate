@@ -15,23 +15,23 @@ plugins {
     id("build-credentials")
 }
 
-val imageGenerationConfiguration = configurations.register("imageGenerationClasspath") {
+val imageGenerationClasspath = configurations.register("imageGenerationClasspath") {
     isCanBeResolved = true
     isCanBeConsumed = false
 }
-val imageTracerConfiguration = configurations.register("imageTracerClasspath") {
+val imageTracerClasspath = configurations.register("imageTracerClasspath") {
     isCanBeResolved = true
     isCanBeConsumed = false
 }
-val svgToDrawableConfiguration = configurations.register("svgToDrawableClasspath") {
+val svgToDrawableClasspath = configurations.register("svgToDrawableClasspath") {
     isCanBeResolved = true
     isCanBeConsumed = false
 }
 
 dependencies {
-    imageGenerationConfiguration.name(libs.imageGeneration)
-    imageTracerConfiguration.name(libs.imageTracer)
-    svgToDrawableConfiguration.name(libs.svg2vector)
+    imageGenerationClasspath.name(libs.imageGeneration)
+    imageTracerClasspath.name(libs.imageTracer)
+    svgToDrawableClasspath.name(libs.svg2vector)
 }
 
 val generatedImages = objects.domainObjectContainer(ImageSpec::class)
@@ -52,20 +52,20 @@ generatedImages.all {
     val generation = tasks.register("generate$baseTaskName", GenerateImage::class) {
         usesService(imageGenerationSemaphore)
         apiKey = buildCredentials.stableDiffusionApiKey
-        workerClasspath.from(imageGenerationConfiguration)
+        workerClasspath.from(imageGenerationClasspath)
         prompt = inputs.prompt
         width = inputs.width
         height = inputs.height
         image = layout.projectDirectory.file("src/images/${inputs.name}.jpg")
     }
     val vectorization = tasks.register("vectorize$baseTaskName", VectorizeImage::class) {
-        workerClasspath.from(imageTracerConfiguration)
+        workerClasspath.from(imageTracerClasspath)
         image = generation.flatMap { it.image }
         palleteSize = 8
         vector = layout.buildDirectory.file("generated-vectors/${inputs.name}.svg")
     }
     val drawable = tasks.register("draw$baseTaskName", DrawAndroidImage::class) {
-        workerClasspath.from(svgToDrawableConfiguration)
+        workerClasspath.from(svgToDrawableClasspath)
         vector = vectorization.flatMap { it.vector }
         drawable = layout.buildDirectory.file("generated-drawables/${inputs.name}.xml")
     }
