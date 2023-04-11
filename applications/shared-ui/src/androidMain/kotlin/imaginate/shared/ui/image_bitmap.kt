@@ -1,4 +1,4 @@
-package imaginate.shared.logic.ui
+package imaginate.shared.ui
 
 import android.graphics.BitmapFactory
 import androidx.compose.ui.graphics.ImageBitmap

@@ -1,4 +1,4 @@
-package imaginate.shared.settings
+package imaginate.shared.logic
 
 import androidx.compose.runtime.mutableStateOf
 import com.russhwolf.settings.Settings
@@ -7,7 +7,6 @@ import com.russhwolf.settings.set
 interface ImaginateSettings {
     var apiKey: String?
 }
-
 
 internal
 class DefaultImaginateSettings(

@@ -1,8 +1,8 @@
-package imaginate.shared.settings
+package imaginate.shared.logic
 
 import android.content.Context
 import com.russhwolf.settings.SharedPreferencesSettings
 
-fun ImaginateSettings(context: Context): ImaginateSettings = DefaultImaginateSettings(
+fun createImaginateSettings(context: Context): ImaginateSettings = DefaultImaginateSettings(
     SharedPreferencesSettings.Factory(context).create()
 )

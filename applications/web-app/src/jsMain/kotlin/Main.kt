@@ -2,10 +2,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import com.russhwolf.settings.Settings
-import com.russhwolf.settings.StorageSettings
-import com.russhwolf.settings.set
 import imaginate.generation.ImageGenerator
+import imaginate.shared.logic.ImaginateSettings
+import imaginate.shared.logic.createImaginateSettings
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.web.attributes.*
 import org.jetbrains.compose.web.css.*
@@ -46,7 +45,7 @@ fun App(settings: ImaginateSettings) {
         }
 
         else -> {
-            ImagePrompt(apiKey)
+            ImagePrompt(apiKey, onClearApiKey = { settings.apiKey = null })
         }
     }
 }
@@ -76,7 +75,7 @@ fun ApiKeyPrompt(onApiKey: (String) -> Unit) {
 
 
 @Composable
-fun ImagePrompt(apiKey: String) {
+fun ImagePrompt(apiKey: String, onClearApiKey: () -> Unit) {
     val (prompt, setPrompt) = remember { mutableStateOf("") }
     val (imageSrc, setImageSrc) = remember { mutableStateOf<String?>(null) }
     val imageGenerator = remember { ImageGenerator(apiKey) }
@@ -85,9 +84,11 @@ fun ImagePrompt(apiKey: String) {
 
     @OptIn(ExperimentalEncodingApi::class)
     fun loadNewImage() = coroutineScope.launch {
-        setImageSrc("data:image/jpeg;charset=utf-8;base64,${
-            Base64.encode(imageGenerator.generate(prompt))
-        }")
+        setImageSrc(
+            "data:image/jpeg;charset=utf-8;base64,${
+                Base64.encode(imageGenerator.generate(prompt))
+            }"
+        )
     }
 
     TextInput {
@@ -103,27 +104,15 @@ fun ImagePrompt(apiKey: String) {
             Img(imageSrc)
         }
     }
+    Br()
+    Button({ onClick { onClearApiKey() } }) {
+        Text("Clear API key")
+    }
 }
-
-class ImaginateSettings(
-    private val settings: Settings
-) {
-
-    private
-    val apiKeyState = mutableStateOf(settings.getStringOrNull("api-key"))
-
-    var apiKey: String?
-        get() = apiKeyState.value
-        set(value) {
-            settings["api-key"] = value
-            apiKeyState.value = value
-        }
-}
-
 
 fun main() {
     renderComposable(rootElementId = "root") {
         Style(MyStyleSheet)
-        App(ImaginateSettings(StorageSettings()))
+        App(createImaginateSettings())
     }
 }

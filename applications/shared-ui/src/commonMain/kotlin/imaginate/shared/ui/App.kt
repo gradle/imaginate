@@ -1,4 +1,4 @@
-package imaginate.shared.logic.ui
+package imaginate.shared.ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -17,7 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.unit.dp
 import imaginate.generation.ImageGenerator
-import imaginate.shared.settings.ImaginateSettings
+import imaginate.shared.logic.ImaginateSettings
 import kotlinx.coroutines.launch
 
 @Composable
@@ -31,7 +31,7 @@ fun App(settings: ImaginateSettings) {
                 }
 
                 else -> {
-                    ImagePrompt(apiKey)
+                    ImagePrompt(apiKey, onClearApiKey = { settings.apiKey = null })
                 }
             }
 
@@ -53,7 +53,7 @@ fun ApiKeyPrompt(onApiKey: (String) -> Unit) {
 }
 
 @Composable
-fun ImagePrompt(apiKey: String) {
+fun ImagePrompt(apiKey: String, onClearApiKey: () -> Unit) {
     val (prompt, setPrompt) = remember { mutableStateOf("") }
     val (image, setImage) = remember { mutableStateOf<ImageBitmap?>(null) }
     val imageGenerator = remember { ImageGenerator(apiKey) }
@@ -74,5 +74,8 @@ fun ImagePrompt(apiKey: String) {
     }
     if (image != null) {
         Image(image, prompt)
+    }
+    Button(onClick = { onClearApiKey() }) {
+        Text("Clear API key")
     }
 }

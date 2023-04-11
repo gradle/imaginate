@@ -1,13 +1,9 @@
 plugins {
-    id("org.jetbrains.kotlin.multiplatform")
+    id("kotlin-js-executable")
     id("kotlin-compose-component")
 }
 
 kotlin {
-    js(IR) {
-        browser()
-        binaries.executable()
-    }
     sourceSets {
         named("jsMain") {
             dependencies {
