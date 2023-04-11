@@ -200,3 +200,14 @@ image::gradle/bg-7.png[background, size=cover]
 * version catalogs
 * dependencies on projects
 * dependencies across included builds
+
+
+=== Build logic [.small]#- Learn more#
+image::gradle/bg-7.png[background, size=cover]
+
+* Gradle's Kotlin DSL
+** Documentation
+** Reference
+* Build organization
+** Documentation
+** Jendrik's videos
