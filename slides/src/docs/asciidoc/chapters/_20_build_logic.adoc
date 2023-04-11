@@ -109,9 +109,12 @@ image::gradle/folks.png[width=50%]
 * start from the image generation
 * used in the build logic
 * buildSrc
+* task + isolation
+* convention plugin
 * `kotlin-dsl` plugin, sam-with-receiver, assignment operator overload
 * shared resources
 * applications
+* dependencies + version catalogs
 ****
 
 
