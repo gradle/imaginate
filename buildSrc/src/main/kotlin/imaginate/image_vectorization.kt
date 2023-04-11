@@ -3,13 +3,13 @@ package imaginate
 import com.xcl.imagetracer_mod.ImageTracer
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.ConfigurableFileCollection
-import org.gradle.api.file.RegularFileProperty
+import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.CacheableTask
 import org.gradle.api.tasks.Classpath
 import org.gradle.api.tasks.Input
-import org.gradle.api.tasks.InputFile
-import org.gradle.api.tasks.OutputFile
+import org.gradle.api.tasks.InputDirectory
+import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.PathSensitive
 import org.gradle.api.tasks.PathSensitivity
 import org.gradle.api.tasks.TaskAction
@@ -21,15 +21,15 @@ import javax.inject.Inject
 
 interface ImageVectorizationInputs {
 
-    @get:InputFile
-    @get:PathSensitive(PathSensitivity.NONE)
-    abstract val image: RegularFileProperty
+    @get:InputDirectory
+    @get:PathSensitive(PathSensitivity.RELATIVE)
+    abstract val bitmapsDirectory: DirectoryProperty
 
     @get:Input
     abstract val palleteSize: Property<Int>
 
-    @get:OutputFile
-    abstract val vector: RegularFileProperty
+    @get:OutputDirectory
+    abstract val outputDirectory: DirectoryProperty
 }
 
 @CacheableTask
@@ -44,9 +44,9 @@ abstract class VectorizeImage : DefaultTask(), ImageVectorizationInputs {
         workers.classLoaderIsolation {
             classpath.from(workerClasspath)
         }.submit(ImageVectorizationWork::class) {
-            image.set(this@VectorizeImage.image)
+            bitmapsDirectory.set(this@VectorizeImage.bitmapsDirectory)
             palleteSize.set(this@VectorizeImage.palleteSize)
-            vector.set(this@VectorizeImage.vector)
+            outputDirectory.set(this@VectorizeImage.outputDirectory)
         }
     }
 
@@ -62,13 +62,28 @@ internal
 abstract class ImageVectorizationWork : WorkAction<ImageVectorizationParameters> {
 
     override fun execute(): Unit = parameters.run {
-        vector.get().asFile.writeText(
-            ImageTracer.imageToSVG(
-                image.get().asFile.absolutePath,
-                options,
-                palette(palleteSize.get())
-            )
-        )
+        val imagesDir = bitmapsDirectory.get().asFile
+        val outputDir = outputDirectory.get()
+        imagesDir.walkTopDown()
+            .filter { it.isFile }
+            .forEach { bitmapFile ->
+                val svgFile = outputDir.file(buildString {
+                    append(
+                        bitmapFile.parentFile
+                            .relativeTo(imagesDir)
+                            .resolve(bitmapFile.nameWithoutExtension)
+                    )
+                    append(".svg")
+                }).asFile
+                svgFile.parentFile.mkdirs()
+                svgFile.writeText(
+                    ImageTracer.imageToSVG(
+                        bitmapFile.absolutePath,
+                        options,
+                        palette(palleteSize.get())
+                    )
+                )
+            }
     }
 
     private
