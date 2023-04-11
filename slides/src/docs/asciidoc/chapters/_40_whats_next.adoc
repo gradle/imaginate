@@ -1,0 +1,24 @@
+[background-color="#02303a"]
+== What's next?
+image::gradle/bg-7.png[background, size=cover]
+
+
+== What's next? [.small]#- KotlinDSL#
+image::gradle/bg-7.png[background, size=cover]
+
+* Usability
+** Simpler container dsl
+** DSL reference improvements
+** Kotlin and Kotlin DSL version management
+** etc...
+* Performance
+** First-use
+** Precompiled script plugins
+** Script compilation avoidance
+** etc...
+
+
+== What's next? [.small]#- Configuration Cache#
+image::gradle/bg-7.png[background, size=cover]
+
+* etc...
