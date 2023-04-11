@@ -2,10 +2,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import com.russhwolf.settings.Settings
-import com.russhwolf.settings.StorageSettings
-import com.russhwolf.settings.set
 import imaginate.generation.ImageGenerator
+import imaginate.shared.settings.ImaginateSettings
+import imaginate.shared.settings.createImaginateSettings
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.web.attributes.*
 import org.jetbrains.compose.web.css.*
@@ -111,25 +110,9 @@ fun ImagePrompt(apiKey: String, onClearApiKey: () -> Unit) {
     }
 }
 
-class ImaginateSettings(
-    private val settings: Settings
-) {
-
-    private
-    val apiKeyState = mutableStateOf(settings.getStringOrNull("api-key"))
-
-    var apiKey: String?
-        get() = apiKeyState.value
-        set(value) {
-            settings["api-key"] = value
-            apiKeyState.value = value
-        }
-}
-
-
 fun main() {
     renderComposable(rootElementId = "root") {
         Style(MyStyleSheet)
-        App(ImaginateSettings(StorageSettings()))
+        App(createImaginateSettings())
     }
 }

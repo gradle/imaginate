@@ -1,7 +1,8 @@
 package imaginate.shared.settings
 
-import com.russhwolf.settings.PreferencesSettings
+import com.russhwolf.settings.StorageSettings
+
 
 fun createImaginateSettings(): ImaginateSettings = DefaultImaginateSettings(
-    PreferencesSettings.Factory().create()
+    StorageSettings()
 )

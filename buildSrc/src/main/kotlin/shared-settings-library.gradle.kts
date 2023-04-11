@@ -1,13 +1,14 @@
 plugins {
-    id("kotlin-js-executable")
+    id("android-library")
+    id("kotlin-js-library")
+    id("kotlin-jvm-component")
     id("kotlin-compose-component")
 }
 
 kotlin {
     sourceSets {
-        named("jsMain") {
+        commonMain {
             dependencies {
-                implementation(compose.html.core)
                 implementation(compose.runtime)
             }
         }

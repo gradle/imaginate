@@ -1,5 +1,5 @@
 plugins {
-    id("shared-logic-library")
+    id("shared-settings-library")
 }
 
 kotlin {

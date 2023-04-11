@@ -4,13 +4,12 @@ import imaginate.jvm
 import imaginate.libs
 
 plugins {
-    id("com.android.library")
+    id("android-library")
     id("kotlin-jvm-component")
     id("kotlin-compose-component")
 }
 
 kotlin {
-    android()
     sourceSets {
         named("commonMain") {
             dependencies {
@@ -20,19 +19,5 @@ kotlin {
                 implementation(compose.preview)
             }
         }
-    }
-}
-
-android {
-
-    compileSdk = libs.androidCompileSdk
-
-    defaultConfig {
-        minSdk = libs.androidMinSdk
-    }
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.toVersion(libs.jvm)
-        targetCompatibility = JavaVersion.toVersion(libs.jvm)
     }
 }

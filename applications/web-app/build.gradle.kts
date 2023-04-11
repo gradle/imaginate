@@ -6,6 +6,7 @@ kotlin {
     sourceSets {
         jsMain {
             dependencies {
+                implementation(projects.sharedSettings)
                 implementation(libs.imaginate.imageGeneration)
                 implementation(libs.multiplatform.settings)
             }
