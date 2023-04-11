@@ -3,8 +3,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import imaginate.generation.ImageGenerator
-import imaginate.shared.settings.ImaginateSettings
-import imaginate.shared.settings.createImaginateSettings
+import imaginate.shared.logic.ImaginateSettings
+import imaginate.shared.logic.createImaginateSettings
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.web.attributes.*
 import org.jetbrains.compose.web.css.*
