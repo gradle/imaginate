@@ -46,7 +46,7 @@ fun App(settings: ImaginateSettings) {
         }
 
         else -> {
-            ImagePrompt(apiKey)
+            ImagePrompt(apiKey, onClearApiKey = { settings.apiKey = null })
         }
     }
 }
@@ -76,7 +76,7 @@ fun ApiKeyPrompt(onApiKey: (String) -> Unit) {
 
 
 @Composable
-fun ImagePrompt(apiKey: String) {
+fun ImagePrompt(apiKey: String, onClearApiKey: () -> Unit) {
     val (prompt, setPrompt) = remember { mutableStateOf("") }
     val (imageSrc, setImageSrc) = remember { mutableStateOf<String?>(null) }
     val imageGenerator = remember { ImageGenerator(apiKey) }
@@ -85,9 +85,11 @@ fun ImagePrompt(apiKey: String) {
 
     @OptIn(ExperimentalEncodingApi::class)
     fun loadNewImage() = coroutineScope.launch {
-        setImageSrc("data:image/jpeg;charset=utf-8;base64,${
-            Base64.encode(imageGenerator.generate(prompt))
-        }")
+        setImageSrc(
+            "data:image/jpeg;charset=utf-8;base64,${
+                Base64.encode(imageGenerator.generate(prompt))
+            }"
+        )
     }
 
     TextInput {
@@ -102,6 +104,10 @@ fun ImagePrompt(apiKey: String) {
         Div {
             Img(imageSrc)
         }
+    }
+    Br()
+    Button({ onClick { onClearApiKey() } }) {
+        Text("Clear API key")
     }
 }
 

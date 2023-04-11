@@ -31,7 +31,7 @@ fun App(settings: ImaginateSettings) {
                 }
 
                 else -> {
-                    ImagePrompt(apiKey)
+                    ImagePrompt(apiKey, onClearApiKey = { settings.apiKey = null })
                 }
             }
 
@@ -53,7 +53,7 @@ fun ApiKeyPrompt(onApiKey: (String) -> Unit) {
 }
 
 @Composable
-fun ImagePrompt(apiKey: String) {
+fun ImagePrompt(apiKey: String, onClearApiKey: () -> Unit) {
     val (prompt, setPrompt) = remember { mutableStateOf("") }
     val (image, setImage) = remember { mutableStateOf<ImageBitmap?>(null) }
     val imageGenerator = remember { ImageGenerator(apiKey) }
@@ -74,5 +74,8 @@ fun ImagePrompt(apiKey: String) {
     }
     if (image != null) {
         Image(image, prompt)
+    }
+    Button(onClick = { onClearApiKey() }) {
+        Text("Clear API key")
     }
 }
