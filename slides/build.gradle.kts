@@ -6,7 +6,7 @@ plugins {
     id("java-base")
     id("org.asciidoctor.jvm.revealjs") version "4.0.0-alpha.1"
     id("io.freefair.sass-base") version "8.0.1"
-    id("org.ajoberstar.git-publish") version "3.0.1"
+    // id("org.ajoberstar.git-publish") version "3.0.1"
 }
 
 repositories {
@@ -144,11 +144,11 @@ tasks {
     }
 }
 
-gitPublish {
-    repoUri = "git@github.com:gradle/gradle-kotlinconf-2023-app.git"
-    branch = "gh-pages"
-    contents {
-        from(tasks.asciidoctorRevealJs)
-    }
-    commitMessage = "Publish slides"
-}
+//gitPublish {
+//    repoUri = "git@github.com:gradle/gradle-kotlinconf-2023-app.git"
+//    branch = "gh-pages"
+//    contents {
+//        from(tasks.asciidoctorRevealJs)
+//    }
+//    commitMessage = "Publish slides"
+//}
