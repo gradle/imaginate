@@ -3,11 +3,12 @@ package imaginate
 import com.android.ide.common.vectordrawable.Svg2Vector
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.ConfigurableFileCollection
+import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.tasks.CacheableTask
 import org.gradle.api.tasks.Classpath
 import org.gradle.api.tasks.InputFile
-import org.gradle.api.tasks.OutputFile
+import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.PathSensitive
 import org.gradle.api.tasks.PathSensitivity
 import org.gradle.api.tasks.TaskAction
@@ -23,8 +24,8 @@ interface DrawAndroidImageInputs {
     @get:PathSensitive(PathSensitivity.NONE)
     abstract val vector: RegularFileProperty
 
-    @get:OutputFile
-    abstract val drawable: RegularFileProperty
+    @get:OutputDirectory
+    abstract val outputDirectory: DirectoryProperty
 }
 
 @CacheableTask
@@ -40,7 +41,7 @@ abstract class DrawAndroidImage : DefaultTask(), DrawAndroidImageInputs {
             classpath.from(workerClasspath)
         }.submit(DrawAndroidImageWork::class) {
             vector.set(this@DrawAndroidImage.vector)
-            drawable.set(this@DrawAndroidImage.drawable)
+            outputDirectory.set(this@DrawAndroidImage.outputDirectory)
         }
     }
 
@@ -57,7 +58,9 @@ abstract class DrawAndroidImageWork : WorkAction<DrawAndroidImageParameters> {
 
     override fun execute(): Unit = parameters.run {
         val svgFile = vector.get().asFile
-        val xmlFile = drawable.get().asFile
+        val outputPath = "drawable-anydpi-v26/${svgFile.nameWithoutExtension}.xml"
+        val xmlFile = outputDirectory.file(outputPath).get().asFile
+        xmlFile.parentFile.mkdirs()
         xmlFile.outputStream().use { output ->
             val errors: String = try {
                 Svg2Vector.parseSvgToXml(svgFile, output)

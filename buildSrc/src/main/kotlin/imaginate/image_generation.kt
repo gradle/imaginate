@@ -4,12 +4,12 @@ import imaginate.generation.ImageGenerator
 import kotlinx.coroutines.runBlocking
 import org.gradle.api.DefaultTask
 import org.gradle.api.Named
+import org.gradle.api.attributes.Attribute
 import org.gradle.api.file.ConfigurableFileCollection
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.provider.Property
 import org.gradle.api.services.BuildService
 import org.gradle.api.services.BuildServiceParameters
-import org.gradle.api.tasks.CacheableTask
 import org.gradle.api.tasks.Classpath
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.Optional
@@ -21,6 +21,17 @@ import org.gradle.workers.WorkAction
 import org.gradle.workers.WorkParameters
 import org.gradle.workers.WorkerExecutor
 import javax.inject.Inject
+
+interface ImageFormat : Named {
+    companion object {
+
+        val IMAGE_FORMAT_ATTRIBUTE: Attribute<ImageFormat> =
+            Attribute.of("imageFormat", ImageFormat::class.java)
+
+        val BITMAP = "bitmap"
+        val DRAWABLE = "drawable"
+    }
+}
 
 abstract class ImageSpec(private val name: String) : Named, ImageInputs {
 

@@ -1,5 +1,5 @@
 plugins {
-    id("generated-images")
+    id("shared-resources")
 }
 
 generatedImages {

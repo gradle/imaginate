@@ -1,4 +1,5 @@
 import imaginate.buildCredentials
+import imaginate.ImageFormat
 import imaginate.imageGeneration
 import imaginate.DrawAndroidImage
 import imaginate.capitalized
@@ -15,6 +16,7 @@ plugins {
     id("build-credentials")
 }
 
+// External tool dependencies
 val imageGenerationClasspath = configurations.register("imageGenerationClasspath") {
     isCanBeResolved = true
     isCanBeConsumed = false
@@ -27,18 +29,13 @@ val svgToDrawableClasspath = configurations.register("svgToDrawableClasspath") {
     isCanBeResolved = true
     isCanBeConsumed = false
 }
-
 dependencies {
     imageGenerationClasspath.name(libs.imageGeneration)
     imageTracerClasspath.name(libs.imageTracer)
     svgToDrawableClasspath.name(libs.svg2vector)
 }
 
-val generatedImages = objects.domainObjectContainer(ImageSpec::class)
-extensions.add("generatedImages", generatedImages)
-
-val lifecycleTask = tasks.register("generateImages")
-
+// Image generation concurrently control
 val imageGenerationSemaphore = gradle.sharedServices.registerIfAbsent(
     "imageGenerationSemaphore",
     ImageGenerationSemaphore::class
@@ -46,6 +43,28 @@ val imageGenerationSemaphore = gradle.sharedServices.registerIfAbsent(
     maxParallelUsages = 1
 }
 
+// Published variants for consumption from other projects
+val bitmapImages = configurations.create("bitmapImages") {
+    isCanBeConsumed = true
+    isCanBeResolved = false
+    attributes {
+        attribute(ImageFormat.IMAGE_FORMAT_ATTRIBUTE, objects.named(ImageFormat.BITMAP))
+    }
+}
+val drawableImages = configurations.create("drawableImages") {
+    isCanBeConsumed = true
+    isCanBeResolved = false
+    attributes {
+        attribute(ImageFormat.IMAGE_FORMAT_ATTRIBUTE, objects.named(ImageFormat.DRAWABLE))
+    }
+}
+
+// Custom DSL
+val generatedImages = objects.domainObjectContainer(ImageSpec::class)
+extensions.add("generatedImages", generatedImages)
+
+// Custom tasks
+val lifecycleTask = tasks.register("generateImages")
 generatedImages.all {
     val inputs = this
     val baseTaskName = "${inputs.name.capitalized()}Image"
@@ -67,20 +86,15 @@ generatedImages.all {
     val drawable = tasks.register("draw$baseTaskName", DrawAndroidImage::class) {
         workerClasspath.from(svgToDrawableClasspath)
         vector = vectorization.flatMap { it.vector }
-        drawable = layout.buildDirectory.file("generated-drawables/${inputs.name}.xml")
+        outputDirectory = layout.buildDirectory.dir("generated-drawables")
     }
     lifecycleTask {
         dependsOn(drawable)
     }
 
-    // Sharing outputs to other projects
-    val sharedConfiguration = configurations.create("shared${inputs.name.capitalized()}") {
-        isCanBeConsumed = true
-        isCanBeResolved = false
-    }
+    // Publishing outputs to other projects
     artifacts {
-        add(sharedConfiguration.name, generation.flatMap { it.image })
-        add(sharedConfiguration.name, vectorization.flatMap { it.vector })
-        add(sharedConfiguration.name, drawable.flatMap { it.drawable })
+        add(bitmapImages.name, generation.flatMap { it.image })
+        add(drawableImages.name, drawable.flatMap { it.outputDirectory })
     }
 }
