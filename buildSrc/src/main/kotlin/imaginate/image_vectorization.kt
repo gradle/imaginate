@@ -16,6 +16,7 @@ import org.gradle.api.tasks.PathSensitivity
 import org.gradle.api.tasks.TaskAction
 import org.gradle.kotlin.dsl.submit
 import org.gradle.work.ChangeType
+import org.gradle.work.FileChange
 import org.gradle.work.Incremental
 import org.gradle.work.InputChanges
 import org.gradle.workers.WorkAction
@@ -50,34 +51,35 @@ abstract class VectorizeImage : DefaultTask() {
     abstract val workers: WorkerExecutor
 
     @TaskAction
-    fun action(inputChanges: InputChanges) {
-        val bitmapsDir = bitmapsDirectory.get().asFile
+    fun action(inputChanges: InputChanges) =
         inputChanges.getFileChanges(bitmapsDirectory).forEach { change ->
-            if (change.fileType == FileType.DIRECTORY) return@forEach
-            val targetFile = outputDirectory.get()
-                .file(buildString {
-                    append(
-                        change.file
-                            .parentFile
-                            .relativeTo(bitmapsDir)
-                            .resolve(change.file.nameWithoutExtension)
-                    )
-                    append(".svg")
-                })
-                .asFile
-            if (change.changeType == ChangeType.REMOVED) {
-                targetFile.delete()
-            } else {
-                workers.classLoaderIsolation {
-                    classpath.from(workerClasspath)
-                }.submit(ImageVectorizationWork::class) {
-                    bitmap.set(change.file)
-                    palleteSize.set(this@VectorizeImage.palleteSize)
-                    vector.set(targetFile)
-                }
+            when (change.fileType) {
+                FileType.DIRECTORY -> return@forEach
+                else -> onFileChange(change)
             }
         }
-    }
+
+    private
+    fun onFileChange(change: FileChange) =
+        outputDirectory.get()
+            .file(change.targetPathWithExtension(bitmapsDirectory.get().asFile, "svg"))
+            .asFile.let { targetFile ->
+
+                when (change.changeType) {
+                    ChangeType.REMOVED -> targetFile.delete()
+                    else -> convert(change.file, targetFile)
+                }
+            }
+
+    private
+    fun convert(bitmapFile: File, vectorFile: File) =
+        workers.classLoaderIsolation {
+            classpath.from(workerClasspath)
+        }.submit(ImageVectorizationWork::class) {
+            bitmap.set(bitmapFile)
+            palleteSize.set(this@VectorizeImage.palleteSize)
+            vector.set(vectorFile)
+        }
 }
 
 internal
@@ -146,4 +148,11 @@ abstract class ImageVectorizationWork : WorkAction<ImageVectorizationParameters>
         }
         return palette
     }
+}
+
+internal
+fun FileChange.targetPathWithExtension(baseDir: File, extension: String): String = buildString {
+    append(file.parentFile.relativeTo(baseDir).resolve(file.nameWithoutExtension))
+    append(".")
+    append(extension)
 }
