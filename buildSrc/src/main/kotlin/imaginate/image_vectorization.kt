@@ -4,6 +4,7 @@ import com.xcl.imagetracer_mod.ImageTracer
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.ConfigurableFileCollection
 import org.gradle.api.file.DirectoryProperty
+import org.gradle.api.file.FileType
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.CacheableTask
 import org.gradle.api.tasks.Classpath
@@ -14,76 +15,94 @@ import org.gradle.api.tasks.PathSensitive
 import org.gradle.api.tasks.PathSensitivity
 import org.gradle.api.tasks.TaskAction
 import org.gradle.kotlin.dsl.submit
+import org.gradle.work.ChangeType
+import org.gradle.work.FileChange
+import org.gradle.work.Incremental
+import org.gradle.work.InputChanges
 import org.gradle.workers.WorkAction
 import org.gradle.workers.WorkParameters
 import org.gradle.workers.WorkerExecutor
+import java.io.File
 import javax.inject.Inject
 
-interface ImageVectorizationInputs {
-
-    @get:InputDirectory
-    @get:PathSensitive(PathSensitivity.RELATIVE)
-    abstract val bitmapsDirectory: DirectoryProperty
-
-    @get:Input
-    abstract val palleteSize: Property<Int>
-
-    @get:OutputDirectory
-    abstract val outputDirectory: DirectoryProperty
-}
-
 @CacheableTask
-abstract class VectorizeImage : DefaultTask(), ImageVectorizationInputs {
+abstract class VectorizeImage : DefaultTask() {
 
     @get:Classpath
     internal
     abstract val workerClasspath: ConfigurableFileCollection
 
-    @TaskAction
-    fun action() {
-        workers.classLoaderIsolation {
-            classpath.from(workerClasspath)
-        }.submit(ImageVectorizationWork::class) {
-            bitmapsDirectory.set(this@VectorizeImage.bitmapsDirectory)
-            palleteSize.set(this@VectorizeImage.palleteSize)
-            outputDirectory.set(this@VectorizeImage.outputDirectory)
-        }
-    }
+    @get:Incremental
+    @get:InputDirectory
+    @get:PathSensitive(PathSensitivity.RELATIVE)
+    internal
+    abstract val bitmapsDirectory: DirectoryProperty
+
+    @get:Input
+    internal
+    abstract val palleteSize: Property<Int>
+
+    @get:OutputDirectory
+    internal
+    abstract val outputDirectory: DirectoryProperty
 
     @get:Inject
     protected
     abstract val workers: WorkerExecutor
+
+    @TaskAction
+    fun action(inputChanges: InputChanges) =
+        inputChanges.getFileChanges(bitmapsDirectory).forEach { change ->
+            when (change.fileType) {
+                FileType.DIRECTORY -> return@forEach
+                else -> onFileChange(change)
+            }
+        }
+
+    private
+    fun onFileChange(change: FileChange) =
+        outputDirectory.get()
+            .file(change.targetPathWithExtension(bitmapsDirectory.get().asFile, "svg"))
+            .asFile.let { targetFile ->
+
+                when (change.changeType) {
+                    ChangeType.REMOVED -> targetFile.delete()
+                    else -> convert(change.file, targetFile)
+                }
+            }
+
+    private
+    fun convert(bitmapFile: File, vectorFile: File) =
+        workers.classLoaderIsolation {
+            classpath.from(workerClasspath)
+        }.submit(ImageVectorizationWork::class) {
+            bitmap.set(bitmapFile)
+            palleteSize.set(this@VectorizeImage.palleteSize)
+            vector.set(vectorFile)
+        }
 }
 
 internal
-abstract class ImageVectorizationParameters : WorkParameters, ImageVectorizationInputs
+abstract class ImageVectorizationParameters : WorkParameters {
+    abstract val bitmap: Property<File>
+    abstract val palleteSize: Property<Int>
+    abstract val vector: Property<File>
+}
 
 internal
 abstract class ImageVectorizationWork : WorkAction<ImageVectorizationParameters> {
 
     override fun execute(): Unit = parameters.run {
-        val imagesDir = bitmapsDirectory.get().asFile
-        val outputDir = outputDirectory.get()
-        imagesDir.walkTopDown()
-            .filter { it.isFile }
-            .forEach { bitmapFile ->
-                val svgFile = outputDir.file(buildString {
-                    append(
-                        bitmapFile.parentFile
-                            .relativeTo(imagesDir)
-                            .resolve(bitmapFile.nameWithoutExtension)
-                    )
-                    append(".svg")
-                }).asFile
-                svgFile.parentFile.mkdirs()
-                svgFile.writeText(
-                    ImageTracer.imageToSVG(
-                        bitmapFile.absolutePath,
-                        options,
-                        palette(palleteSize.get())
-                    )
+        vector.get().let { svgFile ->
+            svgFile.parentFile.mkdirs()
+            svgFile.writeText(
+                ImageTracer.imageToSVG(
+                    bitmap.get().absolutePath,
+                    options,
+                    palette(palleteSize.get())
                 )
-            }
+            )
+        }
     }
 
     private
@@ -129,4 +148,11 @@ abstract class ImageVectorizationWork : WorkAction<ImageVectorizationParameters>
         }
         return palette
     }
+}
+
+internal
+fun FileChange.targetPathWithExtension(baseDir: File, extension: String): String = buildString {
+    append(file.parentFile.relativeTo(baseDir).resolve(file.nameWithoutExtension))
+    append(".")
+    append(extension)
 }
