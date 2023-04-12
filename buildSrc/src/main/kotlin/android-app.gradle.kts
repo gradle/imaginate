@@ -10,6 +10,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("kotlin-compose-component")
+    id("shared-resources-consumer")
 }
 
 java {
@@ -29,6 +30,10 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.toVersion(libs.jvm)
         targetCompatibility = JavaVersion.toVersion(libs.jvm)
+    }
+
+    applicationVariants.all {
+        registerGeneratedResFolders(files(tasks.named("sharedDrawables")))
     }
 }
 
