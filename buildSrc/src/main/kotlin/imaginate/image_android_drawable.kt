@@ -15,6 +15,7 @@ import org.gradle.api.tasks.PathSensitivity
 import org.gradle.api.tasks.TaskAction
 import org.gradle.kotlin.dsl.submit
 import org.gradle.work.ChangeType
+import org.gradle.work.FileChange
 import org.gradle.work.Incremental
 import org.gradle.work.InputChanges
 import org.gradle.workers.WorkAction
@@ -43,34 +44,34 @@ abstract class DrawAndroidImage : DefaultTask() {
     abstract val workers: WorkerExecutor
 
     @TaskAction
-    fun action(inputChanges: InputChanges) {
-        val vectorsDir = vectorsDirectory.get().asFile
+    fun action(inputChanges: InputChanges) =
         inputChanges.getFileChanges(vectorsDirectory).forEach { change ->
-            if (change.fileType == FileType.DIRECTORY) return@forEach
-            val targetFile = outputDirectory.get()
-                .dir("drawable-anydpi-v26")
-                .file(buildString {
-                    append(
-                        change.file
-                            .parentFile
-                            .relativeTo(vectorsDir)
-                            .resolve(change.file.nameWithoutExtension)
-                    )
-                    append(".xml")
-                })
-                .asFile
-            if (change.changeType == ChangeType.REMOVED) {
-                targetFile.delete()
-            } else {
-                workers.classLoaderIsolation {
-                    classpath.from(workerClasspath)
-                }.submit(DrawAndroidImageWork::class) {
-                    vector.set(change.file)
-                    drawable.set(targetFile)
-                }
+            when (change.fileType) {
+                FileType.DIRECTORY -> return@forEach
+                else -> onFileChange(change)
             }
         }
-    }
+
+    private
+    fun onFileChange(change: FileChange) =
+        outputDirectory.get().dir("drawable-anydpi-v26")
+            .file(change.targetPathWithExtension(vectorsDirectory.get().asFile, "xml"))
+            .asFile.let { targetFile ->
+
+                when (change.changeType) {
+                    ChangeType.REMOVED -> targetFile.delete()
+                    else -> convert(change.file, targetFile)
+                }
+            }
+
+    private
+    fun convert(vectorFile: File, drawableFile: File) =
+        workers.classLoaderIsolation {
+            classpath.from(workerClasspath)
+        }.submit(DrawAndroidImageWork::class) {
+            vector.set(vectorFile)
+            drawable.set(drawableFile)
+        }
 }
 
 internal
