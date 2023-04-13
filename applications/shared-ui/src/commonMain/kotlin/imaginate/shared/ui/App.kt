@@ -47,7 +47,7 @@ fun ApiKeyPrompt(onApiKey: (String) -> Unit) {
         onValueChange = setApiKey,
         placeholder = { Text("Type your API key") }
     )
-    Button(onClick = { onApiKey(apiKey) }) {
+    Button(onClick = { onApiKey(apiKey) }, enabled = apiKey.isNotBlank()) {
         Text("Accept")
     }
 }
@@ -69,7 +69,7 @@ fun ImagePrompt(apiKey: String, onClearApiKey: () -> Unit) {
         onValueChange = setPrompt,
         placeholder = { Text("Type your prompt") }
     )
-    Button(onClick = ::loadNewImage) {
+    Button(onClick = ::loadNewImage, enabled = prompt.isNotBlank()) {
         Text("Generate new image!")
     }
     if (image != null) {
