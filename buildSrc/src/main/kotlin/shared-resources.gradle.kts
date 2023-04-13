@@ -7,6 +7,8 @@ import imaginate.ImageSpec
 import imaginate.imageTracer
 import imaginate.GenerateImages
 import imaginate.libs
+import imaginate.registerDependencyBucket
+import imaginate.registerOutgoingImages
 import imaginate.svg2vector
 import imaginate.VectorizeImage
 
@@ -21,6 +23,7 @@ extensions.add("generatedImages", generatedImages)
 
 
 // Image generation concurrently control
+internal
 val imageGenerationSemaphore = gradle.sharedServices.registerIfAbsent(
     "imageGenerationSemaphore",
     ImageGenerationSemaphore::class
@@ -30,39 +33,24 @@ val imageGenerationSemaphore = gradle.sharedServices.registerIfAbsent(
 
 
 // Published variants for consumption from other projects
-val bitmapImages = configurations.create("bitmapImages") {
-    isCanBeConsumed = true
-    isCanBeResolved = false
-    attributes {
-        attribute(ImageFormat.IMAGE_FORMAT_ATTRIBUTE, objects.named(ImageFormat.BITMAP))
-    }
-}
-val drawableImages = configurations.create("drawableImages") {
-    isCanBeConsumed = true
-    isCanBeResolved = false
-    attributes {
-        attribute(ImageFormat.IMAGE_FORMAT_ATTRIBUTE, objects.named(ImageFormat.DRAWABLE))
-    }
-}
+val bitmapImages = configurations.registerOutgoingImages(
+    "bitmapImages",
+    objects.named(ImageFormat.BITMAP)
+)
+val drawableImages = configurations.registerOutgoingImages(
+    "drawableImages",
+    objects.named(ImageFormat.DRAWABLE)
+)
 
 
 // External tool dependencies
-val imageGenerationClasspath = configurations.register("imageGenerationClasspath") {
-    isCanBeResolved = true
-    isCanBeConsumed = false
-}
-val imageTracerClasspath = configurations.register("imageTracerClasspath") {
-    isCanBeResolved = true
-    isCanBeConsumed = false
-}
-val svgToDrawableClasspath = configurations.register("svgToDrawableClasspath") {
-    isCanBeResolved = true
-    isCanBeConsumed = false
-}
+val imageGenerationClasspath = configurations.registerDependencyBucket("imageGenerationClasspath")
+val imageTracerClasspath = configurations.registerDependencyBucket("imageTracerClasspath")
+val svgToDrawableClasspath = configurations.registerDependencyBucket("svgToDrawableClasspath")
 dependencies {
-    imageGenerationClasspath.name(libs.imageGeneration)
-    imageTracerClasspath.name(libs.imageTracer)
-    svgToDrawableClasspath.name(libs.svg2vector)
+    imageGenerationClasspath(libs.imageGeneration)
+    imageTracerClasspath(libs.imageTracer)
+    svgToDrawableClasspath(libs.svg2vector)
 }
 
 
