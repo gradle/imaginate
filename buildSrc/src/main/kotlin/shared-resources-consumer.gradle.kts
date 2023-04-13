@@ -1,20 +1,20 @@
-import imaginate.ImageFormat
+import imaginate.ImageFormat.Companion.DRAWABLE
+import imaginate.ImageFormat.Companion.BITMAP
+import imaginate.registerIncomingImages
 
-val sharedBitmaps = configurations.register("sharedBitmaps") {
-    attributes {
-        attribute(ImageFormat.IMAGE_FORMAT_ATTRIBUTE, objects.named(ImageFormat.BITMAP))
-    }
-}
+val sharedBitmaps = configurations.registerIncomingImages(
+    "sharedBitmaps",
+    objects.named(BITMAP)
+)
 tasks.register("sharedBitmaps", Sync::class) {
     from(sharedBitmaps)
     into(layout.buildDirectory.dir("shared-bitmaps"))
 }
 
-val sharedDrawables = configurations.register("sharedDrawables") {
-    attributes {
-        attribute(ImageFormat.IMAGE_FORMAT_ATTRIBUTE, objects.named(ImageFormat.DRAWABLE))
-    }
-}
+val sharedDrawables = configurations.registerIncomingImages(
+    "sharedDrawables",
+    objects.named(DRAWABLE)
+)
 tasks.register("sharedDrawables", Sync::class) {
     from(sharedDrawables)
     into(layout.buildDirectory.dir("shared-drawables"))

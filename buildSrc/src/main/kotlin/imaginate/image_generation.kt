@@ -4,7 +4,6 @@ import imaginate.generation.ImageGenerator
 import kotlinx.coroutines.runBlocking
 import org.gradle.api.DefaultTask
 import org.gradle.api.Named
-import org.gradle.api.attributes.Attribute
 import org.gradle.api.file.ConfigurableFileCollection
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.provider.ListProperty
@@ -24,20 +23,6 @@ import org.gradle.workers.WorkParameters
 import org.gradle.workers.WorkerExecutor
 import java.io.Serializable
 import javax.inject.Inject
-
-
-interface ImageFormat : Named {
-    companion object {
-
-        val IMAGE_FORMAT_ATTRIBUTE: Attribute<ImageFormat> =
-            Attribute.of("imageFormat", ImageFormat::class.java)
-
-        val BITMAP = "bitmap"
-        val DRAWABLE = "drawable"
-    }
-}
-
-abstract class ImageGenerationSemaphore : BuildService<BuildServiceParameters.None>
 
 abstract class ImageSpec(private val name: String) : Named {
 
@@ -60,6 +45,9 @@ abstract class ImageSpec(private val name: String) : Named {
     }
 }
 
+internal
+abstract class ImageGenerationSemaphore : BuildService<BuildServiceParameters.None>
+
 @DisableCachingByDefault(because = "Outputs are commited to git")
 abstract class GenerateImages : DefaultTask() {
 
@@ -69,12 +57,15 @@ abstract class GenerateImages : DefaultTask() {
 
     @get:Input
     @get:Optional
+    internal
     abstract val apiKey: Property<String>
 
     @get:Nested
+    internal
     abstract val images: ListProperty<ImageSpec>
 
     @get:OutputDirectory
+    internal
     abstract val outputDirectory: DirectoryProperty
 
     @get:Inject
@@ -96,15 +87,7 @@ abstract class GenerateImages : DefaultTask() {
             classpath.from(workerClasspath)
         }.submit(GenerateImageWork::class) {
             apiKey.set(this@GenerateImages.apiKey)
-            images.set(
-                this@GenerateImages.images.get().map {
-                    ImageSpecIsolate(
-                        it.name,
-                        it.prompt.get(),
-                        it.width.get(),
-                        it.height.get()
-                    )
-                })
+            images.set(this@GenerateImages.images.get().map { ImageSpecIsolate(it) })
             outputDirectory.set(this@GenerateImages.outputDirectory)
         }
     }
@@ -144,7 +127,11 @@ data class ImageSpecIsolate(
     val prompt: String,
     val width: Int,
     val height: Int
-) : Serializable
+) : Serializable {
+
+    constructor(spec: ImageSpec) :
+            this(spec.name, spec.prompt.get(), spec.width.get(), spec.height.get())
+}
 
 internal
 abstract class GenerateImageWork : WorkAction<GenerateImageParameters> {
