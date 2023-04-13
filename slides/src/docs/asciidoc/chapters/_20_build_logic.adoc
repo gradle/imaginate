@@ -34,12 +34,15 @@ include::../fragments/_diagram_build-logic-graph.adoc[]
 === Build logic [.small]#- Overview#
 image::gradle/bg-7.png[background, size=cover]
 
+// TODO update content below
+
 [cols="<.^3,<.^7",frame=none,grid=none]
 |===
 a|
 .`settings.gradle.kts`
 [source,kotlin]
 ----
+​
 includeBuild("image-generation")
 includeBuild("slides")
 
@@ -52,19 +55,30 @@ include("web-app")
 for (project in rootProject.children) {
     project.projectDir = file("applications/${project.name}")
 }
+​
 ----
 
 .`buildSrc/settings.gradle.kts`
 [source,kotlin]
 ----
+​
 includeBuild("../image-generation")
+​
 ----
 a|
 image::imaginate_tree.png[]
 |===
 
 
-=== Build logic [.small]#- Overview#
+=== Build logic [.small]#- Slides#
+image::gradle/bg-7.png[background, size=cover]
+
+TODO copy prompts from applications/shared-resources/build.gradle.kts
+
+TODO show generated icon and logo
+
+
+=== Build logic [.small]#- Exploration#
 image::gradle/bg-7.png[background, size=cover]
 
 image::gradle/folks.png[width=40%]
@@ -78,7 +92,7 @@ https://github.com/gradle/imaginate
 * used in the build logic
 * buildSrc - what is this?
 * task + isolation -> workerClasspath
-* convention plugin configuring tool dependencies (internal helpers)
+* configuring tool dependencies for isolation (internal helpers)
 * build service as a semaphore
 * shared resources custom DSL, registered extension
 * we are in a convention plugin
@@ -86,83 +100,10 @@ https://github.com/gradle/imaginate
 * generated accessor to the custom DSL extension
 * sam-with-receiver
 * assignment operator overload
-****
-
-
-=== Build logic [.small]#- `buildSrc`#
-image::gradle/bg-7.png[background, size=cover]
-
-Keep imperative logic out of project build script. +
-Expose declarative DSL from convention plugins instead.
-
-[cols="<.^4,<.^6",frame=none,grid=none]
-|===
-a|
-image::imaginate_buildSrc_tree.png[]
-a|
-.`applications/android-app/build.gradle.kts`
-[source,kotlin]
-----
-plugins {
-    id("android-app")
-}
-
-android {
-    namespace = "imaginate.android"
-}
-
-dependencies {
-    implementation(projects.sharedLogic)
-}
-----
-|===
-
-
-
-=== Build logic [.small]#- Building blocks#
-image::gradle/bg-7.png[background, size=cover]
-
-* Convention plugins
-** Put `.gradle.kts` files in `buildSrc/src/main/kotlin`
-** Apply them in project build scripts
-* Custom DSL
-** Use Gradle extensions and containers
-* Custom Tasks
-** Use the Worker API for isolation and parallelism
-* Helpers
-** Put `.kt` files `buildSrc/src/main/kotlin`
-** Prefer `internal` visibility to avoid the temptation
-
-
-=== Build logic [.small]#- `buildSrc`?#
-image::gradle/bg-7.png[background, size=cover]
-
-`buildSrc` vs `includeBuild` for build logic
-
-The main difference is that everything in `buildSrc` is made available in the owner build's root project, thus all its projects.
-With included builds you need to declare dependencies in order to use them.
-A `plugins {}` request for a plugin from an included build brings the jar build by the projects that contain the plugin.
-Regular `group:name(:version)` dependencies can also be used from `buildSrc`, or from `buildscript {}` blocks if necessary.
-
-Start with `buildSrc` and move to included builds if you need.
-For example as we showed Today for sharing logic between the build and the applications.
-Or if you want to isolate a portion of build logic.
-
-Since Gradle 8 `buildSrc` is much more like using included builds + link, making it simple to transition
-
-
-=== Build logic [.small]#- Exploration#
-image::gradle/bg-7.png[background, size=cover]
-
-image::gradle/folks.png[width=40%]
-
-[.center]
-https://github.com/gradle/imaginate
-
-[.notes]
-****
-* dependency management
-* applications
+* how do we consume the shared resources, web-app/build.gradle.kts
+* dependency on shared resources using generated accessors
+* show shared-resources-consumer convention plugin
+* go back to web-app -> BTW version catalogs
 ****
 
 
@@ -187,6 +128,7 @@ a|
 .`applications/web-app/build.gradle.kts`
 [source,kotlin]
 ----
+​
 plugins {
   id("web-app")
 }
@@ -211,17 +153,142 @@ kotlin {
     }
   }
 }
+​
 ----
 |===
+
+
+=== Build logic [.small]#- Building blocks#
+image::gradle/bg-7.png[background, size=cover]
+
+[cols="<.<5,<.<5",frame=none,grid=none]
+|===
+a|
+[.small]
+--
+*Convention plugins*
+
+* Put `.gradle.kts` files in `buildSrc/src/main/kotlin`
+* Apply them in project build scripts
+
+*Custom DSL*
+
+* Use Gradle extensions and containers
+--
+a|
+[.small]
+--
+*Helpers*
+
+* Put `.kt` files in `buildSrc/src/main/kotlin`
+* Prefer `internal` visibility
+
+*Custom Tasks*
+
+* Use the Worker API for isolation and parallelism
+--
+|===
+
+
+=== Build logic [.small]#- `buildSrc`#
+image::gradle/bg-7.png[background, size=cover]
+
+Keep imperative logic out of project build scripts. +
+Expose declarative DSL from convention plugins instead.
+
+[cols="<.^4,<.^6",frame=none,grid=none]
+|===
+a|
+image::imaginate_buildSrc_tree.png[]
+a|
+.`applications/android-app/build.gradle.kts`
+[source,kotlin]
+----
+​
+plugins {
+    id("android-app")
+}
+
+android {
+    namespace = "imaginate.android"
+}
+
+dependencies {
+    implementation(projects.sharedLogic)
+}
+​
+----
+|===
+
+
+=== Build logic [.small]#- `buildSrc`?#
+image::gradle/bg-7.png[background, size=cover]
+
+`buildSrc` vs `includeBuild` for build logic
+
+[cols="<.<5,<.<5",frame=none,grid=none]
+|===
+a|
+[.small]
+--
+*`buildSrc`*
+
+Everything is made available in the owner build's project scripts.
+
+You can directly use anything.
+--
+a|
+[.small]
+--
+*`includeBuild`*
+
+Nothing is made available by default.
+
+You have to declare dependencies.
+--
+.Convention plugins
+[source,kotlin]
+----
+plugins {
+    id("my-convention-plugin")
+}
+----
+.From `buildSrc`
+[source,kotlin]
+----
+dependencies {
+    implementation("my:included-build:latest")
+}
+----
+|===
+
+[.small]
+--
+Since Gradle 8.0, `buildSrc` is much more like included builds +
+https://docs.gradle.org/8.0/release-notes.html#improvements-for-buildsrc-builds
+--
+
+=== Build logic [.small]#- `buildSrc` first#
+image::gradle/bg-7.png[background, size=cover]
+
+Start with `buildSrc`, +
+move to included builds when you need to
+
+* share logic between the build and applications,
+* isolate a portion of build logic.
+
+Transition is simple +
+if you only use convention plugins
 
 
 === Build logic [.small]#- Learn more#
 image::gradle/bg-7.png[background, size=cover]
 
 * Gradle's Kotlin DSL
-** Documentation
-** Reference
+** link:https://docs.gradle.org/current/userguide/kotlin_dsl.html[Documentation]
+** link:https://docs.gradle.org/nightly/kotlin-dsl/[DSL Reference]
 * Build organization
-** Documentation
-** Jendrik's videos
-** Tony's and Cedric's blog posts
+** link:https://docs.gradle.org/current/userguide/multi_project_builds.html[Structuring individual builds]
+** link:https://docs.gradle.org/current/userguide/structuring_software_products.html[Structuring software products]
+** Jendrik's link:https://www.youtube.com/@jjohannes/playlists[Understanding Gradle] videos
+** link:https://dev.to/autonomousapps[Tony]'s and link:https://melix.github.io/blog/[Cédric]'s blog posts
