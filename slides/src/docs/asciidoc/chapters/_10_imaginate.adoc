@@ -20,6 +20,8 @@ image::gradle/bg-7.png[background, size=cover]
 
 image::gradle/folks.png[width=50%]
 
+https://github.com/gradle/imaginate
+
 [.notes]
 ****
 * start from the apps
