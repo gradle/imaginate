@@ -1,7 +1,7 @@
 [versions]
 jvm = "11"
 kotlin = "1.8.20"
-compose = "1.4.0-rc03"
+compose = "1.4.0"
 android = "7.4.2"
 android-sdk-compile = "33"
 android-sdk-min = "26"
