@@ -12,6 +12,7 @@ import io.ktor.client.statement.HttpResponse
 import io.ktor.client.statement.bodyAsText
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
@@ -43,7 +44,7 @@ class ImageGenerator private constructor(
         return if (response.status.value in 200..299) {
             Result.Success(response.body())
         } else {
-            Result.Failure("Failed to generate image '${response.bodyAsText()}'")
+            Result.Failure("Failed to generate image '${extractMessageFrom(response.bodyAsText())}'")
         }
     }
 
@@ -122,3 +123,21 @@ internal
 data class RequestPrompt(
     val text: String
 )
+
+@Serializable
+internal
+data class FailureResponse(
+    val message: String
+)
+
+private
+val partialJson = Json { ignoreUnknownKeys = true }
+
+internal
+fun extractMessageFrom(response: String): String =
+    try {
+        partialJson.decodeFromString<FailureResponse>(response).message
+    } catch (e: Exception) {
+        e.printStackTrace()
+        response
+    }
