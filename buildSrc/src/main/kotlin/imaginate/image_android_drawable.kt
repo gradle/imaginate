@@ -66,13 +66,15 @@ abstract class DrawAndroidImage : DefaultTask() {
             }
 
     private
-    fun convert(vectorFile: File, drawableFile: File) =
+    fun convert(vectorFile: File, drawableFile: File) {
+        project.logger.info("Converting '{}' to '{}'", vectorFile, drawableFile)
         workers.classLoaderIsolation {
             classpath.from(workerClasspath)
         }.submit(DrawAndroidImageWork::class) {
             vector.set(vectorFile)
             drawable.set(drawableFile)
         }
+    }
 }
 
 internal

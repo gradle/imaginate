@@ -72,7 +72,8 @@ abstract class VectorizeImage : DefaultTask() {
             }
 
     private
-    fun convert(bitmapFile: File, vectorFile: File) =
+    fun convert(bitmapFile: File, vectorFile: File) {
+        project.logger.info("Converting '{}' to '{}'", bitmapFile, vectorFile)
         workers.classLoaderIsolation {
             classpath.from(workerClasspath)
         }.submit(ImageVectorizationWork::class) {
@@ -80,6 +81,7 @@ abstract class VectorizeImage : DefaultTask() {
             palleteSize.set(this@VectorizeImage.palleteSize)
             vector.set(vectorFile)
         }
+    }
 }
 
 internal
