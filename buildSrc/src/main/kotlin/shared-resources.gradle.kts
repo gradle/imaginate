@@ -5,7 +5,7 @@ import imaginate.DrawAndroidImage
 import imaginate.ImageGenerationSemaphore
 import imaginate.ImageSpec
 import imaginate.imageTracer
-import imaginate.GenerateImage
+import imaginate.GenerateImages
 import imaginate.libs
 import imaginate.svg2vector
 import imaginate.VectorizeImage
@@ -67,7 +67,7 @@ dependencies {
 
 
 // Custom tasks
-val generateBitmaps = tasks.register("generateBitmaps", GenerateImage::class) {
+val generateBitmaps = tasks.register("generateBitmaps", GenerateImages::class) {
     usesService(imageGenerationSemaphore)
     apiKey = buildCredentials.stableDiffusionApiKey
     workerClasspath.from(imageGenerationClasspath)
