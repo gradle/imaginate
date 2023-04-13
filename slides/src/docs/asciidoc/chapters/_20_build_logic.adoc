@@ -211,3 +211,4 @@ image::gradle/bg-7.png[background, size=cover]
 * Build organization
 ** Documentation
 ** Jendrik's videos
+** Tony's and Cedric's blog posts

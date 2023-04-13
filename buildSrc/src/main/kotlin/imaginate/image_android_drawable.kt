@@ -54,7 +54,8 @@ abstract class DrawAndroidImage : DefaultTask() {
 
     private
     fun onFileChange(change: FileChange) =
-        outputDirectory.get().dir("drawable-anydpi-v26")
+        outputDirectory.get()
+            .dir("drawable-anydpi-v26")
             .file(change.targetPathWithExtension(vectorsDirectory.get().asFile, "xml"))
             .asFile.let { targetFile ->
 
@@ -65,13 +66,15 @@ abstract class DrawAndroidImage : DefaultTask() {
             }
 
     private
-    fun convert(vectorFile: File, drawableFile: File) =
+    fun convert(vectorFile: File, drawableFile: File) {
+        project.logger.info("Converting '{}' to '{}'", vectorFile, drawableFile)
         workers.classLoaderIsolation {
             classpath.from(workerClasspath)
         }.submit(DrawAndroidImageWork::class) {
             vector.set(vectorFile)
             drawable.set(drawableFile)
         }
+    }
 }
 
 internal
