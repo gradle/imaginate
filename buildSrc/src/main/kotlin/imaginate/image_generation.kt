@@ -60,27 +60,26 @@ abstract class ImageSpec(private val name: String) : Named {
     }
 }
 
-interface ImageInputs {
+@DisableCachingByDefault(because = "Outputs are commited to git")
+abstract class GenerateImages : DefaultTask() {
+
+    @get:Classpath
+    internal
+    abstract val workerClasspath: ConfigurableFileCollection
 
     @get:Input
     @get:Optional
     abstract val apiKey: Property<String>
 
     @get:Nested
-    val images: ListProperty<ImageSpec>
-}
+    abstract val images: ListProperty<ImageSpec>
 
-interface ImageOutputs {
     @get:OutputDirectory
-    val outputDirectory: DirectoryProperty
-}
+    abstract val outputDirectory: DirectoryProperty
 
-@DisableCachingByDefault(because = "Outputs are commited to git")
-abstract class GenerateImages : DefaultTask(), ImageInputs, ImageOutputs {
-
-    @get:Classpath
-    internal
-    abstract val workerClasspath: ConfigurableFileCollection
+    @get:Inject
+    protected
+    abstract val workers: WorkerExecutor
 
     init {
         outputs.upToDateWhen {
@@ -92,6 +91,7 @@ abstract class GenerateImages : DefaultTask(), ImageInputs, ImageOutputs {
 
     @TaskAction
     fun action() {
+        checkApiKey()
         workers.classLoaderIsolation {
             classpath.from(workerClasspath)
         }.submit(GenerateImageWork::class) {
@@ -109,15 +109,33 @@ abstract class GenerateImages : DefaultTask(), ImageInputs, ImageOutputs {
         }
     }
 
-    @get:Inject
-    protected
-    abstract val workers: WorkerExecutor
+    private
+    fun checkApiKey() {
+        if (!apiKey.isPresent) {
+            logger.warn(
+                """
+                |
+                |This build needs a Dream Studio API key.
+                |None was provided, image generation will fallback to simple random images.
+                |Get one from https://beta.dreamstudio.ai/account
+                |
+                |Then, run the following to store the API key: 
+                |  ./gradlew addCredentials --key stableDiffusionBuildApiKey --value <YOUR_API_KEY>
+                |
+                |To remove the API key run:
+                |  ./gradlew removeCredentials --key stableDiffusionBuildApiKey
+                |
+                """.trimMargin()
+            )
+        }
+    }
 }
 
 internal
-abstract class GenerateImageParameters : WorkParameters, ImageOutputs {
+abstract class GenerateImageParameters : WorkParameters {
     abstract val apiKey: Property<String>
     abstract val images: ListProperty<ImageSpecIsolate>
+    abstract val outputDirectory: DirectoryProperty
 }
 
 internal

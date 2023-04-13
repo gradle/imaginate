@@ -54,7 +54,8 @@ abstract class DrawAndroidImage : DefaultTask() {
 
     private
     fun onFileChange(change: FileChange) =
-        outputDirectory.get().dir("drawable-anydpi-v26")
+        outputDirectory.get()
+            .dir("drawable-anydpi-v26")
             .file(change.targetPathWithExtension(vectorsDirectory.get().asFile, "xml"))
             .asFile.let { targetFile ->
 
