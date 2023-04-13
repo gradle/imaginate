@@ -18,14 +18,20 @@ include::../fragments/_diagram_imaginate_overview.adoc[]
 === Imaginate [.small]#- Exploration#
 image::gradle/bg-7.png[background, size=cover]
 
-image::gradle/folks.png[width=50%]
+image::gradle/folks.png[width=40%]
 
+[.center]
 https://github.com/gradle/imaginate
 
 [.notes]
 ****
-* start from the apps
-* reused/shared logic
-* image generation
-* also used in build logic
+* start from the desktop app
+* navigate to shared-ui
+* show where it is used (android)
+* and there's the web too -> webapp/Main.kt
+* navigate to App / ImagePrompt / ImageGenerator
+* image generation multiplatform desktop/android/web
+* but it can also do plain JVM, that's how we use it in our build logic
+* show usages of ImageGenerator, navigate to build logic
+* this is still kotlin
 ****

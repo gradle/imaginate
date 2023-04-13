@@ -12,30 +12,41 @@ skinparam usecase {
   ArrowColor 02303a
 }
 top to bottom direction
+rectangle Domain {
+    "**:image-generation**" as (imageGeneration)
+}
+rectangle "Build Logic" {
+    "**:buildSrc**" as (buildLogic) #02303a
+}
+rectangle "Root Build" {
 "**:shared-resources**" as (sharedResources) #008855
 "**:shared-logic**" as (sharedLogic) #008855
-"**:image-generation-task**" as (imageGenerationTask) #02303a
-"**:image-generation**" as (imageGeneration)
-"**:buildSrc**" as (buildLogic) #02303a
-"**:web-app**" as (webApp)
-"**:desktop-app**" as (desktopApp)
-"**:android-app**" as (androidApp)
-"**:slides**" as (slides)
-
-buildLogic --> imageGenerationTask
-imageGenerationTask --> imageGeneration
-sharedLogic --> imageGeneration
-sharedResources --> imageGenerationTask
+"**:shared-ui**" as (sharedUi) #008855
+    "**:web-app**" as (webApp)
+    "**:desktop-app**" as (desktopApp)
+    "**:android-app**" as (androidApp)
+}
+rectangle Slides {
+    "**:slides**" as (slides)
+}
 
 androidApp --> sharedResources
-androidApp --> sharedLogic
+androidApp --> sharedUi
 
 desktopApp --> sharedResources
-desktopApp --> sharedLogic
+desktopApp --> sharedUi
 
+webApp --> sharedLogic
 webApp --> sharedResources
 webApp --> imageGeneration
 
-slides --> imageGeneration
+slides --> sharedResources
+
+buildLogic --> imageGeneration
+sharedResources --> imageGeneration
+sharedUi -> sharedLogic
+sharedUi -> imageGeneration
+
+
 @enduml
 ....

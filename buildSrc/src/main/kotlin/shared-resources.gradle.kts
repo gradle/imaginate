@@ -15,6 +15,11 @@ plugins {
     id("build-credentials")
 }
 
+// Custom DSL
+val generatedImages = objects.domainObjectContainer(ImageSpec::class)
+extensions.add("generatedImages", generatedImages)
+
+
 // Image generation concurrently control
 val imageGenerationSemaphore = gradle.sharedServices.registerIfAbsent(
     "imageGenerationSemaphore",
@@ -39,11 +44,6 @@ val drawableImages = configurations.create("drawableImages") {
         attribute(ImageFormat.IMAGE_FORMAT_ATTRIBUTE, objects.named(ImageFormat.DRAWABLE))
     }
 }
-
-
-// Custom DSL
-val generatedImages = objects.domainObjectContainer(ImageSpec::class)
-extensions.add("generatedImages", generatedImages)
 
 
 // External tool dependencies

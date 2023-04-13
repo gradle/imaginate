@@ -12,7 +12,6 @@ kotlin {
             dependencies {
                 implementation(projects.sharedLogic)
                 implementation(libs.imaginate.imageGeneration)
-                implementation(libs.multiplatform.settings)
             }
         }
     }

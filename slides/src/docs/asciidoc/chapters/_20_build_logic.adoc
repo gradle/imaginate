@@ -23,6 +23,14 @@ a| include::fragments/_diagram_build-logic-parts.adoc[]
 |===
 
 
+=== Build logic [.small]#- Structure#
+image::gradle/bg-7.png[background, size=cover]
+
+A composite build bringing 4 included builds together.
+
+include::../fragments/_diagram_build-logic-graph.adoc[]
+
+
 === Build logic [.small]#- Overview#
 image::gradle/bg-7.png[background, size=cover]
 
@@ -59,25 +67,39 @@ image::imaginate_tree.png[]
 === Build logic [.small]#- Overview#
 image::gradle/bg-7.png[background, size=cover]
 
-[cols="<.^4,<.^6",frame=none,grid=none]
-|===
-a| include::fragments/_diagram_imaginate_overview_build_logic.adoc[]
-a| include::fragments/_diagram_build-logic-graph.adoc[]
-|===
+image::gradle/folks.png[width=40%]
+
+[.center]
+https://github.com/gradle/imaginate
+
+[.notes]
+****
+* start from the image generation
+* used in the build logic
+* buildSrc - what is this?
+* task + isolation -> workerClasspath
+* convention plugin configuring tool dependencies (internal helpers)
+* build service as a semaphore
+* shared resources custom DSL, registered extension
+* we are in a convention plugin
+* go to where it is used
+* generated accessor to the custom DSL extension
+* sam-with-receiver
+* assignment operator overload
+****
 
 
 === Build logic [.small]#- `buildSrc`#
 image::gradle/bg-7.png[background, size=cover]
+
+Keep imperative logic out of project build script. +
+Expose declarative DSL from convention plugins instead.
 
 [cols="<.^4,<.^6",frame=none,grid=none]
 |===
 a|
 image::imaginate_buildSrc_tree.png[]
 a|
-Convention plugins
-
-Composition over inheritance
-
 .`applications/android-app/build.gradle.kts`
 [source,kotlin]
 ----
@@ -93,29 +115,23 @@ dependencies {
     implementation(projects.sharedLogic)
 }
 ----
-[.small]
-No imperative code in the projects build scripts, +
-only declarative dsl.
 |===
 
 
-=== Build logic [.small]#- Exploration#
+
+=== Build logic [.small]#- Building blocks#
 image::gradle/bg-7.png[background, size=cover]
 
-image::gradle/folks.png[width=50%]
-
-[.notes]
-****
-* start from the image generation
-* used in the build logic
-* buildSrc
-* task + isolation
-* convention plugin
-* `kotlin-dsl` plugin, sam-with-receiver, assignment operator overload
-* shared resources
-* applications
-* dependencies + version catalogs
-****
+* Convention plugins
+** Put `.gradle.kts` files in `buildSrc/src/main/kotlin`
+** Apply them in project build scripts
+* Custom DSL
+** Use Gradle extensions and containers
+* Custom Tasks
+** Use the Worker API for isolation and parallelism
+* Helpers
+** Put `.kt` files `buildSrc/src/main/kotlin`
+** Prefer `internal` visibility to avoid the temptation
 
 
 === Build logic [.small]#- `buildSrc`?#
@@ -133,6 +149,21 @@ For example as we showed Today for sharing logic between the build and the appli
 Or if you want to isolate a portion of build logic.
 
 Since Gradle 8 `buildSrc` is much more like using included builds + link, making it simple to transition
+
+
+=== Build logic [.small]#- Exploration#
+image::gradle/bg-7.png[background, size=cover]
+
+image::gradle/folks.png[width=40%]
+
+[.center]
+https://github.com/gradle/imaginate
+
+[.notes]
+****
+* dependency management
+* applications
+****
 
 
 === Build logic [.small]#- Kotlin DSL#
@@ -153,53 +184,35 @@ Kotlin DSL provides static accessors
 IDE assistance, code navigation etc...
 --
 a|
-.Extensions and tasks
+.`applications/web-app/build.gradle.kts`
 [source,kotlin]
 ----
 plugins {
-    id("org.jetbrains.kotlin.jvm")
+  id("web-app")
 }
 
-kotlin {
-    // Extension from the Kotlin plugin
-}
-
-tasks.compileKotlin {
-    // Task from the Kotlin plugin
-}
-----
-
-.Projects and version catalogs
-[source,kotlin]
-----
 dependencies {
+  // Configuration defined in the
+  // `shared-resources-consumer` convention plugin
+  sharedBitmaps(projects.sharedResources)
+}
 
-    // Static project accessor
-    api(projects.sharedLogic)
-
-    // Static version catalog accessor
-    implementation(libs.wonderfulLibrary)
+// Extension from the Kotlin plugin
+kotlin {
+  sourceSets {
+    // Source set defined in `web-app` convention plugin
+    jsMain {
+      dependencies {
+        // Static project accessor
+        implementation(projects.sharedLogic)
+        // Static version catalog accessors
+        implementation(libs.imaginate.imageGeneration)
+      }
+    }
+  }
 }
 ----
 |===
-
-
-=== Build logic [.small]#- Building blocks#
-image::gradle/bg-7.png[background, size=cover]
-
-* plugins!
-* custom DSL
-* custom Tasks
-* build service
-* helpers
-
-
-=== Build logic [.small]#- Dependency management#
-image::gradle/bg-7.png[background, size=cover]
-
-* version catalogs
-* dependencies on projects
-* dependencies across included builds
 
 
 === Build logic [.small]#- Learn more#
