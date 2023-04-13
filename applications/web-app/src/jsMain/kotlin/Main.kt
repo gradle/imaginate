@@ -89,12 +89,14 @@ fun ImagePrompt(apiKey: String, onClearApiKey: () -> Unit) {
     val (prompt, setPrompt) = remember { mutableStateOf("") }
     val (imageSrc, setImageSrc) = remember { mutableStateOf<String?>(null) }
     val (failure, setFailure) = remember { mutableStateOf<String?>(null) }
+    val (processing, setProcessing) = remember { mutableStateOf(false) }
     val imageGenerator = remember { ImageGenerator(apiKey) }
 
     val coroutineScope = rememberCoroutineScope()
 
     @OptIn(ExperimentalEncodingApi::class)
-    fun loadNewImage() = coroutineScope.launch {
+    fun loadNewImage(prompt: String) = coroutineScope.launch {
+        setProcessing(true)
         when (val result = imageGenerator.generate(prompt)) {
             is ImageGenerator.Result.Failure -> {
                 setFailure(result.reason)
@@ -110,6 +112,7 @@ fun ImagePrompt(apiKey: String, onClearApiKey: () -> Unit) {
                 setFailure(null)
             }
         }
+        setProcessing(false)
     }
 
     TextInput {
@@ -118,8 +121,8 @@ fun ImagePrompt(apiKey: String, onClearApiKey: () -> Unit) {
         onInput { event -> setPrompt(event.value) }
     }
     Button({
-        onClick { loadNewImage() }
-        if (prompt.isBlank()) {
+        onClick { loadNewImage(prompt) }
+        if (prompt.isBlank() || processing) {
             disabled()
         }
     }) {
@@ -136,7 +139,12 @@ fun ImagePrompt(apiKey: String, onClearApiKey: () -> Unit) {
         }
     }
     Br()
-    Button({ onClick { onClearApiKey() } }) {
+    Button({
+        onClick { onClearApiKey() }
+        if (processing) {
+            disabled()
+        }
+    }) {
         Text("Clear API key")
     }
 }

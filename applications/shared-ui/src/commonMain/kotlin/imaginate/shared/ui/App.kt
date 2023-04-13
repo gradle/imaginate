@@ -58,11 +58,13 @@ fun ImagePrompt(apiKey: String, onClearApiKey: () -> Unit) {
     val (prompt, setPrompt) = remember { mutableStateOf("") }
     val (image, setImage) = remember { mutableStateOf<ImageBitmap?>(null) }
     val (failure, setFailure) = remember { mutableStateOf<String?>(null) }
+    val (processing, setProcessing) = remember { mutableStateOf(false) }
     val imageGenerator = remember { ImageGenerator(apiKey) }
 
     val coroutineScope = rememberCoroutineScope()
 
     fun loadNewImage(prompt: String) = coroutineScope.launch {
+        setProcessing(true)
         when (val result = imageGenerator.generate(prompt)) {
             is ImageGenerator.Result.Failure -> {
                 setFailure(result.reason)
@@ -74,6 +76,7 @@ fun ImagePrompt(apiKey: String, onClearApiKey: () -> Unit) {
                 setFailure(null)
             }
         }
+        setProcessing(false)
     }
 
     TextField(
@@ -81,7 +84,10 @@ fun ImagePrompt(apiKey: String, onClearApiKey: () -> Unit) {
         onValueChange = setPrompt,
         placeholder = { Text("Type your prompt") }
     )
-    Button(onClick = { loadNewImage(prompt) }, enabled = prompt.isNotBlank()) {
+    Button(
+        onClick = { loadNewImage(prompt) },
+        enabled = prompt.isNotBlank() && !processing
+    ) {
         Text("Generate new image!")
     }
     if (image != null) {
@@ -90,7 +96,10 @@ fun ImagePrompt(apiKey: String, onClearApiKey: () -> Unit) {
     if (failure != null) {
         Text(failure, color = Red)
     }
-    Button(onClick = { onClearApiKey() }) {
+    Button(
+        onClick = { onClearApiKey() },
+        enabled = !processing
+    ) {
         Text("Clear API key")
     }
 }
