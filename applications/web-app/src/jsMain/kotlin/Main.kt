@@ -68,7 +68,12 @@ fun ApiKeyPrompt(onApiKey: (String) -> Unit) {
         value(apiKey)
         onInput { event -> setApiKey(event.value) }
     }
-    Button({ onClick { onApiKey(apiKey) } }) {
+    Button({
+        onClick { onApiKey(apiKey) }
+        if (apiKey.isBlank()) {
+            disabled()
+        }
+    }) {
         Text("Accept")
     }
 }
@@ -96,7 +101,12 @@ fun ImagePrompt(apiKey: String, onClearApiKey: () -> Unit) {
         value(prompt)
         onInput { event -> setPrompt(event.value) }
     }
-    Button({ onClick { loadNewImage() } }) {
+    Button({
+        onClick { loadNewImage() }
+        if (prompt.isBlank()) {
+            disabled()
+        }
+    }) {
         Text("Generate new image!")
     }
     if (imageSrc != null) {
