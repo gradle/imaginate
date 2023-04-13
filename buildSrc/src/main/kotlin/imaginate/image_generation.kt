@@ -76,7 +76,7 @@ interface ImageOutputs {
 }
 
 @DisableCachingByDefault(because = "Outputs are commited to git")
-abstract class GenerateImage : DefaultTask(), ImageInputs, ImageOutputs {
+abstract class GenerateImages : DefaultTask(), ImageInputs, ImageOutputs {
 
     @get:Classpath
     internal
@@ -84,7 +84,9 @@ abstract class GenerateImage : DefaultTask(), ImageInputs, ImageOutputs {
 
     init {
         outputs.upToDateWhen {
-            outputDirectory.get().asFile.isFile
+            images.get()
+                .map { outputDirectory.get().file(bitmapFileNameFor(it.name)).asFile }
+                .all { it.isFile }
         }
     }
 
@@ -93,9 +95,9 @@ abstract class GenerateImage : DefaultTask(), ImageInputs, ImageOutputs {
         workers.classLoaderIsolation {
             classpath.from(workerClasspath)
         }.submit(GenerateImageWork::class) {
-            apiKey.set(this@GenerateImage.apiKey)
+            apiKey.set(this@GenerateImages.apiKey)
             images.set(
-                this@GenerateImage.images.get().map {
+                this@GenerateImages.images.get().map {
                     ImageSpecIsolate(
                         it.name,
                         it.prompt.get(),
@@ -103,7 +105,7 @@ abstract class GenerateImage : DefaultTask(), ImageInputs, ImageOutputs {
                         it.height.get()
                     )
                 })
-            outputDirectory.set(this@GenerateImage.outputDirectory)
+            outputDirectory.set(this@GenerateImages.outputDirectory)
         }
     }
 
@@ -132,7 +134,7 @@ abstract class GenerateImageWork : WorkAction<GenerateImageParameters> {
         parameters.apply {
             val outputDir = outputDirectory.get()
             images.get().forEach { image ->
-                val bitmapFile = outputDir.file("${image.name}.jpg").asFile
+                val bitmapFile = outputDir.file(bitmapFileNameFor(image.name)).asFile
                 bitmapFile.parentFile.mkdirs()
                 bitmapFile.writeBytes(
                     ImageGenerator(apiKey.orNull).generate(
@@ -145,3 +147,8 @@ abstract class GenerateImageWork : WorkAction<GenerateImageParameters> {
         }
     }
 }
+
+
+private
+fun bitmapFileNameFor(name: String) =
+    "$name.jpg"
