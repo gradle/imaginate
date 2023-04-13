@@ -12,7 +12,6 @@ import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import org.junit.jupiter.api.Test
-import kotlin.test.assertContentEquals
 import kotlin.test.assertEquals
 
 class ImageGeneratorTest {
@@ -60,10 +59,9 @@ class ImageGeneratorTest {
                 },
                 apiKey
             )
-            assertContentEquals(
-                responseBody,
-                subject.generate(prompt, width = width, height = height)
-            )
+            val result = subject.generate(prompt, width = width, height = height)
+            require(result is ImageGenerator.Result.Success)
+            assertEquals(responseBody, result.image)
         }
     }
 }

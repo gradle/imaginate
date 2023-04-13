@@ -150,16 +150,22 @@ internal
 abstract class GenerateImageWork : WorkAction<GenerateImageParameters> {
     override fun execute(): Unit = runBlocking {
         parameters.apply {
+            val imageGenerator = ImageGenerator(apiKey.orNull)
             val outputDir = outputDirectory.get()
             images.get().forEach { image ->
                 val bitmapFile = outputDir.file(bitmapFileNameFor(image.name)).asFile
                 bitmapFile.parentFile.mkdirs()
                 bitmapFile.writeBytes(
-                    ImageGenerator(apiKey.orNull).generate(
+                    imageGenerator.generate(
                         image.prompt,
                         image.width,
                         image.height
-                    )
+                    ).let { result ->
+                        when (result) {
+                            is ImageGenerator.Result.Success -> result.image
+                            is ImageGenerator.Result.Failure -> throw Exception(result.reason)
+                        }
+                    }
                 )
             }
         }

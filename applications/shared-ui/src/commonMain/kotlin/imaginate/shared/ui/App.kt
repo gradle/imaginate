@@ -14,6 +14,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color.Companion.Red
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.unit.dp
 import imaginate.generation.ImageGenerator
@@ -56,12 +57,23 @@ fun ApiKeyPrompt(onApiKey: (String) -> Unit) {
 fun ImagePrompt(apiKey: String, onClearApiKey: () -> Unit) {
     val (prompt, setPrompt) = remember { mutableStateOf("") }
     val (image, setImage) = remember { mutableStateOf<ImageBitmap?>(null) }
+    val (failure, setFailure) = remember { mutableStateOf<String?>(null) }
     val imageGenerator = remember { ImageGenerator(apiKey) }
 
     val coroutineScope = rememberCoroutineScope()
 
-    fun loadNewImage() = coroutineScope.launch {
-        setImage(imageBitmapFromBytes(imageGenerator.generate(prompt)))
+    fun loadNewImage(prompt: String) = coroutineScope.launch {
+        when (val result = imageGenerator.generate(prompt)) {
+            is ImageGenerator.Result.Failure -> {
+                setFailure(result.reason)
+                setImage(null)
+            }
+
+            is ImageGenerator.Result.Success -> {
+                setImage(imageBitmapFromBytes(result.image))
+                setFailure(null)
+            }
+        }
     }
 
     TextField(
@@ -69,11 +81,14 @@ fun ImagePrompt(apiKey: String, onClearApiKey: () -> Unit) {
         onValueChange = setPrompt,
         placeholder = { Text("Type your prompt") }
     )
-    Button(onClick = ::loadNewImage, enabled = prompt.isNotBlank()) {
+    Button(onClick = { loadNewImage(prompt) }, enabled = prompt.isNotBlank()) {
         Text("Generate new image!")
     }
     if (image != null) {
         Image(image, prompt)
+    }
+    if (failure != null) {
+        Text(failure, color = Red)
     }
     Button(onClick = { onClearApiKey() }) {
         Text("Clear API key")

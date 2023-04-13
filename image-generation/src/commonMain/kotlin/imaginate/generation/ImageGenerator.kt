@@ -8,6 +8,7 @@ import io.ktor.client.request.get
 import io.ktor.client.request.headers
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
+import io.ktor.client.statement.HttpResponse
 import io.ktor.client.statement.bodyAsText
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -19,6 +20,11 @@ class ImageGenerator private constructor(
     private val apiKey: String?,
 ) {
 
+    sealed interface Result {
+        class Success(val image: ByteArray) : Result
+        class Failure(val reason: String) : Result
+    }
+
     constructor(apiKey: String? = null) : this(HttpClient(httpClientConfig), apiKey)
 
     internal
@@ -28,8 +34,22 @@ class ImageGenerator private constructor(
         prompt: String,
         width: Int = 512,
         height: Int = width,
-    ): ByteArray {
-        val response = when (apiKey) {
+    ): Result {
+        val response = try {
+            httpResponseFor(prompt, width, height)
+        } catch (e: Exception) {
+            return Result.Failure(e.message ?: e.toString())
+        }
+        return if (response.status.value in 200..299) {
+            Result.Success(response.body())
+        } else {
+            Result.Failure("Failed to generate image '${response.bodyAsText()}'")
+        }
+    }
+
+    private
+    suspend fun httpResponseFor(prompt: String, width: Int, height: Int): HttpResponse =
+        when (apiKey) {
             null -> {
                 // apiKey is not set, return picsum image
                 client.get("https://picsum.photos/$width/$height.jpg")
@@ -55,12 +75,6 @@ class ImageGenerator private constructor(
                 }
             }
         }
-        if (response.status.value in 200..299) {
-            return response.body()
-        } else {
-            throw Exception("Failed to generate image '${response.bodyAsText()}'")
-        }
-    }
 
     /**
      * [width] and [height] must be multiples of 64 and greater than or equal 128.
