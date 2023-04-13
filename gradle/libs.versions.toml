@@ -12,7 +12,7 @@ coroutines = "1.6.4"
 [libraries]
 imaginate-imageGeneration = "imaginate:image-generation:latest"
 androidx-appcompat = "androidx.appcompat:appcompat:1.6.1"
-androidx-core-ktx = "androidx.core:core-ktx:1.9.0"
+androidx-core-ktx = "androidx.core:core-ktx:1.10.0"
 androidx-activity-compose = "androidx.activity:activity-compose:1.7.0"
 ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
 ktor-client-okhttp = { group = "io.ktor", name = "ktor-client-okhttp", version.ref = "ktor" }
