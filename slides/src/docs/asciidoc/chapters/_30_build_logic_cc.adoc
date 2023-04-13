@@ -1,15 +1,60 @@
-=== Build logic [.small]#- Configuration cache#
+[background-color="#02303a"]
+== Speed-up Loop Bonus &#128640;
 image::gradle/bg-7.png[background, size=cover]
 
-* goal and benefits
-* stable in Gradle 8.1
-* how to use
+Configuration cache
+
+[notes]
+****
+* We explored how we can organize build logic for the configuration of your build.
+* All this logic can be expensive to run.
+* Why don't we remove configuration altogether?
+****
 
 
-=== Build logic [.small]#- Configuration cache#
+=== Configuration cache
 image::gradle/bg-7.png[background, size=cover]
 
-* how it works
-* constraints
+[.center]
+Significantly improves build performance +
+by caching the result of the configuration phase +
+and reusing this for subsequent builds.
 
-include::../fragments/_diagram_task-graph.adoc[]
+image::cc_android.png[width=80%]
+
+
+=== Configuration cache [.small]#- How does it work?#
+image::gradle/bg-7.png[background, size=cover]
+
+include::../fragments/_diagram_cc.adoc[]
+
+
+=== Configuration cache [.small]#- Turn it on!#
+image::gradle/bg-7.png[background, size=cover]
+
+Stable in Gradle 8.1 +
+[.small]#link:https://docs.gradle.org/8.1/release-notes.html#configuration-cache-improvements[docs.gradle.org/8.1/release-notes.html]#
+
+[.small]
+--
+On the command line
+--
+
+[source,shell]
+----
+​
+./gradlew --configuration-cache build
+​
+----
+
+[.small]
+--
+Persistently in `gradle.properties`
+--
+
+[source,text]
+----
+​
+org.gradle.configuration-cache=true
+​
+----

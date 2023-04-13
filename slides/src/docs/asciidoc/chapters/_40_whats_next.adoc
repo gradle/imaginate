@@ -2,23 +2,23 @@
 == What's next?
 image::gradle/bg-7.png[background, size=cover]
 
+[cols="<.<5,<.<5",frame=none,grid=none]
+|===
+a|
+*Usability*
 
-== What's next? [.small]#- KotlinDSL#
-image::gradle/bg-7.png[background, size=cover]
-
-* Usability
-** Simpler container dsl
-** DSL reference improvements
-** Kotlin and Kotlin DSL version management
-** etc...
-* Performance
-** First-use
-** Precompiled script plugins
-** Script compilation avoidance
-** etc...
-
-
-== What's next? [.small]#- Configuration Cache#
-image::gradle/bg-7.png[background, size=cover]
-
+* Simpler container dsl
+* DSL reference improvements
+* Kotlin and Kotlin DSL version management
 * etc...
+
+a|
+*Performance*
+
+* First-use
+* Precompiled script plugins
+* Script compilation avoidance
+* K2
+* Configuration cache by default for Android
+* Project Isolation
+|===

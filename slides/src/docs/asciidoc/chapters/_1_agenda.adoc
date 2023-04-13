@@ -4,3 +4,4 @@ image::gradle/bg-8.png[background, size=cover]
 
 Imaginate &#x1F5BC;:: An imaginary image generator
 Gradle & Kotlin &#x2764;:: Build logic
+Speed-up Loop Bonus &#128640;:: Configuration cache
