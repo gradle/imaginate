@@ -8,6 +8,7 @@ import imaginate.shared.logic.createImaginateSettings
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.web.attributes.*
 import org.jetbrains.compose.web.css.*
+import org.jetbrains.compose.web.css.Color.red
 import org.jetbrains.compose.web.dom.*
 import org.jetbrains.compose.web.renderComposable
 import kotlin.io.encoding.Base64
@@ -20,6 +21,10 @@ object MyStyleSheet : StyleSheet() {
         width(25.px)
         height(25.px)
         paddingRight(12.px)
+    }
+
+    val error by style {
+        color(red)
     }
 
     init {
@@ -83,17 +88,28 @@ fun ApiKeyPrompt(onApiKey: (String) -> Unit) {
 fun ImagePrompt(apiKey: String, onClearApiKey: () -> Unit) {
     val (prompt, setPrompt) = remember { mutableStateOf("") }
     val (imageSrc, setImageSrc) = remember { mutableStateOf<String?>(null) }
+    val (failure, setFailure) = remember { mutableStateOf<String?>(null) }
     val imageGenerator = remember { ImageGenerator(apiKey) }
 
     val coroutineScope = rememberCoroutineScope()
 
     @OptIn(ExperimentalEncodingApi::class)
     fun loadNewImage() = coroutineScope.launch {
-        setImageSrc(
-            "data:image/jpeg;charset=utf-8;base64,${
-                Base64.encode(imageGenerator.generate(prompt))
-            }"
-        )
+        when (val result = imageGenerator.generate(prompt)) {
+            is ImageGenerator.Result.Failure -> {
+                setFailure(result.reason)
+                setImageSrc(null)
+            }
+
+            is ImageGenerator.Result.Success -> {
+                setImageSrc(
+                    "data:image/jpeg;charset=utf-8;base64,${
+                        Base64.encode(result.image)
+                    }"
+                )
+                setFailure(null)
+            }
+        }
     }
 
     TextInput {
@@ -112,6 +128,11 @@ fun ImagePrompt(apiKey: String, onClearApiKey: () -> Unit) {
     if (imageSrc != null) {
         Div {
             Img(imageSrc)
+        }
+    }
+    if (failure != null) {
+        Div({ classes(MyStyleSheet.error) }) {
+            Text(failure)
         }
     }
     Br()
