@@ -16,6 +16,9 @@ speaker {
     name = "Rodrigo B. de Oliveira"
     company = "Gradle"
     joined = 2015
+    position = "Configuration Team Lead"
+    previously = "Kotlin DSL Project Lead"
+    github = "bamboo"
 }
 ----
 
