@@ -31,6 +31,28 @@ A composite build bringing 4 included builds together.
 include::../fragments/_diagram_build-logic-graph.adoc[]
 
 
+=== Build logic [.small]#- Slides#
+image::gradle/bg-7.png[background, size=cover]
+
+[cols="<.<5,<.<5",frame=none,grid=none]
+|===
+a|
+[.center]
+--
+_"round icon. elephant. capital letter K. two colors."_
+--
+
+image::shared/icon.jpg[]
+a|
+[.center]
+--
+_"picture of elephant in the Kotlin island"_
+--
+
+image::shared/logo.jpg[]
+|===
+
+
 === Build logic [.small]#- Overview#
 image::gradle/bg-7.png[background, size=cover]
 
@@ -66,28 +88,6 @@ includeBuild("../image-generation")
 ----
 a|
 image::imaginate_tree.png[]
-|===
-
-
-=== Build logic [.small]#- Slides#
-image::gradle/bg-7.png[background, size=cover]
-
-[cols="<.<5,<.<5",frame=none,grid=none]
-|===
-a|
-[.center]
---
-_"round icon. elephant. capital letter K. two colors."_
---
-
-image::shared/icon.jpg[]
-a|
-[.center]
---
-_"picture of elephant in the Kotlin island"_
---
-
-image::shared/logo.jpg[]
 |===
 
 

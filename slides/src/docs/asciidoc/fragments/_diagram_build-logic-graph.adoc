@@ -23,7 +23,7 @@ rectangle Domain {
 rectangle "Build Logic" {
     "**:buildSrc**" as (buildLogic) #02303a
 }
-rectangle "Root Build" {
+rectangle "Applications Build" {
 "**:shared-resources**" as (sharedResources) #008855
 "**:shared-logic**" as (sharedLogic) #008855
 "**:shared-ui**" as (sharedUi) #008855

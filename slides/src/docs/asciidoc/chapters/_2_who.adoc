@@ -20,9 +20,8 @@ speaker {
     name = "Paul Merlin"
     company = "Gradle"
     joined = 2015
-    position = "Senior Lead Developer"
-    previously = ["Configuration Cache Project Lead",
-                  "Kotlin DSL Project Lead"]
+    position = "Kotlin DSL Project Lead, again \o/"
+    previously = "Configuration Cache Project Lead"
     github = "eskatos"
     mastodon = "@eskatos@mastodon.social"
 }
@@ -44,7 +43,6 @@ speaker {
     github = "bamboo"
     mastodon = "@rbo@mastodon.social"
 }
-​
 ​
 ----
 |===
