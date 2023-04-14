@@ -79,8 +79,7 @@ image::logo-gradle-build-tool.svg[role=product-logo-as-title]
 
 https://github.com/gradle/gradle/blob/master/LICENSE[Apache] licenced sofware build tool
 
-// TODO Ideally we find something more recent than a piece from 2017 ...
-With more than 30M monthly downloads, this is one of the top 20 popular open source projects according to https://techcrunch.com/2017/04/07/tracking-the-explosive-growth-of-open-source-software/[TechCrunch].
+With 30M+ monthly downloads, this is one of the top 20 popular open source projects according to https://techcrunch.com/2017/04/07/tracking-the-explosive-growth-of-open-source-software/[TechCrunch].
 
 
 [%notitle]

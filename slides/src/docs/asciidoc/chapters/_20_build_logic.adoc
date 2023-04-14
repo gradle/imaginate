@@ -34,8 +34,6 @@ include::../fragments/_diagram_build-logic-graph.adoc[]
 === Build logic [.small]#- Overview#
 image::gradle/bg-7.png[background, size=cover]
 
-// TODO update content below
-
 [cols="<.^3,<.^7",frame=none,grid=none]
 |===
 a|
@@ -77,11 +75,17 @@ image::gradle/bg-7.png[background, size=cover]
 [cols="<.<5,<.<5",frame=none,grid=none]
 |===
 a|
-TODO PROMPT
+[.center]
+--
+_"round icon. elephant. capital letter K. two colors."_
+--
 
 image::shared/icon.jpg[]
 a|
-TODO PROMPT
+[.center]
+--
+_"picture of elephant in the Kotlin island"_
+--
 
 image::shared/logo.jpg[]
 |===

@@ -11,6 +11,11 @@ skinparam usecase {
   BorderColor 02303a
   ArrowColor 02303a
 }
+skinparam rectangleFontColor 02303a
+skinparam rectangle {
+  BackgroundColor ffffff
+  BorderColor 02303a
+}
 top to bottom direction
 rectangle Domain {
     "**:image-generation**" as (imageGeneration)
