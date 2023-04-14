@@ -16,8 +16,8 @@ import org.gradle.api.tasks.Nested
 import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
+import org.gradle.api.tasks.UntrackedTask
 import org.gradle.kotlin.dsl.submit
-import org.gradle.work.DisableCachingByDefault
 import org.gradle.workers.WorkAction
 import org.gradle.workers.WorkParameters
 import org.gradle.workers.WorkerExecutor
@@ -48,7 +48,7 @@ abstract class ImageSpec(private val name: String) : Named {
 internal
 abstract class ImageGenerationSemaphore : BuildService<BuildServiceParameters.None>
 
-@DisableCachingByDefault(because = "Outputs are commited to git")
+@UntrackedTask(because = "Outputs are commited to git")
 abstract class GenerateImages : DefaultTask() {
 
     @get:Classpath
@@ -71,14 +71,6 @@ abstract class GenerateImages : DefaultTask() {
     @get:Inject
     protected
     abstract val workers: WorkerExecutor
-
-    init {
-        outputs.upToDateWhen {
-            images.get()
-                .map { outputDirectory.get().file(bitmapFileNameFor(it.name)).asFile }
-                .all { it.isFile }
-        }
-    }
 
     @TaskAction
     fun generate() {
@@ -141,19 +133,21 @@ abstract class GenerateImageWork : WorkAction<GenerateImageParameters> {
             val outputDir = outputDirectory.get()
             images.get().forEach { image ->
                 val bitmapFile = outputDir.file(bitmapFileNameFor(image.name)).asFile
-                bitmapFile.parentFile.mkdirs()
-                bitmapFile.writeBytes(
-                    imageGenerator.generate(
-                        image.prompt,
-                        image.width,
-                        image.height
-                    ).let { result ->
-                        when (result) {
-                            is ImageGenerator.Result.Success -> result.image
-                            is ImageGenerator.Result.Failure -> throw Exception(result.reason)
+                if (!bitmapFile.isFile) {
+                    bitmapFile.parentFile.mkdirs()
+                    bitmapFile.writeBytes(
+                        imageGenerator.generate(
+                            image.prompt,
+                            image.width,
+                            image.height
+                        ).let { result ->
+                            when (result) {
+                                is ImageGenerator.Result.Success -> result.image
+                                is ImageGenerator.Result.Failure -> throw Exception(result.reason)
+                            }
                         }
-                    }
-                )
+                    )
+                }
             }
         }
     }
