@@ -8,7 +8,7 @@ generatedImages {
         width = 512
     }
     register("logo") {
-        prompt = "picture of elephant in the Kotlin island"
+        prompt = "elephant in the Kotlin island. caravaggio."
         width = 512
     }
 }

@@ -46,7 +46,7 @@ image::shared/icon.jpg[]
 a|
 [.center]
 --
-_"picture of elephant in the Kotlin island"_
+_"elephant in the Kotlin island. caravaggio."_
 --
 
 image::shared/logo.jpg[]
