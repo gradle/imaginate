@@ -48,6 +48,7 @@ includeBuild("slides")
 
 include("shared-resources")
 include("shared-logic")
+include("shared-ui")
 include("desktop-app")
 include("android-app")
 include("web-app")
@@ -73,9 +74,17 @@ image::imaginate_tree.png[]
 === Build logic [.small]#- Slides#
 image::gradle/bg-7.png[background, size=cover]
 
-TODO copy prompts from applications/shared-resources/build.gradle.kts
+[cols="<.<5,<.<5",frame=none,grid=none]
+|===
+a|
+TODO PROMPT
 
-TODO show generated icon and logo
+image::shared/icon.jpg[]
+a|
+TODO PROMPT
+
+image::shared/logo.jpg[]
+|===
 
 
 === Build logic [.small]#- Exploration#

@@ -130,7 +130,7 @@ data class ImageSpecIsolate(
 ) : Serializable {
 
     constructor(spec: ImageSpec) :
-            this(spec.name, spec.prompt.get(), spec.width.get(), spec.height.get())
+        this(spec.name, spec.prompt.get(), spec.width.get(), spec.height.get())
 }
 
 internal
