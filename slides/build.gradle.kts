@@ -56,6 +56,10 @@ tasks {
     withType(Copy::class).configureEach {
         duplicatesStrategy = DuplicatesStrategy.WARN
     }
+    val sharedResources = register("copySharedResources", Sync::class) {
+        from(layout.projectDirectory.dir("../applications/shared-resources/src/images"))
+        into(layout.buildDirectory.dir("shared-resources"))
+    }
     val sass = register("sassCompile", SassCompile::class) {
         source(layout.projectDirectory.dir("src/style"))
         destinationDir = layout.buildDirectory.dir("style")
@@ -65,6 +69,7 @@ tasks {
     }
     asciidoctorRevealJs {
         dependsOn(sass)
+        dependsOn(sharedResources)
         baseDirFollowsSourceDir()
         inputs.dir(layout.projectDirectory.dir("src/docs/asciidoc"))
         sourceDirProperty = layout.projectDirectory.dir("src/docs/asciidoc")
@@ -72,6 +77,10 @@ tasks {
             from("${sourceDir}/images") {
                 include("**")
                 into("images")
+            }
+            from(sharedResources.map { it.destinationDir }) {
+                include("**")
+                into("images/shared")
             }
             from(sass.map { it.destinationDir }) {
                 into("style")

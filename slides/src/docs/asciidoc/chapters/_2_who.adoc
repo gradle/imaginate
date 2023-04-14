@@ -5,13 +5,36 @@ image::gradle/bg-1.png[background, size=cover]
 &#x1F9D1;&#x200D;&#x1F4BB; &#x1F9D1;&#x200D;&#x1F4BB;
 
 [%notitle]
-=== Rodrigo
+=== Paul & Rodrigo
 image::gradle/bg-1.png[background, size=cover]
 
+[cols="<.<5,<.<5",frame=none,grid=none]
+|===
+a|
+image::paul.png[height=250,width=250]
+
+[source,kotlin]
+----
+​
+speaker {
+    name = "Paul Merlin"
+    company = "Gradle"
+    joined = 2015
+    position = "Senior Lead Developer"
+    previously = ["Configuration Cache Project Lead",
+                  "Kotlin DSL Project Lead"]
+    github = "eskatos"
+    mastodon = "@eskatos@mastodon.social"
+}
+​
+----
+
+a|
 image::rodrigo.png[height=250,width=250]
 
 [source,kotlin]
 ----
+​
 speaker {
     name = "Rodrigo B. de Oliveira"
     company = "Gradle"
@@ -19,40 +42,16 @@ speaker {
     position = "Configuration Team Lead"
     previously = "Kotlin DSL Project Lead"
     github = "bamboo"
+    mastodon = "@rbo@mastodon.social"
 }
+​
+​
 ----
-
-[%notitle]
-=== Paul
-image::gradle/bg-1.png[background, size=cover]
-
-image::paul.png[height=250,width=250]
-
-[source,kotlin]
-----
-speaker {
-    name = "Paul Merlin"
-    company = "Gradle"
-    joined = 2015
-    position = "Senior Lead Developer"
-    previously = "Configuration Cache and Kotlin DSL Project Lead"
-    successes = listOf(
-        "BASIC 'Hello, World!'" in 1986,
-        "C 'Hello, World!'" in 1989,
-        "Java 'Hello, World!'" in 1996,
-        "Kotlin 'Hello, World!'" in 2015,
-        "tools", "daemons", "apps", "frameworks", "libs"
-    )
-    failures = generateSequence(code) { bugs }
-    github = "eskatos"
-    mastodon = "@eskatos@mastodon.social"
-    twitter = "@eskat0s"
-}
-----
+|===
 
 
 === Gradle
-image::gradle/bg-1.png[background, size=cover]
+image::gradle/bg-1.png[background, ssize=cover]
 
 [cols="^.^1,^.^1,^.^1",frame=none,grid=none,role=who-gradle]
 |===

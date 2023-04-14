@@ -7,18 +7,24 @@ image::gradle/bg-7.png[background, size=cover]
 a|
 *Usability*
 
-* Simpler container dsl
-* DSL reference improvements
+[.small]
+--
+* Simpler container DSL
 * Kotlin and Kotlin DSL version management
-* etc...
-
+* DSL reference improvements
+* And more...
+--
 a|
 *Performance*
 
-* First-use
-* Precompiled script plugins
+[.small]
+--
 * Script compilation avoidance
+* `plugins {}` block interpreter
+* Faster precompiled script plugins build
 * K2
+* Quicker first-use
 * Configuration cache by default for Android
 * Project Isolation
+--
 |===
