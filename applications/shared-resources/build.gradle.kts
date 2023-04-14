@@ -4,11 +4,11 @@ plugins {
 
 generatedImages {
     register("icon") {
-        prompt = "round icon that mixes Gradle and Kotlin brands with transparent background and space around it"
+        prompt = "round icon. elephant. capital letter K. two colors."
         width = 512
     }
     register("logo") {
-        prompt = "hexagonal logo that mixes Gradle and Kotlin brands with transparent background and space around it"
+        prompt = "picture of elephant in the Kotlin island"
         width = 512
     }
 }
