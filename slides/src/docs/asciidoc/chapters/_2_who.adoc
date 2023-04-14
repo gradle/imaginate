@@ -8,11 +8,11 @@ image::gradle/bg-1.png[background, size=cover]
 === Paul & Rodrigo
 image::gradle/bg-1.png[background, size=cover]
 
+image::paul_rodrigo.jpg[width=40%]
+
 [cols="<.<5,<.<5",frame=none,grid=none]
 |===
 a|
-image::paul.png[height=250,width=250]
-
 [source,kotlin]
 ----
 ​
@@ -29,8 +29,6 @@ speaker {
 ----
 
 a|
-image::rodrigo.png[height=250,width=250]
-
 [source,kotlin]
 ----
 ​

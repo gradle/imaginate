@@ -1,6 +1,6 @@
 [background-color="#02303a"]
 == Speed-up Loop Bonus &#128640;
-image::gradle/bg-7.png[background, size=cover]
+image::gradle/bg-11.png[background, size=cover]
 
 Configuration cache
 
@@ -12,7 +12,7 @@ Configuration cache
 
 
 === Configuration cache
-image::gradle/bg-7.png[background, size=cover]
+image::gradle/bg-11.png[background, size=cover]
 
 [.center]
 Significantly improves build performance +
@@ -23,7 +23,7 @@ image::cc_android.png[width=80%]
 
 
 === Configuration cache [.small]#- How does it work?#
-image::gradle/bg-7.png[background, size=cover]
+image::gradle/bg-11.png[background, size=cover]
 
 First run
 
@@ -35,7 +35,7 @@ image::cc-next-run.svg[Static,width=80%]
 
 
 === Configuration cache [.small]#- What are the benefits?#
-image::gradle/bg-7.png[background, size=cover]
+image::gradle/bg-11.png[background, size=cover]
 
 
 * Configuration time becomes work graph loading time
@@ -43,7 +43,7 @@ image::gradle/bg-7.png[background, size=cover]
 * Reduced memory consumption
 
 === Configuration cache [.small]#- Turn it on!#
-image::gradle/bg-7.png[background, size=cover]
+image::gradle/bg-11.png[background, size=cover]
 
 Stable in Gradle 8.1 +
 [.small]#link:https://docs.gradle.org/8.1/release-notes.html#configuration-cache-improvements[docs.gradle.org/8.1/release-notes.html]#

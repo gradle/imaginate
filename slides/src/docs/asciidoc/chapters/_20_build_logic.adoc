@@ -1,12 +1,12 @@
 [background-color="#02303a"]
 == Gradle & Kotlin &#x2764;
-image::gradle/bg-7.png[background, size=cover]
+image::gradle/bg-5.png[background, size=cover]
 
 Build logic
 
 
 === Build logic [.small]#- Kotlin!#
-image::gradle/bg-7.png[background, size=cover]
+image::gradle/bg-5.png[background, size=cover]
 
 [cols="<.^6,<.^4",frame=none,grid=none]
 |===
@@ -24,7 +24,7 @@ a| include::fragments/_diagram_build-logic-parts.adoc[]
 
 
 === Build logic [.small]#- Structure#
-image::gradle/bg-7.png[background, size=cover]
+image::gradle/bg-5.png[background, size=cover]
 
 A composite build bringing 4 included builds together.
 
@@ -32,7 +32,7 @@ include::../fragments/_diagram_build-logic-graph.adoc[]
 
 
 === Build logic [.small]#- Slides#
-image::gradle/bg-7.png[background, size=cover]
+image::gradle/bg-5.png[background, size=cover]
 
 [cols="<.<5,<.<5",frame=none,grid=none]
 |===
@@ -54,7 +54,7 @@ image::shared/logo.jpg[]
 
 
 === Build logic [.small]#- Overview#
-image::gradle/bg-7.png[background, size=cover]
+image::gradle/bg-5.png[background, size=cover]
 
 [cols="<.^3,<.^7",frame=none,grid=none]
 |===
@@ -92,7 +92,7 @@ image::imaginate_tree.png[]
 
 
 === Build logic [.small]#- Exploration#
-image::gradle/bg-7.png[background, size=cover]
+image::gradle/bg-5.png[background, size=cover]
 
 image::gradle/folks.png[width=40%]
 
@@ -121,7 +121,7 @@ https://github.com/gradle/imaginate
 
 
 === Build logic [.small]#- Kotlin DSL#
-image::gradle/bg-7.png[background, size=cover]
+image::gradle/bg-5.png[background, size=cover]
 
 [cols="<.^6,<.^4",frame=none,grid=none]
 |===
@@ -172,7 +172,7 @@ kotlin {
 
 
 === Build logic [.small]#- Building blocks#
-image::gradle/bg-7.png[background, size=cover]
+image::gradle/bg-5.png[background, size=cover]
 
 [cols="<.<5,<.<5",frame=none,grid=none]
 |===
@@ -204,7 +204,7 @@ a|
 
 
 === Build logic [.small]#- `buildSrc`#
-image::gradle/bg-7.png[background, size=cover]
+image::gradle/bg-5.png[background, size=cover]
 
 Keep imperative logic out of project build scripts. +
 Expose declarative DSL from convention plugins instead.
@@ -235,7 +235,7 @@ dependencies {
 
 
 === Build logic [.small]#- `buildSrc`?#
-image::gradle/bg-7.png[background, size=cover]
+image::gradle/bg-5.png[background, size=cover]
 
 `buildSrc` vs `includeBuild` for build logic
 
@@ -282,7 +282,7 @@ https://docs.gradle.org/8.0/release-notes.html#improvements-for-buildsrc-builds
 --
 
 === Build logic [.small]#- `buildSrc` first#
-image::gradle/bg-7.png[background, size=cover]
+image::gradle/bg-5.png[background, size=cover]
 
 Start with `buildSrc`, +
 move to included builds when you need to
@@ -295,7 +295,7 @@ if you only use convention plugins
 
 
 === Build logic [.small]#- Learn more#
-image::gradle/bg-7.png[background, size=cover]
+image::gradle/bg-5.png[background, size=cover]
 
 * Gradle's Kotlin DSL
 ** link:https://docs.gradle.org/current/userguide/kotlin_dsl.html[Documentation]
