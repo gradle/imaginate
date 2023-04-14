@@ -4,7 +4,7 @@ image::gradle/bg-7.png[background, size=cover]
 
 Configuration cache
 
-[notes]
+[.notes]
 ****
 * We explored how we can organize build logic for the configuration of your build.
 * All this logic can be expensive to run.
@@ -25,8 +25,22 @@ image::cc_android.png[width=80%]
 === Configuration cache [.small]#- How does it work?#
 image::gradle/bg-7.png[background, size=cover]
 
-image::cc.svg[Static,720]
+First run
 
+image::cc-first-run.svg[Static,width=80%]
+
+Subsequent runs
+
+image::cc-next-run.svg[Static,width=80%]
+
+
+=== Configuration cache [.small]#- What are the benefits?#
+image::gradle/bg-7.png[background, size=cover]
+
+
+* Configuration time becomes work graph loading time
+* Increased parallelism
+* Reduced memory consumption
 
 === Configuration cache [.small]#- Turn it on!#
 image::gradle/bg-7.png[background, size=cover]
