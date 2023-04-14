@@ -81,7 +81,7 @@ abstract class GenerateImages : DefaultTask() {
     }
 
     @TaskAction
-    fun action() {
+    fun generate() {
         checkApiKey()
         workers.classLoaderIsolation {
             classpath.from(workerClasspath)
