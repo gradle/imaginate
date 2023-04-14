@@ -8,13 +8,6 @@ An imaginary image generator
 === Imaginate [.small]#- Demo#
 image::gradle/bg-7.png[background, size=cover]
 
-
-=== Imaginate [.small]#- Overview#
-image::gradle/bg-7.png[background, size=cover]
-
-include::../fragments/_diagram_imaginate_overview.adoc[]
-
-
 === Imaginate [.small]#- Exploration#
 image::gradle/bg-7.png[background, size=cover]
 
@@ -35,3 +28,9 @@ https://github.com/gradle/imaginate
 * show usages of ImageGenerator, navigate to build logic
 * this is still kotlin
 ****
+
+=== Imaginate [.small]#- Overview#
+image::gradle/bg-7.png[background, size=cover]
+
+include::../fragments/_diagram_imaginate_overview.adoc[]
+
