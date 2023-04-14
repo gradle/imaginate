@@ -4,7 +4,7 @@ plugins {
 
 generatedImages {
     register("icon") {
-        prompt = "round icon. elephant. capital letter K. two colors."
+        prompt = "capital letter K. elephant. pop art."
         width = 512
     }
     register("logo") {

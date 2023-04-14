@@ -39,7 +39,7 @@ image::gradle/bg-7.png[background, size=cover]
 a|
 [.center]
 --
-_"round icon. elephant. capital letter K. two colors."_
+_"capital letter K. elephant. pop art."_
 --
 
 image::shared/icon.jpg[]
