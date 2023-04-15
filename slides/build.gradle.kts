@@ -6,7 +6,7 @@ plugins {
     id("java-base")
     id("org.asciidoctor.jvm.revealjs") version "4.0.0-alpha.1"
     id("io.freefair.sass-base") version "8.0.1"
-    // id("org.ajoberstar.git-publish") version "3.0.1"
+    id("org.ajoberstar.git-publish") version "4.1.1"
 }
 
 repositories {
@@ -75,11 +75,9 @@ tasks {
         sourceDirProperty = layout.projectDirectory.dir("src/docs/asciidoc")
         resources {
             from("${sourceDir}/images") {
-                include("**")
                 into("images")
             }
             from(sharedResources.map { it.destinationDir }) {
-                include("**")
                 into("images/shared")
             }
             from(sass.map { it.destinationDir }) {
@@ -109,7 +107,6 @@ tasks {
                 "revealjs_disableLayout" to "true", // Disables the default reveal.js slide layout (scaling and centering) so that you can use custom CSS layout
                 "revealjs_controlsLayout" to "edges", // Determines where controls appear, "edges" or "bottom-right"
                 "revealjs_autoPlayMedia" to false   // Auto-playing embedded media (video/audio/iframe) - true/false or null: Media will only autoplay if data-autoplay is present
-
             )
         )
         resources {
@@ -153,11 +150,43 @@ tasks {
     }
 }
 
-//gitPublish {
-//    repoUri = "git@github.com:gradle/gradle-kotlinconf-2023-app.git"
-//    branch = "gh-pages"
-//    contents {
-//        from(tasks.asciidoctorRevealJs)
-//    }
-//    commitMessage = "Publish slides"
-//}
+gitPublish {
+    repoUri = "git@github.com:gradle/imaginate.git"
+    branch = "gh-pages"
+    contents {
+        from(tasks.asciidoctorRevealJs)
+    }
+    commitMessage = "Publish slides"
+    sign = false
+}
+
+tasks.named("gitPublishCopy", Copy::class) {
+    exclude(".asciidoctor")
+    exclude("**/diag-*.png")
+}
+
+// Configuration cache incompatibilities
+mapOf(
+    "asciidoctor" to listOf(
+        org.asciidoctor.gradle.jvm.slides.AsciidoctorJRevealJSTask::class,
+        org.asciidoctor.gradle.jvm.gems.AsciidoctorGemPrepare::class,
+    ),
+    "sass" to listOf(
+        io.freefair.gradle.plugins.sass.SassCompile::class,
+    )
+).forEach { (plugin, taskTypes) ->
+    taskTypes.forEach { taskType ->
+        tasks.withType(taskType).configureEach {
+            notCompatibleWithConfigurationCache("$plugin plugin")
+        }
+    }
+}
+mapOf(
+    "git-publish" to listOf("gitPublishCopy"),
+).forEach { (plugin, taskNames) ->
+    taskNames.forEach { taskName ->
+        tasks.named(taskName) {
+            notCompatibleWithConfigurationCache("$plugin plugin")
+        }
+    }
+}
