@@ -4,6 +4,8 @@
 
 This repository contains the [applications](applications) and [slides](slides) used in the talk named _Kotlin, one language to build them all!_. 
 
+The slides are available at https://gradle.github.io/imaginate
+
 ## Browser Application
 
 Run application in a browser
