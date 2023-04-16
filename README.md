@@ -6,6 +6,8 @@ This repository contains the [applications](applications) and [slides](slides) u
 
 The slides are available at https://gradle.github.io/imaginate
 
+The video recording is available at https://youtu.be/88FJwx8Yf3o?t=18545
+
 ## Browser Application
 
 Run application in a browser
