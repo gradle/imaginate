@@ -43,6 +43,16 @@ jobs:
         with:
           gradle-home-cache-cleanup: true
 
+      - name: Build Library
+        run: ./gradlew --continue --stacktrace :image-generation:build
+        env:
+          CI: true
+
+      - name: Build Build Logic
+        run: ./gradlew --continue --stacktrace :buildSrc:build
+        env:
+          CI: true
+
       - name: Build Applications
         run: ./gradlew --continue --stacktrace build
         env:
