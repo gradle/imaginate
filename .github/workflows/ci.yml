@@ -96,7 +96,7 @@ jobs:
       - name: Build Slides
         run: xvfb-run ./gradlew --stacktrace :slides:build
 
-      - name: Upload Slides Archive
+      - name: Upload Slides HTML
         uses: actions/upload-artifact@v3
         with:
           name: gradle-imaginate-slides-html
