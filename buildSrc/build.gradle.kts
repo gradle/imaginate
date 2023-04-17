@@ -16,6 +16,7 @@ dependencies {
 
     implementation(libs.plugins.kotlin.mpp)
     implementation(libs.plugins.kotlin.android)
+    implementation(libs.plugins.kotlin.native.cocoapods)
     implementation(libs.plugins.android.application)
     implementation(libs.plugins.android.library)
     implementation(libs.plugins.compose)

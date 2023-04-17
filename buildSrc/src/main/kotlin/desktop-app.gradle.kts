@@ -1,6 +1,3 @@
-import imaginate.jvm
-import imaginate.libs
-
 plugins {
     id("kotlin-jvm-component")
     id("kotlin-compose-component")

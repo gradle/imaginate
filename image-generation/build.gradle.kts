@@ -6,6 +6,7 @@ plugins {
 group = "imaginate"
 
 kotlin {
+
     jvm {
         withJava()
         jvmToolchain(libs.versions.jvm.get().toInt())
@@ -17,9 +18,12 @@ kotlin {
         browser()
         binaries.library()
     }
+    iosX64()
+    iosArm64()
+    iosSimulatorArm64()
 
     sourceSets {
-        named("commonMain") {
+        val commonMain = getByName("commonMain") {
             dependencies {
                 api(libs.coroutines.core)
                 implementation(libs.ktor.client.core)
@@ -40,6 +44,18 @@ kotlin {
             dependencies {
                 implementation(libs.ktor.client.mock)
                 implementation(kotlin("test"))
+            }
+        }
+        val iosX64Main by getting
+        val iosArm64Main by getting
+        val iosSimulatorArm64Main by getting
+        create("iosMain") {
+            dependsOn(commonMain)
+            iosX64Main.dependsOn(this)
+            iosArm64Main.dependsOn(this)
+            iosSimulatorArm64Main.dependsOn(this)
+            dependencies {
+                implementation(libs.ktor.client.darwin)
             }
         }
     }

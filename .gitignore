@@ -5,6 +5,14 @@ build/
 # Android
 local.properties
 
+# ios
+applications/ios-app/iosApp/Podfile.lock
+applications/ios-app/iosApp/Pods/*
+applications/ios-app/iosApp/iosApp.xcworkspace/*
+applications/ios-app/iosApp/iosApp.xcodeproj/*
+!applications/ios-app/iosApp/iosApp.xcodeproj/project.pbxproj
+applications/ios-app/ios_app.podspec
+
 # IDE
 .idea/
 .asciidoctor
