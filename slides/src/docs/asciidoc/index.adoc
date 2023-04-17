@@ -13,6 +13,8 @@ Rodrigo Oliveira & Paul Merlin
 image::kotlinconf/logo-kotlinconf.png[width=20%, align="right"]
 
 link:https://github.com/gradle/imaginate[github.com/gradle/imaginate, window=_blank]
+-
+link:https://gradle.github.io/imaginate/gradle-imaginate-slides.pdf[pdf, window=_blank]
 
 include::chapters/_1_agenda.adoc[]
 
