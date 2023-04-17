@@ -6,6 +6,7 @@ plugins {
     id("java-base")
     id("org.asciidoctor.jvm.revealjs") version "4.0.0-alpha.1"
     id("io.freefair.sass-base") version "8.0.1"
+    id("org.ajoberstar.grgit.service") version "5.0.0"
     id("org.ajoberstar.git-publish") version "4.1.1"
 }
 
@@ -156,13 +157,12 @@ gitPublish {
     contents {
         from(tasks.asciidoctorRevealJs)
     }
-    commitMessage = "Publish slides"
+    commitMessage = "Publish slides\n\nFrom ${grgitService.service.get().grgit.describe()}"
     sign = false
 }
 
 tasks.named("gitPublishCopy", Copy::class) {
     exclude(".asciidoctor")
-    exclude("**/diag-*.png")
 }
 
 // Configuration cache incompatibilities
