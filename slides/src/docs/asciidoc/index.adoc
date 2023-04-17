@@ -4,12 +4,15 @@
 :title-slide-background-size: cover
 :title-slide-background-color: #02303a
 :hide-uri-scheme:
+:linkattrs:
 
 = Kotlin, one language to build them all!
 
 Rodrigo Oliveira & Paul Merlin
 
 image::kotlinconf/logo-kotlinconf.png[width=20%, align="right"]
+
+link:https://github.com/gradle/imaginate[github.com/gradle/imaginate, window=_blank]
 
 include::chapters/_1_agenda.adoc[]
 
