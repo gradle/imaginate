@@ -6,7 +6,6 @@ plugins {
     id("java-base")
     id("org.asciidoctor.jvm.revealjs") version "4.0.0-alpha.1"
     id("io.freefair.sass-base") version "8.0.1"
-    id("org.ajoberstar.grgit.service") version "5.0.0"
     id("org.ajoberstar.git-publish") version "4.1.1"
 }
 
@@ -160,7 +159,10 @@ gitPublish {
             builtBy(tasks.named("exportPdf"))
         })
     }
-    commitMessage = "Publish slides\n\nFrom ${grgitService.service.get().grgit.describe()}"
+    commitMessage = when (val sha = System.getenv("GITHUB_SHA")) {
+        null -> "Publish slides"
+        else -> "Publish slides\n\nFrom $sha"
+    }
     sign = false
 }
 
