@@ -8,3 +8,10 @@ runs:
     - name: Build for Web
       shell: bash
       run: ./gradlew --stacktrace :web-app:jsBrowserDistribution
+
+    - name: Upload web HTDOCS
+      uses: actions/upload-artifact@v3
+      with:
+        name: imaginate-web-htdocs
+        path: applications/web-app/build/distributions
+        if-no-files-found: error
