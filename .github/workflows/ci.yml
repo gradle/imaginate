@@ -29,9 +29,8 @@ jobs:
   applications:
     name: "Applications"
     needs: wrapper_validation
-    permissions:
-      pull-requests: write
     strategy:
+      fail-fast: false
       matrix:
         os: [ ubuntu-latest, macos-latest, windows-latest ]
     runs-on: ${{ matrix.os }}
@@ -43,8 +42,23 @@ jobs:
       - name: Prepare for build
         uses: ./.github/actions/prepare-for-build
 
-      - name: Build
-        run: ./gradlew --continue --stacktrace :image-generation:build :buildSrc:build build
+      - name: Check
+        run: ./gradlew --continue --stacktrace :image-generation:check :buildSrc:check check
+
+      - name: Build for Desktop
+        run: ./gradlew --stacktrace :desktop-app:createDistributable
+
+      - name: Build for Android
+        if: runner.os == 'Linux'
+        run: ./gradlew --stacktrace :android-app:assembleDebug
+
+      - name: Build for ios
+        if: runner.os == 'macOS'
+        run: ./gradlew --stacktrace :ios-app:linkPodDebugFrameworkIosArm64
+
+      - name: Build for Web
+        if: runner.os == 'Linux'
+        run: ./gradlew --stacktrace :web-app:jsBrowserDistribution
 
       - name: Validate no local changes
         uses: ./.github/actions/no-local-changes
