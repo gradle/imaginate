@@ -15,7 +15,7 @@ kotlin {
         summary = project.name
         homepage = "https://github.com/gradle/imaginate"
         ios.deploymentTarget = libs.iosDeploymentTarget
-        podfile = layout.projectDirectory.file("./iosApp/Podfile").asFile
+        podfile = layout.projectDirectory.file("iosApp/Podfile").asFile
         framework {
             baseName = "imaginate-${project.name}"
             isStatic = true
