@@ -1,0 +1,10 @@
+name: Build for Desktop
+description: Build for Desktop
+
+runs:
+  using: "composite"
+  steps:
+
+    - name: Build for Desktop
+      shell: bash
+      run: ./gradlew --stacktrace :desktop-app:packageDistributionForCurrentOS

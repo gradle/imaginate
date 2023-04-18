@@ -1,0 +1,10 @@
+name: Build for Web
+description: Build for Web
+
+runs:
+  using: "composite"
+  steps:
+
+    - name: Build for Web
+      shell: bash
+      run: ./gradlew --stacktrace :web-app:jsBrowserDistribution

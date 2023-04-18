@@ -1,0 +1,10 @@
+name: Build for ios
+description: Build for ios
+
+runs:
+  using: "composite"
+  steps:
+
+    - name: Build for ios
+      shell: bash
+      run: ./gradlew --stacktrace :ios-app:linkPodDebugFrameworkIosArm64

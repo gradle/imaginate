@@ -46,19 +46,19 @@ jobs:
         run: ./gradlew --continue --stacktrace :image-generation:check :buildSrc:check check
 
       - name: Build for Desktop
-        run: ./gradlew --stacktrace :desktop-app:createDistributable
+        uses: ./.github/actions/build-for-desktop
 
       - name: Build for Android
         if: runner.os == 'Linux'
-        run: ./gradlew --stacktrace :android-app:assembleDebug
+        uses: ./.github/actions/build-for-android
 
       - name: Build for ios
         if: runner.os == 'macOS'
-        run: ./gradlew --stacktrace :ios-app:linkPodDebugFrameworkIosArm64
+        uses: ./.github/actions/build-for-ios
 
       - name: Build for Web
         if: runner.os == 'Linux'
-        run: ./gradlew --stacktrace :web-app:jsBrowserDistribution
+        uses: ./.github/actions/build-for-web
 
       - name: Validate no local changes
         uses: ./.github/actions/no-local-changes
