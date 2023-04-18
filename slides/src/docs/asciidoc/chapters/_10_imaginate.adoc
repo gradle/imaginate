@@ -14,19 +14,31 @@ image::gradle/bg-7.png[background, size=cover]
 image::gradle/folks.png[width=40%]
 
 [.center]
-https://github.com/gradle/imaginate
+link:https://github.com/gradle/imaginate/blob/16265060f98a684eed708efee4afd6eb499a908d/applications/desktop-app/src/jvmMain/kotlin/imaginate/desktop/DesktopMain.kt[gradle/imaginate#DesktopMain.kt, window=_blank]
 
 [.notes]
 ****
-* start from the desktop app
-* navigate to shared-ui
-* show where it is used (android)
-* and there's the web too -> webapp/Main.kt
-* navigate to App / ImagePrompt / ImageGenerator
-* image generation multiplatform desktop/android/web
-* but it can also do plain JVM, that's how we use it in our build logic
-* show usages of ImageGenerator, navigate to build logic
-* this is still kotlin
+* open `DesktopMain.kt` +
+  this is `:desktop-app` +
+  this is a kotlin multiplatform app for linux, mac and windows
+* navigate to `App` +
+  this is Compose Multiplatform +
+  reactive UI +
+  this is `:shared-ui`
+* find usages of `App` +
+  navigate to Android activity +
+  ui shared between platforms
+* "and there's the web too" +
+  open `web-app/Main.kt`
+* navigate to `App` / `ImagePrompt` / `ImageGenerator` +
+  this is `:image-generation` +
+  this is a kotlin multiplatform library desktop/android/web
+* "it can also do plain JVM, that's how we use it in our shared build logic"
+  find usages of `ImageGenerator.generate()`
+  navigate to build logic
+* "we are in a `WorkAction`"
+  this is Gradle
+  and this is still kotlin
 ****
 
 === Imaginate [.small]#- Overview#

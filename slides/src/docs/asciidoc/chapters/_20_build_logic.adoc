@@ -97,26 +97,66 @@ image::gradle/bg-5.png[background, size=cover]
 image::gradle/folks.png[width=40%]
 
 [.center]
-https://github.com/gradle/imaginate
+link:https://github.com/gradle/imaginate/blob/16265060f98a684eed708efee4afd6eb499a908d/image-generation/src/commonMain/kotlin/imaginate/generation/ImageGenerator.kt[gradle/imaginate#ImageGenerator.kt, window=_blank]
 
 [.notes]
 ****
-* start from the image generation
-* used in the build logic
-* buildSrc - what is this?
-* task + isolation -> workerClasspath
-* configuring tool dependencies for isolation (internal helpers)
-* build service as a semaphore
-* shared resources custom DSL, registered extension
-* we are in a convention plugin
-* go to where it is used
-* generated accessor to the custom DSL extension
-* sam-with-receiver
-* assignment operator overload
-* how do we consume the shared resources, web-app/build.gradle.kts
-* dependency on shared resources using generated accessors
-* show shared-resources-consumer convention plugin
-* go back to web-app -> BTW version catalogs
+* open `ImageGenerator`
+* find usages of `ImageGenerator.generate()` +
+  navigate to build logic +
+  "we are in a `WorkAction`, this is Gradle, and this is still kotlin"
+* quick scrolling on what constitutes a Gradle task +
+  inputs/outputs/action
+* show directory tree +
+  "we are in `buildSrc`", build logic shared by subprojects +
+  there are some other tasks for image processing, regular `.kt` files
+* show `DrawAndroidImage` +
+  explain caching annotations, local and remote cache +
+  explain `workerClasspath` input, isolation, using Gradle's Worker API
+* find usages of `workerClasspath` input +
+  navigate to `shared-resources` convention plugin, a `.gradle.kts` file +
+  explain Gradle's plugin mechanism +
+  convention plugin vs. project script +
+  complex logic vs. declarative configuration
+* find usages of `svgToDrawableClasspath` +
+  configurations for external tools dependencies used in the tasks +
+  isolation worker api
+* navigate to `registerDependencyBucket` +
+  explain helpers in `buildSrc`, `.kt` files
+* navigate back to `shared-resources` convention plugin +
+  three tasks registration, inputs/output wiring
+* scroll to the `:generateBitmaps` task registration +
+  this task uses a shared build service +
+  used to represent external resources in a build
+* navigate to `imageGenerationSemaphore` +
+  external api concurrency control
+* still in `shared-resources` convention plugin +
+  this plugin exposes a custom DSL +
+  for projects to declare what images they produce +
+  show DSL extension registration
+  a container of `ImageSpec`
+* let's see how this custom DSL is used by a project
+  open `:shared-resources` project script file `shared-resources/build.gradle.kts` +
+  convention plugin vs. project script +
+  complex logic vs. declarative configuration
+* explain Kotlin DSL features using this project script +
+  generated accessor to the custom DSL extension +
+  sam-with-receiver, `Action` + `HasImplicitReceiver` +
+  assignment operator overload
+* "how are these resources consumed by other projects?" +
+  open `:web-app` project script file `web-app/build.gradle.kts` +
+  dependency on shared resources +
+  using generated accessors  +
+  convention plugin vs. project script +
+  complex logic vs. declarative configuration
+* search in files "shared-resources-consumer"
+  navigate to `shared-resources-consumer` convention plugin +
+  registers configurations for declaration of dependencies on shared resources +
+  bitmap vs. drawable
+* "this plugin for consuming shared resources is for example applied to `:web-app` +
+  go back to `:web-app` project script file `web-app/build.gradle.kts` +
+  convention plugin vs. project script +
+  complex logic vs. declarative configuration
 ****
 
 

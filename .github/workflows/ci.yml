@@ -96,18 +96,18 @@ jobs:
       - name: Build Slides
         run: xvfb-run ./gradlew --stacktrace :slides:build
 
-      - name: Upload Slides Archive
+      - name: Upload Slides HTML
         uses: actions/upload-artifact@v3
         with:
-          name: slides-html
-          path: slides/build/distributions/slides.zip
+          name: gradle-imaginate-slides-html
+          path: slides/build/distributions/gradle-imaginate-slides.zip
           if-no-files-found: error
 
       - name: Upload Slides PDF
         uses: actions/upload-artifact@v3
         with:
-          name: slides-pdf
-          path: slides/build/pdf/slides.pdf
+          name: gradle-imaginate-slides-pdf
+          path: slides/build/pdf/gradle-imaginate-slides.pdf
           if-no-files-found: error
 
       - name: Validate no local changes

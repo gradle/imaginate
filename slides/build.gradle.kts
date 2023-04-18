@@ -121,7 +121,7 @@ tasks {
 
         workingDir(asciidoctorRevealJs.map { it.outputDir })
         val outDirPath = "../../pdf"
-        args = listOf("index.html", "$outDirPath/slides.pdf", "--profile=revealjs")
+        args = listOf("index.html", "$outDirPath/gradle-imaginate-slides.pdf", "--profile=revealjs")
 
         inputs.dir(workingDir)
         outputs.dir(workingDir.resolve(outDirPath))
@@ -141,7 +141,7 @@ tasks {
         }
     }
     val html = register("zipHtml", Zip::class) {
-        archiveBaseName = "slides"
+        archiveBaseName = "gradle-imaginate-slides"
         from(asciidoctorRevealJs.map { it.outputDir })
         into("slides")
     }
@@ -155,14 +155,19 @@ gitPublish {
     branch = "gh-pages"
     contents {
         from(tasks.asciidoctorRevealJs)
+        from(files(layout.buildDirectory.file("pdf/gradle-imaginate-slides.pdf")) {
+            builtBy(tasks.named("exportPdf"))
+        })
     }
-    commitMessage = "Publish slides"
+    commitMessage = when (val sha = System.getenv("GITHUB_SHA")) {
+        null -> "Publish slides"
+        else -> "Publish slides\n\nFrom $sha"
+    }
     sign = false
 }
 
 tasks.named("gitPublishCopy", Copy::class) {
     exclude(".asciidoctor")
-    exclude("**/diag-*.png")
 }
 
 // Configuration cache incompatibilities
