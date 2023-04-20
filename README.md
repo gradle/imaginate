@@ -74,8 +74,9 @@ Build the APK in [applications/android-app/build/outputs/apk/debug](applications
 
 ## ios Application
 
-Run the application on a device or emulator
+Run the application on a device or simulator
 
+* Run `./gradlew :ios-app:podInstall`
 * Open `applications/ios-app/iosApp/iosApp.xcworkspace` in xcode
 * Select a simulator or device
 * Click the run button
