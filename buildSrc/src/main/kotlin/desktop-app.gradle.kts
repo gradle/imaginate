@@ -24,6 +24,7 @@ compose.desktop {
     application {
         nativeDistributions {
             targetFormats(Deb, Rpm, Dmg, Msi)
+            licenseFile = rootDir.resolve("LICENSE")
         }
     }
 }
