@@ -27,19 +27,23 @@ rectangle "Applications Build" {
 "**:shared-resources**" as (sharedResources) #008855
 "**:shared-logic**" as (sharedLogic) #008855
 "**:shared-ui**" as (sharedUi) #008855
-    "**:web-app**" as (webApp)
     "**:desktop-app**" as (desktopApp)
     "**:android-app**" as (androidApp)
+    "**:ios-app**" as (iosApp)
+    "**:web-app**" as (webApp)
 }
 rectangle Slides {
     "**:slides**" as (slides)
 }
 
+desktopApp --> sharedResources
+desktopApp --> sharedUi
+
 androidApp --> sharedResources
 androidApp --> sharedUi
 
-desktopApp --> sharedResources
-desktopApp --> sharedUi
+iosApp --> sharedResources
+iosApp --> sharedUi
 
 webApp --> sharedLogic
 webApp --> sharedResources

@@ -71,6 +71,7 @@ include("shared-logic")
 include("shared-ui")
 include("desktop-app")
 include("android-app")
+include("ios-app")
 include("web-app")
 
 for (project in rootProject.children) {
@@ -327,12 +328,16 @@ image::gradle/bg-5.png[background, size=cover]
 Start with `buildSrc`, +
 move to included builds when you need to
 
-* share logic between the build and applications,
+* share logic between builds,
 * isolate a portion of build logic.
 
 Transition is simple +
 if you only use convention plugins
 
+[.small]
+--
+Publish your convention plugins for sharing them across repositories
+--
 
 === Build logic [.small]#- Learn more#
 image::gradle/bg-5.png[background, size=cover]
