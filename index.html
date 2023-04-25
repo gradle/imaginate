@@ -60,10 +60,12 @@ link.type = 'text/css';
 link.href = window.location.search.match( /print-pdf/gi ) ? "reveal.js/css/print/pdf.css" : "reveal.js/css/print/paper.css";
 document.getElementsByTagName( 'head' )[0].appendChild( link );</script><!--[if lt IE 9]><script src="reveal.js/lib/js/html5shiv.js"></script><![endif]--><link rel="stylesheet" type="text/css" href="style/gradle.css"/></head><body><div class="reveal"><div class="slides"><section class="title" data-state="title" data-background-size="cover" data-background-image="./images/gradle/intro.png" data-background-color="#02303a"><h1>Kotlin, one language to build them all!</h1><div class="preamble"><div class="paragraph"><p>Rodrigo Oliveira &amp; Paul Merlin</p></div>
 <div class="imageblock" style="text-align: right"><img src="./images/kotlinconf/logo-kotlinconf.png" alt="logo kotlinconf" width="20%"></div>
-<div class="paragraph"><p><a href="https://github.com/gradle/imaginate" target="_blank">github.com/gradle/imaginate</a></p></div>
-<div class="paragraph"><p><a href="https://gradle.github.io/imaginate/gradle-imaginate-slides.pdf" target="_blank">pdf</a>
+<div class="paragraph"><p><a href="https://gradle.github.io/imaginate/" target="_blank">gradle.github.io/imaginate</a></p></div>
+<div class="paragraph"><p><a href="https://youtu.be/88FJwx8Yf3o?t=18545" target="_blank">video</a>
 -
-<a href="https://youtu.be/88FJwx8Yf3o?t=18545" target="_blank">video</a></p></div></div></section>
+<a href="https://gradle.github.io/imaginate/gradle-imaginate-slides.pdf" target="_blank">pdf</a>
+-
+<a href="https://github.com/gradle/imaginate" target="_blank">sources</a></p></div></div></section>
 <section id="slide_agenda" data-background-color="#02303a" data-background-image="./images/gradle/bg-8.png" data-background-size="cover"><h2>Agenda</h2>
 <div class="dlist"><dl><dt class="hdlist1">Imaginate &#x1F5BC;</dt><dd><p>An imaginary image generator</p></dd><dt class="hdlist1">Gradle &amp; Kotlin &#x2764;</dt><dd><p>Build logic</p></dd><dt class="hdlist1">Speed-up Loop Bonus &#128640;</dt><dd><p>Configuration cache</p></dd></dl></div></section>
 <section><section id="slide_who_are_we" data-background-color="#02303a" data-background-image="./images/gradle/bg-1.png" data-background-size="cover"><h2>Who are we?</h2><div class="paragraph"><p>&#x1F9D1;&#x200D;&#x1F4BB; &#x1F9D1;&#x200D;&#x1F4BB;</p></div></section><section id="slide_paul_rodrigo" data-background-image="./images/gradle/bg-1.png" data-background-size="cover">
@@ -144,7 +146,7 @@ and this is still kotlin</p></li></ul></div></aside></section><section id="slide
 <table class="tableblock frame-none grid-none" style="width:100%"><colgroup><col style="width:60%"><col style="width:40%"></colgroup><tbody><tr><td class="tableblock halign-left valign-middle"><div><div class="paragraph"><p>Gradle&#8217;s Kotlin DSL</p></div>
 <div class="openblock small"><div class="content"><div class="ulist"><ul><li><p>Kotlin DSL on top of Gradle&#8217;s Java API</p></li><li><p>Low ceremony thanks to Kotlin Scripting</p></li><li><p>Official Kotlin compiler plugins</p></li><li><p>IDE assistance, code navigation etc&#8230;&#8203;</p></li></ul></div></div></div></div></td><td class="tableblock halign-left valign-middle"><div><div class="imageblock" style=""><img src="./images/diag-25e700a9cea4467d2d9e49b28764f072.png" alt="Diagram"></div></div></td></tr></table></section><section id="slide_build_logic_structure" data-background-image="./images/gradle/bg-5.png" data-background-size="cover"><h2>Build logic <span class="small">- Structure</span></h2>
 <div class="paragraph"><p>A composite build bringing 4 included builds together.</p></div>
-<div class="imageblock" style=""><img src="./images/diag-f062d82a8121206c77ab6ec79e6cb03f.png" alt="Diagram"></div></section><section id="slide_build_logic_slides" data-background-image="./images/gradle/bg-5.png" data-background-size="cover"><h2>Build logic <span class="small">- Slides</span></h2>
+<div class="imageblock" style=""><img src="./images/diag-74dea6acab6cb2c5dffdd0a5dbe6270d.png" alt="Diagram"></div></section><section id="slide_build_logic_slides" data-background-image="./images/gradle/bg-5.png" data-background-size="cover"><h2>Build logic <span class="small">- Slides</span></h2>
 <table class="tableblock frame-none grid-none" style="width:100%"><colgroup><col style="width:50%"><col style="width:50%"></colgroup><tbody><tr><td class="tableblock halign-left valign-top"><div><div class="openblock center"><div class="content"><div class="paragraph"><p><em>"capital letter K. elephant. pop art."</em></p></div></div></div>
 <div class="imageblock" style=""><img src="./images/shared/icon.jpg" alt="icon"></div></div></td><td class="tableblock halign-left valign-top"><div><div class="openblock center"><div class="content"><div class="paragraph"><p><em>"elephant in the Kotlin island. caravaggio."</em></p></div></div></div>
 <div class="imageblock" style=""><img src="./images/shared/logo.jpg" alt="logo"></div></div></td></tr></table></section><section id="slide_build_logic_overview" data-background-image="./images/gradle/bg-5.png" data-background-size="cover"><h2>Build logic <span class="small">- Overview</span></h2>
@@ -158,6 +160,7 @@ include("shared-logic")
 include("shared-ui")
 include("desktop-app")
 include("android-app")
+include("ios-app")
 include("web-app")
 
 for (project in rootProject.children) {
@@ -280,9 +283,10 @@ dependencies {
 <a href="https://docs.gradle.org/8.0/release-notes.html#improvements-for-buildsrc-builds" class="bare">docs.gradle.org/8.0/release-notes.html#improvements-for-buildsrc-builds</a></p></div></div></div></section><section id="slide_build_logic_buildsrc_first" data-background-image="./images/gradle/bg-5.png" data-background-size="cover"><h2>Build logic <span class="small">- <code>buildSrc</code> first</span></h2>
 <div class="paragraph"><p>Start with <code>buildSrc</code>,<br>
 move to included builds when you need to</p></div>
-<div class="ulist"><ul><li><p>share logic between the build and applications,</p></li><li><p>isolate a portion of build logic.</p></li></ul></div>
+<div class="ulist"><ul><li><p>share logic between builds,</p></li><li><p>isolate a portion of build logic.</p></li></ul></div>
 <div class="paragraph"><p>Transition is simple<br>
-if you only use convention plugins</p></div></section><section id="slide_build_logic_learn_more" data-background-image="./images/gradle/bg-5.png" data-background-size="cover"><h2>Build logic <span class="small">- Learn more</span></h2>
+if you only use convention plugins</p></div>
+<div class="openblock small"><div class="content"><div class="paragraph"><p>Publish your convention plugins for sharing them across repositories</p></div></div></div></section><section id="slide_build_logic_learn_more" data-background-image="./images/gradle/bg-5.png" data-background-size="cover"><h2>Build logic <span class="small">- Learn more</span></h2>
 <div class="ulist"><ul><li><p>Gradle&#8217;s Kotlin DSL</p><div class="ulist"><ul><li><p><a href="https://docs.gradle.org/current/userguide/kotlin_dsl.html">Documentation</a></p></li><li><p><a href="https://docs.gradle.org/nightly/kotlin-dsl/">DSL Reference</a></p></li></ul></div></li><li><p>Build organization</p><div class="ulist"><ul><li><p><a href="https://docs.gradle.org/current/userguide/multi_project_builds.html">Structuring individual builds</a></p></li><li><p><a href="https://docs.gradle.org/current/userguide/structuring_software_products.html">Structuring software products</a></p></li><li><p>Jendrik&#8217;s <a href="https://www.youtube.com/@jjohannes/playlists">Understanding Gradle</a> videos</p></li><li><p><a href="https://dev.to/autonomousapps">Tony</a>'s and <a href="https://melix.github.io/blog/">Cédric</a>'s blog posts</p></li></ul></div></li></ul></div></section></section>
 <section><section id="slide_speed_up_loop_bonus" data-background-color="#02303a" data-background-image="./images/gradle/bg-11.png" data-background-size="cover"><h2>Speed-up Loop Bonus &#128640;</h2><div class="paragraph"><p>Configuration cache</p></div><aside class="notes"><div class="ulist"><ul><li><p>We explored how we can organize build logic for the configuration of your build.</p></li><li><p>All this logic can be expensive to run.</p></li></ul></div></aside></section><section id="slide_configuration_cache" data-background-image="./images/gradle/bg-11.png" data-background-size="cover"><h2>Configuration cache</h2>
 <div class="paragraph center"><p>Significantly improves build performance<br>
