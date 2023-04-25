@@ -16,6 +16,10 @@ val VersionCatalog.jvm: Int
     get() = findVersion("jvm").get().requiredVersion.toInt()
 
 internal
+val VersionCatalog.iosDeploymentTarget: String
+    get() = findVersion("ios-deploymentTarget").get().requiredVersion
+
+internal
 val VersionCatalog.androidCompileSdk: Int
     get() = findVersion("android-sdk-compile").get().requiredVersion.toInt()
 

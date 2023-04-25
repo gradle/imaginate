@@ -20,5 +20,9 @@ kotlin {
 compose.desktop {
     application {
         mainClass = "imaginate.desktop.DesktopMainKt"
+        nativeDistributions {
+            packageName = "imaginate"
+
+        }
     }
 }

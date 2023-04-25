@@ -14,8 +14,12 @@ jobs:
     name: "Wrapper Validation"
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: gradle/wrapper-validation-action@v1
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Validate Wrapper
+        uses: gradle/wrapper-validation-action@v1
 
   publish_slides:
     name: Publish Slides
@@ -24,29 +28,23 @@ jobs:
       contents: write
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
 
-      - uses: webfactory/ssh-agent@v0.7.0
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up deploy key
+        uses: webfactory/ssh-agent@v0.7.0
         with:
           ssh-private-key: ${{ secrets.SLIDES_SSH_DEPLOY_KEY }}
 
-      - uses: actions/setup-java@v3
-        with:
-          java-version: 11
-          java-package: jdk+fx
-          distribution: zulu
-
-      - name: Install graphviz
-        run: sudo apt-get install -y graphviz
-
-      - name: Setup Gradle
-        uses: gradle/gradle-build-action@v2
+      - name: Prepare for slides
+        uses: ./.github/actions/prepare-for-slides
 
       - name: Build Slides
         run: xvfb-run ./gradlew :slides:build
 
       - name: Validate no local changes
-        run: if [ -z "$(git status --porcelain=v1 2>/dev/null)" ]; then echo "NO CHANGES"; else git --no-pager diff HEAD --no-color; fi
+        uses: ./.github/actions/no-local-changes
 
       - name: Publish Slides
         run: xvfb-run ./gradlew --stacktrace :slides:gitPublishPush

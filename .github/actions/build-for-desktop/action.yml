@@ -1,0 +1,42 @@
+name: Build for Desktop
+description: Build for Desktop
+
+runs:
+  using: "composite"
+  steps:
+
+    - name: Build for Desktop
+      shell: bash
+      run: ./gradlew --stacktrace :desktop-app:packageDistributionForCurrentOS
+
+    - name: Upload linux DEB
+      if: runner.os == 'Linux'
+      uses: actions/upload-artifact@v3
+      with:
+        name: imaginate-linux-deb
+        path: applications/desktop-app/build/compose/binaries/main/deb
+        if-no-files-found: error
+
+    - name: Upload linux RPM
+      if: runner.os == 'Linux'
+      uses: actions/upload-artifact@v3
+      with:
+        name: imaginate-linux-rpm
+        path: applications/desktop-app/build/compose/binaries/main/rpm
+        if-no-files-found: error
+
+    - name: Upload macos DMG
+      if: runner.os == 'macOS'
+      uses: actions/upload-artifact@v3
+      with:
+        name: imaginate-macos-dmg
+        path: applications/desktop-app/build/compose/binaries/main/dmg
+        if-no-files-found: error
+
+    - name: Upload windows MSI
+      if: runner.os == 'Windows'
+      uses: actions/upload-artifact@v3
+      with:
+        name: imaginate-windows-msi
+        path: applications/desktop-app/build/compose/binaries/main/msi
+        if-no-files-found: error

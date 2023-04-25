@@ -1,0 +1,10 @@
+name: Validate no local changes
+description: Validate no local changes
+
+runs:
+  using: "composite"
+  steps:
+
+    - name: Validate no local changes
+      shell: bash
+      run: if [ -z "$(git status --porcelain=v1 2>/dev/null)" ]; then echo "NO CHANGES"; else git --no-pager diff HEAD --no-color; fi

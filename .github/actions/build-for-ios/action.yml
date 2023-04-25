@@ -1,0 +1,33 @@
+name: Build for ios
+description: Build for ios
+
+runs:
+  using: "composite"
+  steps:
+
+    - name: Pod install
+      shell: bash
+      run: ./gradlew :ios-app:podInstall
+
+    - name: DEBUG BEFORE
+      shell: bash
+      run: find applications/ios-app/iosApp/ -type f
+
+    - name: Build for ios
+      shell: bash
+      run: xcodebuild -workspace applications/ios-app/iosApp/iosApp.xcworkspace -scheme iosApp -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 12' -derivedDataPath applications/ios-app/build/xcodebuild/derived
+
+    - name: DEBUG AFTER
+      shell: bash
+      run: find applications/ios-app/iosApp/ -type f
+
+    - name: Copy simulator APP
+      shell: bash
+      run: mkdir -p applications/ios-app/build/xcodebuild/outputs/app ; cp -a applications/ios-app/build/xcodebuild/derived/Build/Products/Debug-iphonesimulator/imaginate.app applications/ios-app/build/xcodebuild/outputs/app/
+
+    - name: Upload ios simulator APP
+      uses: actions/upload-artifact@v3
+      with:
+        name: imaginate-ios-simulator-app
+        path: applications/ios-app/build/xcodebuild/outputs/app
+        if-no-files-found: error

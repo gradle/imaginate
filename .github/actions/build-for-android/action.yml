@@ -1,0 +1,17 @@
+name: Build for Android
+description: Build for Android
+
+runs:
+  using: "composite"
+  steps:
+
+    - name: Build for Android
+      shell: bash
+      run: ./gradlew --stacktrace :android-app:assembleDebug
+
+    - name: Upload android APK
+      uses: actions/upload-artifact@v3
+      with:
+        name: imaginate-android-apk
+        path: applications/android-app/build/outputs/apk/debug
+        if-no-files-found: error

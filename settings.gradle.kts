@@ -20,6 +20,7 @@ include("shared-logic")
 include("shared-ui")
 include("desktop-app")
 include("android-app")
+include("ios-app")
 include("web-app")
 
 for (project in rootProject.children) {

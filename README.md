@@ -8,6 +8,28 @@ The slides are available at https://gradle.github.io/imaginate
 
 The video recording is available at https://youtu.be/88FJwx8Yf3o?t=18545
 
+## Prerequisites
+
+> **Warning**
+> You need macos to write and run ios-specific code on simulated or real devices.
+> This is an Apple requirement.
+> On non-macos systems building ios-specific code is automatically disabled.
+
+### Set up the environment
+
+You need the following on all platforms:
+
+* Java >= 11 available from terminals and IDEs
+* [Android Studio](https://developer.android.com/studio)
+
+On macos you need:
+
+* [CocoaPods dependency manager](https://kotlinlang.org/docs/native-cocoapods.html)
+* [Xcode](https://apps.apple.com/us/app/xcode/id497799835)
+* [Kotlin Multiplatform Mobile plugin](https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform-mobile)
+
+In case of trouble you can use [KDoctor](https://github.com/Kotlin/kdoctor).
+
 ## Browser Application
 
 Run application in a browser
@@ -50,7 +72,18 @@ Build the APK in [applications/android-app/build/outputs/apk/debug](applications
 ./gradlew :android-app:assembleDebug
 ```
 
+## ios Application
+
+Run the application on a device or simulator
+
+* Run `./gradlew :ios-app:podInstall`
+* Open `applications/ios-app/iosApp/iosApp.xcworkspace` in xcode
+* Select a simulator or device
+* Click the run button
+
 ## Slides
+
+Note that building the slides requires a JVM with JavaFX bundled.
 
 Build "htdocs" in [slides/build/docs/asciidocRevealJs](slides/build/docs/asciidocRevealJs)
 ```shell
