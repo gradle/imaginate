@@ -102,7 +102,7 @@ tasks {
                 "imagesdir" to "./images",
                 "icons" to "font",
                 "idprefix" to "slide-",
-                "docinfo" to "shared",
+                "docinfo" to "private",
                 // Configurations not available via the `revealjsOptions` block - See https://revealjs.com/config/
                 "revealjs_disableLayout" to "true", // Disables the default reveal.js slide layout (scaling and centering) so that you can use custom CSS layout
                 "revealjs_controlsLayout" to "edges", // Determines where controls appear, "edges" or "bottom-right"
@@ -118,6 +118,10 @@ tasks {
 
         classpath = pdfConfiguration
         mainClass = "me.champeau.deck2pdf.Main"
+        jvmArgs = listOf(
+            "--add-opens", "java.base/java.util=ALL-UNNAMED",
+            "--add-opens", "java.base/java.lang=ALL-UNNAMED",
+        )
 
         workingDir(asciidoctorRevealJs.map { it.outputDir })
         val outDirPath = "../../pdf"
@@ -127,7 +131,7 @@ tasks {
         outputs.dir(workingDir.resolve(outDirPath))
 
         doFirst {
-            val requiredJavaVersion = JavaVersion.VERSION_11
+            val requiredJavaVersion = JavaVersion.VERSION_17
             val wrongJavaVersionMessage =
                 "This build must be run with a JavaFX enabled JDK version $requiredJavaVersion."
             try {

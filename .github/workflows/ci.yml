@@ -42,8 +42,14 @@ jobs:
       - name: Prepare for build
         uses: ./.github/actions/prepare-for-build
 
-      - name: Check
-        run: ./gradlew --continue --stacktrace :image-generation:check :buildSrc:check check
+      - name: Check Image Generation
+        run: ./gradlew --continue --stacktrace :image-generation:check
+
+      - name: Check Build Logic
+        run: ./gradlew --continue --stacktrace :buildSrc:check
+
+      - name: Check Applications
+        run: ./gradlew --continue --stacktrace check
 
       - name: Build for Desktop
         uses: ./.github/actions/build-for-desktop
@@ -72,8 +78,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Prepare for slides
-        uses: ./.github/actions/prepare-for-slides
+      - name: Prepare for build
+        uses: ./.github/actions/prepare-for-build
+
+      - name: Install graphviz
+        shell: bash
+        run: sudo apt-get install -y graphviz
 
       - name: Build Slides
         run: xvfb-run ./gradlew --stacktrace :slides:build
