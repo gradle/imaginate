@@ -13,7 +13,7 @@ All notable changes to this project will be documented in the [Changelog](CHANGE
 
 You need the following on all platforms:
 
-* `JAVA_HOME` environment variable pointing to Java >= 11
+* `JAVA_HOME` environment variable pointing to Java >= 17
 * [Android Studio](https://developer.android.com/studio) or [IntelliJ IDEA](https://www.jetbrains.com/idea/)
 
 > **Warning**

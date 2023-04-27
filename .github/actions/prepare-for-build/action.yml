@@ -9,7 +9,8 @@ runs:
       uses: actions/setup-java@v3
       with:
         java-version: 17
-        distribution: 'temurin'
+        java-package: jdk+fx
+        distribution: zulu
 
     - name: Setup Gradle
       uses: gradle/gradle-build-action@v2

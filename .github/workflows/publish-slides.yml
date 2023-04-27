@@ -37,8 +37,12 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SLIDES_SSH_DEPLOY_KEY }}
 
-      - name: Prepare for slides
-        uses: ./.github/actions/prepare-for-slides
+      - name: Prepare for build
+        uses: ./.github/actions/prepare-for-build
+
+      - name: Install graphviz
+        shell: bash
+        run: sudo apt-get install -y graphviz
 
       - name: Build Slides
         run: xvfb-run ./gradlew :slides:build
