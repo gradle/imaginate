@@ -102,7 +102,7 @@ tasks {
                 "imagesdir" to "./images",
                 "icons" to "font",
                 "idprefix" to "slide-",
-                "docinfo" to "shared",
+                "docinfo" to "private",
                 // Configurations not available via the `revealjsOptions` block - See https://revealjs.com/config/
                 "revealjs_disableLayout" to "true", // Disables the default reveal.js slide layout (scaling and centering) so that you can use custom CSS layout
                 "revealjs_controlsLayout" to "edges", // Determines where controls appear, "edges" or "bottom-right"

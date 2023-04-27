@@ -1,0 +1,49 @@
+[background-color="#02303a"]
+== Who are we?
+image::gradle/bg-1.png[background, size=cover]
+
+&#x1F9D1;&#x200D;&#x1F4BB; &#x1F9D1;&#x200D;&#x1F4BB;
+
+[%notitle]
+=== Paul & Rodrigo
+image::gradle/bg-1.png[background, size=cover]
+
+image::paul_rodrigo.jpg[width=40%]
+
+[cols="<.<5,<.<5",frame=none,grid=none]
+|===
+a|
+[source,kotlin]
+----
+​
+speaker {
+    name = "Paul Merlin"
+    company = "Gradle"
+    joined = 2015
+    position = "Kotlin DSL Project Lead, again \o/"
+    previously = "Configuration Cache Project Lead"
+    github = "eskatos"
+    mastodon = "@eskatos@mastodon.social"
+}
+​
+----
+
+a|
+[source,kotlin]
+----
+​
+speaker {
+    name = "Rodrigo B. de Oliveira"
+    company = "Gradle"
+    joined = 2015
+    position = "Configuration Team Lead"
+    previously = "Kotlin DSL Project Lead"
+    github = "bamboo"
+    mastodon = "@rbo@mastodon.social"
+}
+​
+----
+|===
+
+
+include::_3_who_gradle.adoc[]
