@@ -42,8 +42,14 @@ jobs:
       - name: Prepare for build
         uses: ./.github/actions/prepare-for-build
 
-      - name: Check
-        run: ./gradlew --continue --stacktrace :image-generation:check :buildSrc:check check
+      - name: Check Image Generation
+        run: ./gradlew --continue --stacktrace :image-generation:check
+
+      - name: Check Build Logic
+        run: ./gradlew --continue --stacktrace :buildSrc:check
+
+      - name: Check Applications
+        run: ./gradlew --continue --stacktrace check
 
       - name: Build for Desktop
         uses: ./.github/actions/build-for-desktop
