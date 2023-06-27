@@ -19,4 +19,4 @@ runs:
 
     - name: Configure
       shell: bash
-      run: ./gradlew --stacktrace help
+      run: ./gradlew --stacktrace --dry-run build
