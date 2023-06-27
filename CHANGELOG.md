@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - An `:ios-app` that uses `:shared-ui` and `:shared-logic`.
+- Applications use Material 3 theme across platforms, except for the DOM based `:web-app`.
 - GitHub [Workflows](.github/workflows) and [Actions](.github/actions) that package applications for
   all supported platforms.
 - Linux `:desktop-app` packaging now uses the generated icon.
