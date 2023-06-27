@@ -60,3 +60,10 @@ kotlin {
         }
     }
 }
+
+// Use available yarn on CI
+plugins.withType(org.jetbrains.kotlin.gradle.targets.js.yarn.YarnPlugin::class) {
+    configure<org.jetbrains.kotlin.gradle.targets.js.yarn.YarnRootExtension> {
+        download = System.getenv("CI") != "true"
+    }
+}

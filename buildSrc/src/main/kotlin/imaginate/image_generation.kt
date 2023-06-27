@@ -10,13 +10,13 @@ import org.gradle.api.provider.ListProperty
 import org.gradle.api.provider.Property
 import org.gradle.api.services.BuildService
 import org.gradle.api.services.BuildServiceParameters
+import org.gradle.api.tasks.CacheableTask
 import org.gradle.api.tasks.Classpath
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.Nested
 import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
-import org.gradle.api.tasks.UntrackedTask
 import org.gradle.kotlin.dsl.submit
 import org.gradle.workers.WorkAction
 import org.gradle.workers.WorkParameters
@@ -48,7 +48,7 @@ abstract class ImageSpec(private val name: String) : Named {
 internal
 abstract class ImageGenerationSemaphore : BuildService<BuildServiceParameters.None>
 
-@UntrackedTask(because = "Outputs are commited to git")
+@CacheableTask
 abstract class GenerateImages : DefaultTask() {
 
     @get:Classpath
@@ -74,7 +74,6 @@ abstract class GenerateImages : DefaultTask() {
 
     @TaskAction
     fun generate() {
-        checkApiKey()
         workers.classLoaderIsolation {
             classpath.from(workerClasspath)
         }.submit(GenerateImageWork::class) {
@@ -83,12 +82,69 @@ abstract class GenerateImages : DefaultTask() {
             outputDirectory.set(this@GenerateImages.outputDirectory)
         }
     }
+}
+
+internal
+abstract class GenerateImageParameters : WorkParameters {
+    abstract val apiKey: Property<String>
+    abstract val images: ListProperty<ImageSpecIsolate>
+    abstract val outputDirectory: DirectoryProperty
+}
+
+internal
+data class ImageSpecIsolate(
+        val name: String,
+        val prompt: String,
+        val width: Int,
+        val height: Int
+) : Serializable {
+
+    constructor(spec: ImageSpec) :
+            this(spec.name, spec.prompt.get(), spec.width.get(), spec.height.get())
+}
+
+internal
+abstract class GenerateImageWork : WorkAction<GenerateImageParameters> {
+
+    override fun execute(): Unit = runBlocking {
+        parameters.apply {
+            val imageGenerator by lazy {
+                ImageGenerator(validApiKey().orNull)
+            }
+            val outputDir = outputDirectory.get()
+            images.get().forEach { image ->
+                outputDir.file(image.bitmapFileName).asFile.run {
+                    if (!isFile) {
+                        parentFile.mkdirs()
+                        writeBytes(imageGenerator.generate(image))
+                    }
+                }
+            }
+        }
+    }
 
     private
-    fun checkApiKey() {
-        if (!apiKey.isPresent) {
-            logger.warn(
-                """
+    val ImageSpecIsolate.bitmapFileName
+        get() = "$name.jpg"
+
+    private
+    suspend fun ImageGenerator.generate(spec: ImageSpecIsolate): ByteArray =
+            generate(
+                    spec.prompt,
+                    spec.width,
+                    spec.height
+            ).let { result ->
+                when (result) {
+                    is ImageGenerator.Result.Success -> result.image
+                    is ImageGenerator.Result.Failure -> throw Exception(result.reason)
+                }
+            }
+
+    private
+    fun validApiKey(): Property<String> {
+        if (!parameters.apiKey.isPresent) {
+            println(
+                    """
                 |
                 |This build needs a Dream Studio API key.
                 |None was provided, image generation will fallback to simple random images.
@@ -103,57 +159,6 @@ abstract class GenerateImages : DefaultTask() {
                 """.trimMargin()
             )
         }
+        return parameters.apiKey
     }
 }
-
-internal
-abstract class GenerateImageParameters : WorkParameters {
-    abstract val apiKey: Property<String>
-    abstract val images: ListProperty<ImageSpecIsolate>
-    abstract val outputDirectory: DirectoryProperty
-}
-
-internal
-data class ImageSpecIsolate(
-    val name: String,
-    val prompt: String,
-    val width: Int,
-    val height: Int
-) : Serializable {
-
-    constructor(spec: ImageSpec) :
-        this(spec.name, spec.prompt.get(), spec.width.get(), spec.height.get())
-}
-
-internal
-abstract class GenerateImageWork : WorkAction<GenerateImageParameters> {
-    override fun execute(): Unit = runBlocking {
-        parameters.apply {
-            val imageGenerator = ImageGenerator(apiKey.orNull)
-            val outputDir = outputDirectory.get()
-            images.get().forEach { image ->
-                val bitmapFile = outputDir.file(bitmapFileNameFor(image.name)).asFile
-                if (!bitmapFile.isFile) {
-                    bitmapFile.parentFile.mkdirs()
-                    bitmapFile.writeBytes(
-                        imageGenerator.generate(
-                            image.prompt,
-                            image.width,
-                            image.height
-                        ).let { result ->
-                            when (result) {
-                                is ImageGenerator.Result.Success -> result.image
-                                is ImageGenerator.Result.Failure -> throw Exception(result.reason)
-                            }
-                        }
-                    )
-                }
-            }
-        }
-    }
-}
-
-
-private
-fun bitmapFileNameFor(name: String) =
-    "$name.jpg"

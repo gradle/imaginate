@@ -55,34 +55,38 @@ dependencies {
 
 
 // Custom tasks
-val generateBitmaps = tasks.register("generateBitmaps", GenerateImages::class) {
-    usesService(imageGenerationSemaphore)
-    apiKey = buildCredentials.stableDiffusionApiKey
-    workerClasspath.from(imageGenerationClasspath)
-    outputDirectory = layout.projectDirectory.dir("src/images")
-}
-generatedImages.all {
-    generateBitmaps {
-        images.add(this@all)
-    }
-}
-val generateVectors = tasks.register("generateVectors", VectorizeImage::class) {
-    workerClasspath.from(imageTracerClasspath)
-    bitmapsDirectory = generateBitmaps.flatMap { it.outputDirectory }
-    palleteSize = 8
-    outputDirectory = layout.buildDirectory.dir("generated-vectors")
-}
-val generateDrawables = tasks.register("generateDrawables", DrawAndroidImage::class) {
-    workerClasspath.from(svgToDrawableClasspath)
-    vectorsDirectory = generateVectors.flatMap { it.outputDirectory }
-    outputDirectory = layout.buildDirectory.dir("generated-drawables")
-}
-tasks.register("generateImages") {
-    dependsOn(generateDrawables)
-}
+tasks {
 
-// Publishing outputs to other projects
-artifacts {
-    add(bitmapImages.name, generateBitmaps.flatMap { it.outputDirectory })
-    add(drawableImages.name, generateDrawables.flatMap { it.outputDirectory })
+    val generateBitmaps = register("generateBitmaps", GenerateImages::class) {
+        doNotTrackState("Outputs are committed to git")
+        usesService(imageGenerationSemaphore)
+        apiKey = buildCredentials.stableDiffusionApiKey
+        workerClasspath.from(imageGenerationClasspath)
+        outputDirectory = layout.projectDirectory.dir("src/images")
+    }
+    generatedImages.all {
+        generateBitmaps {
+            images.add(this@all)
+        }
+    }
+    val generateVectors = register("generateVectors", VectorizeImage::class) {
+        workerClasspath.from(imageTracerClasspath)
+        bitmapsDirectory = generateBitmaps.flatMap { it.outputDirectory }
+        palleteSize = 8
+        outputDirectory = layout.buildDirectory.dir("generated-vectors")
+    }
+    val generateDrawables = register("generateDrawables", DrawAndroidImage::class) {
+        workerClasspath.from(svgToDrawableClasspath)
+        vectorsDirectory = generateVectors.flatMap { it.outputDirectory }
+        outputDirectory = layout.buildDirectory.dir("generated-drawables")
+    }
+    register("generateImages") {
+        dependsOn(generateDrawables)
+    }
+
+    // Publishing outputs to other projects
+    artifacts {
+        add(bitmapImages.name, generateBitmaps.flatMap { it.outputDirectory })
+        add(drawableImages.name, generateDrawables.flatMap { it.outputDirectory })
+    }
 }

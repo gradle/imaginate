@@ -67,7 +67,7 @@ abstract class DrawAndroidImage : DefaultTask() {
 
     private
     fun convert(vectorFile: File, drawableFile: File) {
-        project.logger.info("Converting '{}' to '{}'", vectorFile, drawableFile)
+        logger.info("Converting '{}' to '{}'", vectorFile, drawableFile)
         workers.classLoaderIsolation {
             classpath.from(workerClasspath)
         }.submit(DrawAndroidImageWork::class) {
@@ -92,7 +92,7 @@ abstract class DrawAndroidImageWork : WorkAction<DrawAndroidImageParameters> {
         xmlFile.parentFile.mkdirs()
         xmlFile.outputStream().use { output ->
             val errors: String = try {
-                Svg2Vector.parseSvgToXml(svgFile, output)
+                Svg2Vector.parseSvgToXml(svgFile.toPath(), output)
             } catch (e: Exception) {
                 throw Exception("Unable to parse svg file '$svgFile'", e)
             }
