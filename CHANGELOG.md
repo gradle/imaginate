@@ -13,7 +13,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - GitHub [Workflows](.github/workflows) and [Actions](.github/actions) that package applications for
   all supported platforms.
 
-// ### Fixed
+### Fixed
+
+- `GenerateImages` task outputs are now cacheable. Only `:shared-resources` disables tracking the
+  task state because its configured outputs are committed to git.
 
 ### Changed
 
@@ -26,5 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 First public release.
 
+// [unreleased]: https://github.com/gradle/imaginate/compare/v1.1.0...HEAD
+// [1.1.0]: https://github.com/gradle/imaginate/compare/v1.0.0...v1.1.0
 [unreleased]: https://github.com/gradle/imaginate/compare/v1.0.0...HEAD
 [1.0.0]: https://github.com/gradle/imaginate/releases/tag/v1.0.0
