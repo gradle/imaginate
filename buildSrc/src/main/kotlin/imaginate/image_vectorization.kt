@@ -73,7 +73,7 @@ abstract class VectorizeImage : DefaultTask() {
 
     private
     fun convert(bitmapFile: File, vectorFile: File) {
-        project.logger.info("Converting '{}' to '{}'", bitmapFile, vectorFile)
+        logger.info("Converting '{}' to '{}'", bitmapFile, vectorFile)
         workers.classLoaderIsolation {
             classpath.from(workerClasspath)
         }.submit(ImageVectorizationWork::class) {
