@@ -100,7 +100,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: gradle-imaginate-slides-pdf
-          path: slides/build/pdf/gradle-imaginate-slides.pdf
+          path: slides/build/pdf/
           if-no-files-found: error
 
       - name: Validate no local changes

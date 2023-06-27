@@ -15,9 +15,14 @@ image::logo-kotlin.svg[width=10%, align="right"]
 link:https://kotlinconf.com/[KotlinConf, window=_blank] [.small]#2023-04-14 +
 link:2023-kotlinconf.html[slides]
 -
-link:https://gradle.github.io/imaginate/gradle-imaginate-slides.pdf[pdf, window=_blank]
+link:https://gradle.github.io/imaginate/2023-kotlinconf-gradle-imaginate-slides.pdf[pdf, window=_blank]
 -
 link:https://youtu.be/88FJwx8Yf3o?t=18545[video, window=_blank]#
+
+link:https://sunny-tech.io/[SunnyTech, window=_blank] [.small]#2023-06-29 +
+link:2023-sunnytech.html[slides]#
+-
+link:https://gradle.github.io/imaginate/2023-sunnytech-gradle-imaginate-slides.pdf[pdf, window=_blank]
 
 
 == About

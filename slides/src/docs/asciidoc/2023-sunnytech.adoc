@@ -8,30 +8,26 @@
 
 = Kotlin, one language to build them all!
 
-Rodrigo Oliveira & Paul Merlin
+Paul Merlin
 
-image::kotlinconf/logo-kotlinconf.png[width=20%, align="right"]
+image::sunnytech/logo-sunnytech.svg[width=20%, align="right"]
 
 link:https://gradle.github.io/imaginate/[gradle.github.io/imaginate, window=_blank]
 
-link:https://youtu.be/88FJwx8Yf3o?t=18545[video, window=_blank]
--
-link:https://gradle.github.io/imaginate/2023-kotlinconf-gradle-imaginate-slides.pdf[pdf, window=_blank]
+link:https://gradle.github.io/imaginate/2023-sunnytech-gradle-imaginate-slides.pdf[pdf, window=_blank]
 -
 link:https://github.com/gradle/imaginate[sources, window=_blank]
 
-include::chapters/_1_agenda_kotlinconf.adoc[]
+include::chapters/_1_agenda_sunnytech.adoc[]
 
-include::chapters/_2_who_kotlinconf.adoc[]
+include::chapters/_2_who_sunnytech.adoc[]
 
 include::chapters/_10_imaginate.adoc[]
 
 include::chapters/_20_build_logic.adoc[]
 
-include::chapters/_30_build_logic_cc.adoc[]
-
-include::chapters/_40_whats_next_kotlinconf.adoc[]
+include::chapters/_40_whats_next_sunnytech.adoc[]
 
 include::chapters/_90_closing.adoc[]
 
-include::chapters/_100_thank_you_kotlinconf.adoc[]
+include::chapters/_100_thank_you_sunnytech.adoc[]

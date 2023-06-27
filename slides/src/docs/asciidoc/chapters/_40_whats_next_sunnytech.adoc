@@ -1,0 +1,30 @@
+[background-color="#02303a"]
+== What's next?
+image::gradle/bg-4.png[background, size=cover]
+
+[cols="<.<5,<.<5",frame=none,grid=none]
+|===
+a|
+*Usability*
+
+[.small]
+--
+* Simpler container DSL
+* Kotlin and Kotlin DSL version management
+* DSL reference improvements
+* And more...
+--
+a|
+*Performance*
+
+[.small]
+--
+* Script compilation avoidance
+* `plugins {}` block interpreter
+* Faster precompiled script plugins build
+* K2
+* Quicker first-use
+* Configuration cache by default for Android
+* Project Isolation
+--
+|===

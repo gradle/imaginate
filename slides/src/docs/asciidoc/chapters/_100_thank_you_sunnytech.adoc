@@ -1,0 +1,9 @@
+[background-color="#02303a"]
+== Thank you!
+image::gradle/bg-10.png[background, size=cover]
+
+&#x1F647;
+
+image::sunnytech/logo-sunnytech.svg[width=25%]
+
+image::gradle/folks.png[width=25%]
