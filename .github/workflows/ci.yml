@@ -5,6 +5,7 @@ on:
     paths-ignore:
       - '.github/CODEOWNERS'
       - 'README.md'
+      - 'CHANGELOG.md'
       - 'LICENSE'
   push:
     branches:
