@@ -7,6 +7,7 @@ plugins {
 
 plugins.withType(YarnPlugin::class) {
     configure<YarnRootExtension> {
+        download = System.getenv("CI") != "true"
         lockFileDirectory = layout.projectDirectory.dir("gradle/kotlin-js-store").asFile
     }
 }
