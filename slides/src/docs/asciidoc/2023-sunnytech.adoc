@@ -22,6 +22,8 @@ include::chapters/_1_agenda_sunnytech.adoc[]
 
 include::chapters/_2_who_sunnytech.adoc[]
 
+include::chapters/_5_what_sunnytech.adoc[]
+
 include::chapters/_10_imaginate.adoc[]
 
 include::chapters/_20_build_logic.adoc[]

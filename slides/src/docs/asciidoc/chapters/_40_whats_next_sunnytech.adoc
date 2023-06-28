@@ -11,7 +11,6 @@ a|
 --
 * Simpler container DSL
 * Kotlin and Kotlin DSL version management
-* DSL reference improvements
 * And more...
 --
 a|
@@ -22,7 +21,7 @@ a|
 * Script compilation avoidance
 * `plugins {}` block interpreter
 * Faster precompiled script plugins build
-* K2
+* K2 - Kotlin Compiler 2.0
 * Quicker first-use
 * Configuration cache by default for Android
 * Project Isolation

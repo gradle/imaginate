@@ -1,0 +1,50 @@
+[background-color="#02303a"]
+== Gradle & Kotlin 🤔
+image::gradle/bg-7.png[background, size=cover]
+
+What is this all about?
+
+
+=== Gradle & Kotlin 🤔
+image::gradle/bg-7.png[background, size=cover]
+
+* Gradle Build Tool
+* Kotlin Programming Language
+
+
+=== Gradle Build Tool
+image::gradle/bg-7.png[background, size=cover]
+
+Gradle Build Tool is the fast and dependable open source build system that automates building software of any type, size or complexity.
+
+The unique advantage of Gradle Build Tool is its elegant and extensible declarative build language.
+
+JVM support out of the box (Java, Scala, Groovy). +
+First class third party support for Kotlin and Android. +
+Community support for JavaScript/Node, Rust, Go, Python and other ecosystems.
+
+=== Kotlin Programming Language
+image::gradle/bg-7.png[background, size=cover]
+
+Kotlin is a multi-platform, statically typed, null-safe, general-purpose functional and object oriented programming language with type inference.
+
+Kotlin targets the JVM, JavaScript, WASM or native code via LLVM.
+
+The ecosystem provides toolkits and libraries for CLI, GUI, networking, structured concurrency etc...
+
+=== What is Gradle?
+image::gradle/bg-7.png[background, size=cover]
+
+* Gradle - Build Tool
+** Ecosystem agnostic
+** JVM opinionated support
+** First class Kotlin
+** First class Android
+
+=== What is Kotlin?
+image::gradle/bg-7.png[background, size=cover]
+
+* Kotlin - Programming Language
+** Multi-Platform != Cross-Platform
+** Standard Library
+** Ecosystem

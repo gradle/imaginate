@@ -2,5 +2,6 @@
 == Agenda
 image::gradle/bg-8.png[background, size=cover]
 
+Gradle & Kotlin 🤔:: What is this all about?
 Imaginate &#x1F5BC;:: An imaginary image generator
 Gradle & Kotlin &#x2764;:: Build logic

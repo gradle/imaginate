@@ -8,7 +8,7 @@ image::gradle/bg-1.png[background, size=cover]
 === Paul
 image::gradle/bg-1.png[background, size=cover]
 
-image::paul.jpg[width=40%]
+image::paul.jpg[width=25%]
 
 [source,kotlin]
 ----
@@ -21,6 +21,14 @@ speaker {
     previously = "Configuration Cache Project Lead"
     github = "eskatos"
     mastodon = "@eskatos@mastodon.social"
+    successes = listOf(
+        "BASIC 'Hello, World!'" in 1986,
+        "C 'Hello, World!'" in 1989,
+        "Java 'Hello, World!'" in 1996,
+        "Kotlin 'Hello, World!'" in 2015,
+        "tools", "daemons", "apps", "frameworks", "libs"
+    )
+    failures = generateSequence(code) { bugs }
 }
 ​
 ----
