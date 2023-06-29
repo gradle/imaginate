@@ -8,6 +8,13 @@ An imaginary image generator
 === Imaginate [.small]#- Demo#
 image::gradle/bg-7.png[background, size=cover]
 
+[.notes]
+****
+* desktop
+* android
+* web
+****
+
 === Imaginate [.small]#- Exploration#
 image::gradle/bg-7.png[background, size=cover]
 
