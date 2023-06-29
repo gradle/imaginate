@@ -22,7 +22,6 @@ compose.desktop {
         mainClass = "imaginate.desktop.DesktopMainKt"
         nativeDistributions {
             packageName = "imaginate"
-
         }
     }
 }

@@ -19,9 +19,446 @@ Gradle Build Tool is the fast and dependable open source build system that autom
 
 The unique advantage of Gradle Build Tool is its elegant and extensible declarative build language.
 
-JVM support out of the box (Java, Scala, Groovy). +
-First class third party support for Kotlin and Android. +
-Community support for JavaScript/Node, Rust, Go, Python and other ecosystems.
+=== Gradle is...
+image::gradle/bg-7.png[background, size=cover]
+
+A tool to automate building software
+
+* A dependency resolution engine
+* A task execution engine
+* An extensible configuration model and DSL
+* Plugins!
+
+=== Various ecosystems
+image::gradle/bg-7.png[background, size=cover]
+
+*Core* +
+image:logo-java.svg[role=inline-logo]
+image:logo-groovy.png[role=inline-logo]
+image:logo-scala.svg[role=inline-logo]
+image:logo-checkstyle.png[role=inline-logo]
+image:logo-jacoco.png[role=inline-logo] +
+and more ...
+
+[.top-margin]
+*Community* +
+image:logo-android.svg[role=inline-logo]
+image:logo-kotlin.png[role=inline-logo]
+image:logo-nokee.svg[role=inline-logo]
+image:logo-spring.svg[role=inline-logo]
+image:logo-micronaut.svg[role=inline-logo]
+image:logo-node.svg[role=inline-logo]
+image:logo-asciidoctor.svg[role=inline-logo]
+image:logo-docker.svg[role=inline-logo]
+image:logo-pgsql.svg[role=inline-logo]
+image:logo-sonarqube.svg[role=inline-logo]
+image:logo-flyway.svg[role=inline-logo]
+image:logo-spotbugs.png[role=inline-logo] +
+and more ...
+
+[.tiny.top-margin]
+Logos from link:https://commons.wikimedia.org/wiki/Category:Logos[Wikimedia] or from product official™ pages.
+
+[.notes]
+--
+- Breadth of ecosystem
+- Bundles plugins and strong community (6k+ community plugins)
+- extensibility
+--
+
+=== Task dependency resolution
+image::gradle/bg-7.png[background, size=cover]
+
+[cols="<.<2,^.<5",frame=none,grid=none]
+|===
+a|
+Starts with the invoked task
+a|
+include::../fragments/_diagram_task-graph-resolve1.adoc[]
+|===
+
+=== Task dependency resolution
+image::gradle/bg-7.png[background, size=cover]
+
+[cols="<.<2,^.<5",frame=none,grid=none]
+|===
+a|
+Then connects that task with its direct task dependencies
+a|
+include::../fragments/_diagram_task-graph-resolve2.adoc[]
+|===
+
+[.notes]
+--
+- Resolve task inputs/outputs to determine state
+--
+
+=== Task dependency resolution
+image::gradle/bg-7.png[background, size=cover]
+
+[cols="<.<2,^.<5",frame=none,grid=none]
+|===
+a|
+Includes indirect ones, potentially from a different project
+a|
+include::../fragments/_diagram_task-graph-resolve3.adoc[]
+|===
+
+[.notes]
+--
+- Use dep. mgmt. to reach across project boundaries
+--
+
+=== Task execution
+image::gradle/bg-7.png[background, size=cover]
+
+Never do something that was done before
+
+[cols="<.^1,^.^1",frame=none,grid=none]
+|===
+a|
+*Avoid rework* +
+`UP-TO-DATE`
+
+*Build cache* +
+`FROM-CACHE`
+
+*Do the work* +
+`EXECUTION`
+
+*Incremental tasks*
+a|
+include::../fragments/_diagram_task-execution.adoc[]
+|===
+
+
+[.notes]
+--
+- Smart model; try to never redo work
+- Incremental -> only build once, locally
+--
+
+
+=== Extensible configuration
+image::gradle/bg-7.png[background, size=cover]
+
+[cols="<.^7,^.^3",frame=none,grid=none]
+|===
+a|
+[.small]
+* Extensible configuration model
+* Plugin system
+* Dynamic DSL
+* Modelling of a build vs. scripting tasks
+a|
+[source,kotlin]
+--
+plugins {
+    id("java")
+}
+java {
+    withSourcesJar()
+}
+--
+
+include::../fragments/_diagram_task-graph.adoc[]
+
+image:build-scan-link.svg[link=https://scans.gradle.com/s/rcqiowuogd2xu/timeline?details=yznpxgmt5qzfo&expanded=WyIwLjMiLCIwLjMtMS4yIl0&show=Predecessors]
+|===
+
+=== Building blocks
+image::gradle/bg-11.png[background, size=cover]
+
+*Build* +
+Build logic ensemble
+
+*Settings* +
+Project hierarchy
+
+*Projects* +
+Modules
+
+*Composite builds* +
+Compose multiple builds together
+
+=== Implementation languages
+image::gradle/bg-11.png[background, size=cover]
+
+include::../fragments/_diagram_build-logic-parts.adoc[]
+
+
+=== Build scripts vs. Plugins
+image::gradle/bg-11.png[background, size=cover]
+
+*Configuration* +
+Build scripts are declarative
+
+*Conventions* +
+Local build plugins implement the build configuration logic
+
+https://plugins.gradle.org +
+Build logic can leverage external plugins
+
+=== Writing plugins
+image::gradle/bg-11.png[background, size=cover]
+
+A Gradle plugin is built by a Gradle build
+
+[cols="<.^7,<.^3",frame=none,grid=none]
+|===
+a|
+[.small]
+--
+Plugin development plugins for:
+
+* Model Gradle plugin building
+* Validate plugins, DSL extensions and tasks
+* Simplify integration testing
+* Declare plugin metadata
+* Publish plugins to https://plugins.gradle.org
+--
+a|
+.Build script of a plugin in Java
+[source,kotlin]
+----
+plugins {
+    id("java-gradle-plugin")
+}
+----
+
+.Build script of a plugin in Groovy
+[source,kotlin]
+----
+plugins {
+    id("groovy-gradle-plugin")
+}
+----
+
+.Build script of a plugin in Kotlin
+[source,kotlin]
+----
+plugins {
+    id("kotlin-dsl")
+}
+----
+|===
+
+
+=== Programming model
+image::gradle/bg-11.png[background, size=cover]
+
+[cols="<.^7,<.^3",frame=none,grid=none]
+|===
+a|
+[.small]
+--
+Don't call us, we'll call you! +
+_Sugarloaf_
+
+Abstract types, instantiated and decorated by Gradle
+
+Injected Gradle Services +
+[link:https://docs.gradle.org/current/userguide/custom_gradle_types.html#service_injection[doc]]
+--
+a|
+.`Something.groovy`
+[source,groovy]
+----
+abstract class Something implements GradleApiType {
+
+    abstract Property<String> getSomeProperty()
+
+    @Inject
+    abstract ExecOperations getExecOps()
+
+    @Override
+    def someAction() {
+        execOps.exec {
+            commandLine "git", "status"
+        }
+        println someProperty.get()
+    }
+}
+----
+
+.`build.gradle`
+[source,groovy]
+----
+def some = objects.newInstance(Something)
+----
+|===
+
+[.notes]
+--
+- Create abstract tasks, we instantiate and decorate
+- Gradle is a platform, leveraging DI just like an app. fwk. spring, micronaut, quarkus
+--
+
+
+=== Plugins
+image::gradle/bg-11.png[background, size=cover]
+
+[cols="<.^3,<.^4",frame=none,grid=none]
+|===
+a|
+Plugin types
+
+* `Project`
+* `Settings`
+* `Gradle`
+
+a|
+Script equivalents
+
+* _project script_
+* _settings script_
+* _init script_
+|===
+
+.`MyPlugin.java`
+[source,java]
+----
+class MyPlugin implements Plugin<Project> {
+    @Override
+    public void apply(Project project) {
+        /* ... Uses the Gradle API ... */
+    }
+}
+----
+
+
+=== Writing tasks
+image::gradle/bg-11.png[background, size=cover]
+
+Tasks are functions
+
+[cols="<.^3,>.^2",frame=none,grid=none]
+|===
+a|
+[.small]
+--
+What are the task _inputs_?
+
+What are the task _outputs_?
+
+What happens when input or output change?
+--
+
+a|
+include::../fragments/_diagram_task-execution.adoc[]
+|===
+
+[.notes]
+--
+- Plugins need to do work, so they should create tasks
+- Tasks must have inputs/outputs
+- All *outputs* of tasks must be file-based
+- Think of tasks as functions with arguments (inputs) and return type (output)
+--
+
+
+
+=== Writing tasks
+image::gradle/bg-11.png[background, size=cover]
+
+[cols="<.^1,<.^1",frame=none,grid=none]
+|===
+a|
+Executed each time
+
+.`MyTask.kt`
+[source,kotlin]
+----
+abstract class MyTask : DefaultTask() {
+
+  abstract val inputs: ConfigurableFileTree
+
+  abstract val output: DirectoryProperty
+
+  @TaskAction
+  fun action() {
+    /* ... */
+  }
+}
+----
+a|
+`UP-TO-DATE`
+
+.`MyTask.kt`
+[source,kotlin]
+----
+abstract class MyTask : DefaultTask() {
+
+  @get:InputFiles //<1>
+  abstract val inputs: ConfigurableFileTree
+
+  @get:OutputDirectory //<2>
+  abstract val output: DirectoryProperty
+
+  @TaskAction
+  fun action() {
+    /* ... */
+  }
+}
+----
+<1> Declare this property as an _input_
+<2> Declare this property as an _output_
+|===
+
+
+=== Cached tasks
+image::gradle/bg-11.png[background, size=cover]
+
+.`MyTask.kt`
+[source,kotlin]
+----
+@CacheableTask //<1>
+abstract class MyTask : DefaultTask() {
+
+  @get:InputFiles
+  @get:PathSensitive(RELATIVE) //<2>
+  abstract val inputs: ConfigurableFileCollection
+
+  @get:OutputDirectory
+  abstract val output: DirectoryProperty
+
+  @TaskAction
+  fun action() {
+    /* ... */
+  }
+}
+----
+<1> Declare task implementation as _cacheable_
+<2> Specifies _input_ path sensitivity
+
+[.small.center.top-margin]
+link:https://docs.gradle.org/current/userguide/build_cache.html[doc/build_cache]
+
+// =====================================================================================================================
+
+
+=== Writing tasks
+image::gradle/bg-11.png[background, size=cover]
+
+Many opt-ins to consider
+
+Gradle helps by validating plugins and tasks
+
+* At runtime -> warnings / failures / deprecations
+* While developing plugins -> `:validatePlugins`
+
+Validation evolves by checking more and more things while preserving compatibility
+
+
+=== Gradle is ...
+image::gradle/bg-7.png[background, size=cover]
+
+A tool to automate building software
+
+* A dependency resolution engine
+* A task execution engine
+* An extensible configuration model and DSL
+* Plugins!
 
 === Kotlin Programming Language
 image::gradle/bg-7.png[background, size=cover]
@@ -32,19 +469,11 @@ Kotlin targets the JVM, JavaScript, WASM or native code via LLVM.
 
 The ecosystem provides toolkits and libraries for CLI, GUI, networking, structured concurrency etc...
 
-=== What is Gradle?
-image::gradle/bg-7.png[background, size=cover]
-
-* Gradle - Build Tool
-** Ecosystem agnostic
-** JVM opinionated support
-** First class Kotlin
-** First class Android
-
-=== What is Kotlin?
+=== Kotlin is...
 image::gradle/bg-7.png[background, size=cover]
 
 * Kotlin - Programming Language
 ** Multi-Platform != Cross-Platform
 ** Standard Library
 ** Ecosystem
+** Gradle Plugins!
