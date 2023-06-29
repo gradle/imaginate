@@ -41,7 +41,7 @@ object MyStyleSheet : StyleSheet() {
 
 
 @Composable
-fun App(settings: ImaginateSettings) {
+fun WebUi(settings: ImaginateSettings) {
     AppHeader()
 
     when (val apiKey = settings.apiKey) {
@@ -152,6 +152,6 @@ fun ImagePrompt(apiKey: String, onClearApiKey: () -> Unit) {
 fun main() {
     renderComposable(rootElementId = "root") {
         Style(MyStyleSheet)
-        App(createImaginateSettings())
+        WebUi(createImaginateSettings())
     }
 }

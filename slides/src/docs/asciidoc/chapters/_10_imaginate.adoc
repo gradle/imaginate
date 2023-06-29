@@ -21,16 +21,16 @@ link:https://github.com/gradle/imaginate/blob/16265060f98a684eed708efee4afd6eb49
 * open `DesktopMain.kt` +
   this is `:desktop-app` +
   this is a kotlin multiplatform app for linux, mac and windows
-* navigate to `App` +
+* navigate to `CommonUi` +
   this is Compose Multiplatform +
   reactive UI +
   this is `:shared-ui`
-* find usages of `App` +
+* find usages of `CommonUi` +
   navigate to Android activity +
   ui shared between platforms
 * "and there's the web too" +
-  open `web-app/Main.kt`
-* navigate to `App` / `ImagePrompt` / `ImageGenerator` +
+  open `web-app/WebMain.kt`
+* navigate to `CommonUi` / `ImagePrompt` / `ImageGenerator` +
   this is `:image-generation` +
   this is a kotlin multiplatform library desktop/android/web
 * "it can also do plain JVM, that's how we use it in our shared build logic"

@@ -3,7 +3,7 @@ package imaginate.desktop
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
-import imaginate.shared.ui.App
+import imaginate.shared.ui.CommonUi
 import imaginate.shared.logic.createImaginateSettings
 
 fun main() = application {
@@ -12,6 +12,6 @@ fun main() = application {
         icon = painterResource("icon.jpg"),
         onCloseRequest = ::exitApplication,
     ) {
-        App(createImaginateSettings())
+        CommonUi(createImaginateSettings())
     }
 }
