@@ -58,7 +58,8 @@ abstract class Deck2Pdf : DefaultTask() {
     @get:Classpath
     abstract val deck2pdfClasspath: ConfigurableFileCollection
 
-    @get:Internal
+    @get:InputFile
+    @get:PathSensitive(PathSensitivity.RELATIVE)
     abstract val inputFile: RegularFileProperty
 
     @get:OutputFile
