@@ -52,6 +52,7 @@ webApp --> imageGeneration
 slides --> sharedResources
 
 buildLogic --> imageGeneration
+buildLogic --> sharedResources
 sharedResources --> imageGeneration
 sharedUi -> sharedLogic
 sharedUi -> imageGeneration

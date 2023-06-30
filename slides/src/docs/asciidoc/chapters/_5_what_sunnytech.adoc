@@ -12,22 +12,13 @@ image::gradle/bg-7.png[background, size=cover]
 * Kotlin Programming Language
 
 
+[background-color="#02303a"]
 === Gradle Build Tool
 image::gradle/bg-7.png[background, size=cover]
 
 Gradle Build Tool is the fast and dependable open source build system that automates building software of any type, size or complexity.
 
 The unique advantage of Gradle Build Tool is its elegant and extensible declarative build language.
-
-=== Gradle is...
-image::gradle/bg-7.png[background, size=cover]
-
-A tool to automate building software
-
-* A dependency resolution engine
-* A task execution engine
-* An extensible configuration model and DSL
-* Plugins!
 
 === Various ecosystems
 image::gradle/bg-7.png[background, size=cover]
@@ -65,6 +56,17 @@ Logos from link:https://commons.wikimedia.org/wiki/Category:Logos[Wikimedia] or 
 - Bundles plugins and strong community (6k+ community plugins)
 - extensibility
 --
+
+
+=== Gradle is...
+image::gradle/bg-7.png[background, size=cover]
+
+A tool to automate building software
+
+* A dependency resolution engine
+* A task execution engine
+* An extensible configuration model and DSL
+* Plugins!
 
 === Task dependency resolution
 image::gradle/bg-7.png[background, size=cover]
@@ -166,17 +168,17 @@ include::../fragments/_diagram_task-graph.adoc[]
 image:build-scan-link.svg[link=https://scans.gradle.com/s/rcqiowuogd2xu/timeline?details=yznpxgmt5qzfo&expanded=WyIwLjMiLCIwLjMtMS4yIl0&show=Predecessors]
 |===
 
-=== Building blocks
+=== Configuration building blocks
 image::gradle/bg-11.png[background, size=cover]
 
 *Build* +
 Build logic ensemble
 
 *Settings* +
-Project hierarchy
+Build and project hierarchy
 
 *Projects* +
-Modules
+Individual modules
 
 *Composite builds* +
 Compose multiple builds together
@@ -460,20 +462,58 @@ A tool to automate building software
 * An extensible configuration model and DSL
 * Plugins!
 
+[background-color="#02303a"]
 === Kotlin Programming Language
 image::gradle/bg-7.png[background, size=cover]
 
 Kotlin is a multi-platform, statically typed, null-safe, general-purpose functional and object oriented programming language with type inference.
 
-Kotlin targets the JVM, JavaScript, WASM or native code via LLVM.
+=== Kotlin is...
+image::gradle/bg-7.png[background, size=cover]
 
-The ecosystem provides toolkits and libraries for CLI, GUI, networking, structured concurrency etc...
+Multi-Platform [.small]#!= Cross-Platform#
+
+* Targets +
+  [.small]#JVM, Android, JS, WASM, Native (Linux, Windows, Apple via LLVM)#
+* Interoperable +
+  [.small]#Java - JavaScript/TypeScript - C#
+* Kotlin Common +
+  [.small]#The language, all platforms,  `expect`/`actual`#
+* Standard Library +
+  [.small]#Common, JVM, JS/WASM, Native#
+* Platform APIs +
+  [.small]#JVM, JS/WASM, Posix, Windows, Apple etc...#
 
 === Kotlin is...
 image::gradle/bg-7.png[background, size=cover]
 
-* Kotlin - Programming Language
-** Multi-Platform != Cross-Platform
-** Standard Library
-** Ecosystem
-** Gradle Plugins!
+Multi-Platform [.small]#!= Cross-Platform#
+
+* Ecosystem +
+  [.small]#CLI, networking, structured concurrency, serialization, GUI etc...#
+* Share as little as you want +
+  [.small]#DTOs, Networking, Storage etc...#
+* Share as much as you want +
+  [.small]#View Model/Presenter/Controller, UI etc...#
+* Gradle Plugins! +
+  [.small]#Dependency management, variants publication/consumption etc...#
+
+=== Kotlin shared UI toolkit
+image::gradle/bg-7.png[background, size=cover]
+
+Compose Multiplatform
+
+* Originate from Android +
+  [.small]#Joint effort between JetBrains and Google#
+* Reactive UI toolkit +
+  [.small]#Similar to React or SwiftUI#
+* Now supports all platforms +
+  [.small]#JVM on Linux/Windows/Mac# +
+  [.small]#"Native" on Android# +
+  [.small]#Native on ios# +
+  [.small]#Canvas on WASM in the browser# +
+
+=== Kotlin Programming Language
+image::gradle/bg-7.png[background, size=cover]
+
+Kotlin is a multi-platform, statically typed, null-safe, general-purpose functional and object oriented programming language with type inference.
