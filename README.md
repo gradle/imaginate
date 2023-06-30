@@ -1,4 +1,4 @@
-![CI](https://github.com/gradle/gradle-kotlinconf-2023-app/actions/workflows/ci.yml/badge.svg?branch=main)
+![CI](https://github.com/gradle/imaginate/actions/workflows/ci.yml/badge.svg?branch=main)
 
 # Kotlin, one language to build them all!
 
