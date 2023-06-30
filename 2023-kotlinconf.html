@@ -63,7 +63,7 @@ document.getElementsByTagName( 'head' )[0].appendChild( link );</script><!--[if 
 <div class="paragraph"><p><a href="https://gradle.github.io/imaginate/" target="_blank">gradle.github.io/imaginate</a></p></div>
 <div class="paragraph"><p><a href="https://youtu.be/88FJwx8Yf3o?t=18545" target="_blank">video</a>
 -
-<a href="https://gradle.github.io/imaginate/gradle-imaginate-slides.pdf" target="_blank">pdf</a>
+<a href="https://gradle.github.io/imaginate/2023-kotlinconf-gradle-imaginate-slides.pdf" target="_blank">pdf</a>
 -
 <a href="https://github.com/gradle/imaginate" target="_blank">sources</a></p></div></div></section>
 <section id="slide_agenda" data-background-color="#02303a" data-background-image="./images/gradle/bg-8.png" data-background-size="cover"><h2>Agenda</h2>
@@ -100,19 +100,31 @@ accelerate developer productivity.</p></div>
 <div class="paragraph"><p>With 30M+ monthly downloads, this is one of the top 20 popular open source projects according to <a href="https://techcrunch.com/2017/04/07/tracking-the-explosive-growth-of-open-source-software/">TechCrunch</a>.</p></div></section><section id="slide_gradle_enterprise" data-background-image="./images/gradle/bg-1.png" data-background-size="cover">
 <div class="imageblock product-logo-as-title" style=""><img src="./images/logo-gradle-enterprise.svg" alt="logo gradle enterprise"></div>
 <div class="paragraph"><p>Gradle Enterprise, commercial product, is the first Developer Productivity Engineering (DPE) integrated solution.</p></div>
-<div class="imageblock" style=""><img src="./images/gradle/ge-1.png" alt="ge 1" width="70%"></div>
-<aside class="notes"><div class="paragraph"><p>metadata of all the builds<br>
+<div class="imageblock" style=""><img src="./images/gradle/ge-4.png" alt="ge 4" width="55%"></div>
+<table class="tableblock frame-none grid-none who-ge" style="width:100%"><colgroup><col style="width:20%"><col style="width:20%"><col style="width:20%"><col style="width:20%"><col style="width:20%"></colgroup><tbody><tr><td class="tableblock halign-center valign-middle"><div><div class="imageblock" style=""><img src="./images/logo-gradle-elephant.svg" alt="logo gradle elephant"></div>
+<div class="paragraph"><p>Gradle</p></div></div></td><td class="tableblock halign-center valign-middle"><div><div class="imageblock" style=""><img src="./images/logo-android-studio.png" alt="logo android studio"></div>
+<div class="paragraph"><p>Android</p></div></div></td><td class="tableblock halign-center valign-middle"><div><div class="imageblock" style=""><img src="./images/logo-maven.svg" alt="logo maven"></div>
+<div class="paragraph"><p>Maven</p></div></div></td><td class="tableblock halign-center valign-middle"><div><div class="imageblock" style=""><img src="./images/logo-bazel.svg" alt="logo bazel"></div>
+<div class="paragraph"><p>Bazel</p></div></div></td><td class="tableblock halign-center valign-middle"><div><div class="imageblock" style=""><img src="./images/logo-sbt.svg" alt="logo sbt"></div>
+<div class="paragraph"><p>Scala (2023)</p></div></div></td></tr></table>
+<aside class="notes"><div class="paragraph"><p>make builds and tests faster
+make problem research more efficient
+metadata of all the builds<br>
 outputs of all the builds<br>
 observability: scans, performance trends, test dashboard etc&#8230;&#8203;<br>
 acceleration: build-cache, test distribution, predictive test selection etc..</p></div></aside></section><section id="slide_developer_productivity_engineering" data-background-image="./images/gradle/bg-1.png" data-background-size="cover"><h2>Developer Productivity Engineering</h2>
 <div class="paragraph"><p>DPE is an emerging software practice that relies on acceleration technologies and data analysis to improve developer productivity.</p></div>
-<table class="tableblock frame-none grid-none" style="width:100%"><colgroup><col style="width:50%"><col style="width:50%"></colgroup><tbody><tr><td class="tableblock halign-left valign-middle"><div><div class="ulist"><ul><li><p>make builds and tests faster</p></li><li><p>make problem research more efficient</p></li></ul></div></div></td><td class="tableblock halign-center valign-middle"><div><div class="imageblock" style=""><img src="./images/dpe-showdown.jpeg" alt="dpe showdown"></div>
-<div class="paragraph small"><small><a href="https://twitter.com/DpeShowdown" class="bare">twitter.com/DpeShowdown</a></small></div></div></td></tr></table>
+<table class="tableblock frame-none grid-none" style="width:100%"><colgroup><col style="width:66.6666%"><col style="width:33.3334%"></colgroup><tbody><tr><td class="tableblock halign-center valign-middle"><div><div class="paragraph"><p><span class="image"><img src="./images/dpe-handbook.webp" alt="dpe handbook" width="35%"></span> <span class="image"><img src="./images/dpe-maturity-model.webp" alt="dpe maturity model" width="35%"></span></p></div>
+<div class="paragraph small"><small><a href="https://gradle.com/developer-productivity-engineering" class="bare">gradle.com/developer-productivity-engineering</a></small></div></div></td><td class="tableblock halign-center valign-middle"><div><div class="imageblock" style=""><img src="./images/dpe-summit.webp" alt="dpe summit"></div>
+<div class="paragraph small"><small><a href="https://dpesummit.com" class="bare">dpesummit.com</a></small></div>
+<div class="imageblock" style=""><img src="./images/dpe-showdown.jpeg" alt="dpe showdown"></div>
+<div class="paragraph small"><small><a href="https://www.youtube.com/playlist?list=PLLQbIfXVLZqG0_Hg_yHLCrphP2gmhNZE1">DPE Lowdown - Youtube Playlist</a><br>
+<a href="https://www.youtube.com/playlist?list=PLLQbIfXVLZqHiRLgGIsFI9D5CRhhjCSAi">DPE Showdown - Youtube Playlist</a></small></div></div></td></tr></table>
 <aside class="notes"><div class="paragraph"><p>DevProdEng Showdown is a series of 30min live events broadcasted during which experts debate about developer productivity engineering.</p></div>
 <div class="paragraph"><p>Two shows
 * showdown: game show with multiple participants
 * lowdown: face to face interviews</p></div>
-<div class="paragraph"><p>How Netflix, Microsoft, LinkedIn and other teams do DPE?</p></div></aside></section><section id="slide_build_scans" data-background-image="./images/gradle/bg-1.png" data-background-size="cover"><h2>Build Scans</h2>
+<div class="paragraph"><p>How Netflix, Google, Slack, LinkedIn and other teams do DPE?</p></div></aside></section><section id="slide_build_scans" data-background-image="./images/gradle/bg-1.png" data-background-size="cover"><h2>Build Scans</h2>
 <div class="paragraph"><p>A permanent record<br>
 of what happens during a build.</p></div>
 <table class="tableblock frame-none grid-none" style="width:100%"><colgroup><col style="width:65%"><col style="width:35%"></colgroup><tbody><tr><td class="tableblock halign-left valign-middle"><div><div class="imageblock" style=""><img src="./images/buildscan-example.png" alt="buildscan example"></div>
@@ -123,18 +135,19 @@ of what happens during a build.</p></div>
 <div class="paragraph"><p>If what we&#8217;re going to talk about Today is of interest to you, come work with us!</p></div>
 <div class="imageblock" style=""><img src="./images/team_map.png" alt="team map" width="65%"></div>
 <div class="paragraph center"><p><a href="https://gradle.com/careers" class="bare">gradle.com/careers</a></p></div></section></section>
-<section><section id="slide_imaginate" data-background-color="#02303a" data-background-image="./images/gradle/bg-7.png" data-background-size="cover"><h2>Imaginate &#x1F5BC;</h2><div class="paragraph"><p>An imaginary image generator</p></div></section><section id="slide_imaginate_demo" data-background-image="./images/gradle/bg-7.png" data-background-size="cover"><h2>Imaginate <span class="small">- Demo</span></h2></section><section id="slide_imaginate_exploration" data-background-image="./images/gradle/bg-7.png" data-background-size="cover"><h2>Imaginate <span class="small">- Exploration</span></h2>
+<section><section id="slide_imaginate" data-background-color="#02303a" data-background-image="./images/gradle/bg-7.png" data-background-size="cover"><h2>Imaginate &#x1F5BC;</h2><div class="paragraph"><p>An imaginary image generator</p></div></section><section id="slide_imaginate_demo" data-background-image="./images/gradle/bg-7.png" data-background-size="cover"><h2>Imaginate <span class="small">- Demo</span></h2>
+<aside class="notes"><div class="ulist"><ul><li><p>desktop</p></li><li><p>android</p></li><li><p>web</p></li></ul></div></aside></section><section id="slide_imaginate_exploration" data-background-image="./images/gradle/bg-7.png" data-background-size="cover"><h2>Imaginate <span class="small">- Exploration</span></h2>
 <div class="imageblock" style=""><img src="./images/gradle/folks.png" alt="folks" width="40%"></div>
 <div class="paragraph center"><p><a href="https://github.com/gradle/imaginate/blob/16265060f98a684eed708efee4afd6eb499a908d/applications/desktop-app/src/jvmMain/kotlin/imaginate/desktop/DesktopMain.kt" target="_blank">gradle/imaginate#DesktopMain.kt</a></p></div>
 <aside class="notes"><div class="ulist"><ul><li><p>open <code>DesktopMain.kt</code><br>
 this is <code>:desktop-app</code><br>
-this is a kotlin multiplatform app for linux, mac and windows</p></li><li><p>navigate to <code>App</code><br>
+this is a kotlin multiplatform app for linux, mac and windows</p></li><li><p>navigate to <code>CommonUi</code><br>
 this is Compose Multiplatform<br>
 reactive UI<br>
-this is <code>:shared-ui</code></p></li><li><p>find usages of <code>App</code><br>
+this is <code>:shared-ui</code></p></li><li><p>find usages of <code>CommonUi</code><br>
 navigate to Android activity<br>
 ui shared between platforms</p></li><li><p>"and there&#8217;s the web too"<br>
-open <code>web-app/Main.kt</code></p></li><li><p>navigate to <code>App</code> / <code>ImagePrompt</code> / <code>ImageGenerator</code><br>
+open <code>web-app/WebMain.kt</code></p></li><li><p>navigate to <code>CommonUi</code> / <code>ImagePrompt</code> / <code>ImageGenerator</code><br>
 this is <code>:image-generation</code><br>
 this is a kotlin multiplatform library desktop/android/web</p></li><li><p>"it can also do plain JVM, that&#8217;s how we use it in our shared build logic"
 find usages of <code>ImageGenerator.generate()</code>
@@ -144,9 +157,9 @@ and this is still kotlin</p></li></ul></div></aside></section><section id="slide
 <div class="imageblock" style=""><img src="./images/diag-97896b4f9231978a57be228c4fa13d14.png" alt="Diagram"></div></section></section>
 <section><section id="slide_gradle_kotlin" data-background-color="#02303a" data-background-image="./images/gradle/bg-5.png" data-background-size="cover"><h2>Gradle &amp; Kotlin &#x2764;</h2><div class="paragraph"><p>Build logic</p></div></section><section id="slide_build_logic_kotlin" data-background-image="./images/gradle/bg-5.png" data-background-size="cover"><h2>Build logic <span class="small">- Kotlin!</span></h2>
 <table class="tableblock frame-none grid-none" style="width:100%"><colgroup><col style="width:60%"><col style="width:40%"></colgroup><tbody><tr><td class="tableblock halign-left valign-middle"><div><div class="paragraph"><p>Gradle&#8217;s Kotlin DSL</p></div>
-<div class="openblock small"><div class="content"><div class="ulist"><ul><li><p>Kotlin DSL on top of Gradle&#8217;s Java API</p></li><li><p>Low ceremony thanks to Kotlin Scripting</p></li><li><p>Official Kotlin compiler plugins</p></li><li><p>IDE assistance, code navigation etc&#8230;&#8203;</p></li></ul></div></div></div></div></td><td class="tableblock halign-left valign-middle"><div><div class="imageblock" style=""><img src="./images/diag-25e700a9cea4467d2d9e49b28764f072.png" alt="Diagram"></div></div></td></tr></table></section><section id="slide_build_logic_structure" data-background-image="./images/gradle/bg-5.png" data-background-size="cover"><h2>Build logic <span class="small">- Structure</span></h2>
+<div class="openblock small"><div class="content"><div class="ulist"><ul><li><p>Kotlin DSL on top of Gradle&#8217;s Java API</p></li><li><p>Low ceremony thanks to Kotlin Scripting</p></li><li><p>Official Kotlin compiler plugins</p></li><li><p>IDE assistance, code navigation etc&#8230;&#8203;</p></li></ul></div></div></div></div></td><td class="tableblock halign-left valign-middle"><div><div class="imageblock" style=""><img src="./images/diag-b898cacaa7ae71ef0a66ee5d163cdcd7.png" alt="Diagram"></div></div></td></tr></table></section><section id="slide_build_logic_structure" data-background-image="./images/gradle/bg-5.png" data-background-size="cover"><h2>Build logic <span class="small">- Structure</span></h2>
 <div class="paragraph"><p>A composite build bringing 4 included builds together.</p></div>
-<div class="imageblock" style=""><img src="./images/diag-74dea6acab6cb2c5dffdd0a5dbe6270d.png" alt="Diagram"></div></section><section id="slide_build_logic_slides" data-background-image="./images/gradle/bg-5.png" data-background-size="cover"><h2>Build logic <span class="small">- Slides</span></h2>
+<div class="imageblock" style=""><img src="./images/diag-e28f1eff92ce9ed148db39c5e804d12b.png" alt="Diagram"></div></section><section id="slide_build_logic_slides" data-background-image="./images/gradle/bg-5.png" data-background-size="cover"><h2>Build logic <span class="small">- Slides</span></h2>
 <table class="tableblock frame-none grid-none" style="width:100%"><colgroup><col style="width:50%"><col style="width:50%"></colgroup><tbody><tr><td class="tableblock halign-left valign-top"><div><div class="openblock center"><div class="content"><div class="paragraph"><p><em>"capital letter K. elephant. pop art."</em></p></div></div></div>
 <div class="imageblock" style=""><img src="./images/shared/icon.jpg" alt="icon"></div></div></td><td class="tableblock halign-left valign-top"><div><div class="openblock center"><div class="content"><div class="paragraph"><p><em>"elephant in the Kotlin island. caravaggio."</em></p></div></div></div>
 <div class="imageblock" style=""><img src="./images/shared/logo.jpg" alt="logo"></div></div></td></tr></table></section><section id="slide_build_logic_overview" data-background-image="./images/gradle/bg-5.png" data-background-size="cover"><h2>Build logic <span class="small">- Overview</span></h2>
