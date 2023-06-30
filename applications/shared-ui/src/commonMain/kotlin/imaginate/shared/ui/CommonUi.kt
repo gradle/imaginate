@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
-
 package imaginate.shared.ui
 
 import androidx.compose.foundation.Image
@@ -25,7 +23,7 @@ import imaginate.shared.logic.ImaginateSettings
 import kotlinx.coroutines.launch
 
 @Composable
-fun App(settings: ImaginateSettings) {
+fun CommonUi(settings: ImaginateSettings) {
     MaterialTheme {
         Column(Modifier.fillMaxSize(), spacedBy(8.dp), CenterHorizontally) {
 
@@ -44,6 +42,7 @@ fun App(settings: ImaginateSettings) {
 }
 
 @Composable
+@OptIn(ExperimentalMaterial3Api::class)
 fun ApiKeyPrompt(onApiKey: (String) -> Unit) {
     val (apiKey, setApiKey) = remember { mutableStateOf("") }
     TextField(
@@ -57,6 +56,7 @@ fun ApiKeyPrompt(onApiKey: (String) -> Unit) {
 }
 
 @Composable
+@OptIn(ExperimentalMaterial3Api::class)
 fun ImagePrompt(apiKey: String, onClearApiKey: () -> Unit) {
     val (prompt, setPrompt) = remember { mutableStateOf("") }
     val (image, setImage) = remember { mutableStateOf<ImageBitmap?>(null) }

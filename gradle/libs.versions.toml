@@ -1,21 +1,20 @@
 [versions]
 jvm = "17"
-kotlin = "1.9.0-RC"
-compose = "1.5.0-dev1080"
-composeCompiler = "1.4.8-dev-k1.9.0-RC-5532d15c918"
-android = "8.1.0-rc01"
+kotlin = "1.8.20"
+compose = "1.4.0"
+android = "7.4.2"
 android-sdk-compile = "33"
 android-sdk-min = "26"
 android-sdk-target = "33"
-ktor = "2.3.1"
-coroutines = "1.7.1"
+ktor = "2.2.4"
+coroutines = "1.6.4"
 ios-deploymentTarget = "14.1"
 
 [libraries]
 imaginate-imageGeneration = "imaginate:image-generation:latest"
 androidx-appcompat = "androidx.appcompat:appcompat:1.6.1"
-androidx-core-ktx = "androidx.core:core-ktx:1.10.1"
-androidx-activity-compose = "androidx.activity:activity-compose:1.7.2"
+androidx-core-ktx = "androidx.core:core-ktx:1.9.0"
+androidx-activity-compose = "androidx.activity:activity-compose:1.7.0"
 ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
 ktor-client-okhttp = { group = "io.ktor", name = "ktor-client-okhttp", version.ref = "ktor" }
 ktor-client-js = { group = "io.ktor", name = "ktor-client-js", version.ref = "ktor" }
@@ -25,7 +24,7 @@ ktor-serialization-kotlinx-json = { group = "io.ktor", name = "ktor-serializatio
 coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutines" }
 coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutines" }
 imageTracer = "top.xuegao-tzx:ImageTracerJava:1.1.4.516"
-svg2vector = "com.android.tools:sdk-common:31.0.2"
+svg2vector = "com.android.tools:sdk-common:30.4.2"
 multiplatform-settings = "com.russhwolf:multiplatform-settings:1.0.0"
 
 [bundles]

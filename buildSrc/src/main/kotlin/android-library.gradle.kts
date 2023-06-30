@@ -9,7 +9,7 @@ plugins {
 }
 
 kotlin {
-    androidTarget()
+    android()
 }
 
 android {

@@ -52,6 +52,50 @@ dependencies {
     pdfConfiguration("me.champeau.deck2pdf:deck2pdf:0.3.0")
 }
 
+@CacheableTask
+abstract class Deck2Pdf : DefaultTask() {
+
+    @get:Classpath
+    abstract val deck2pdfClasspath: ConfigurableFileCollection
+
+    @get:Internal
+    abstract val inputFile: RegularFileProperty
+
+    @get:OutputFile
+    abstract val destinationFile: RegularFileProperty
+
+    @get:InputDirectory
+    @get:PathSensitive(PathSensitivity.RELATIVE)
+    protected
+    abstract val workingDirectory: DirectoryProperty
+
+    @get:Inject
+    protected
+    abstract val execution: ExecOperations
+
+    init {
+        workingDirectory.fileProvider(inputFile.map { it.asFile.parentFile })
+    }
+
+    @TaskAction
+    fun action() {
+        execution.javaexec {
+            classpath = deck2pdfClasspath
+            mainClass = "me.champeau.deck2pdf.Main"
+            jvmArgs = listOf(
+                "--add-opens", "java.base/java.util=ALL-UNNAMED",
+                "--add-opens", "java.base/java.lang=ALL-UNNAMED",
+            )
+            workingDir(inputFile.get().asFile.parentFile)
+            args = listOf(
+                inputFile.get().asFile.relativeTo(workingDir).path,
+                destinationFile.get().asFile.absolutePath,
+                "--profile=revealjs"
+            )
+        }
+    }
+}
+
 tasks {
     withType(Copy::class).configureEach {
         duplicatesStrategy = DuplicatesStrategy.WARN
@@ -113,36 +157,34 @@ tasks {
             from(layout.projectDirectory.dir("src/docs/resources"))
         }
     }
-    val pdf = register("exportPdf", JavaExec::class) {
-        dependsOn(asciidoctorRevealJs)
+    val pdfTasks = listOf(
+        "kotlinConfPdf" to "2023-kotlinconf",
+        "sunnyTechPdf" to "2023-sunnytech",
+    ).map { (taskName, htmlFilename) ->
+        register(taskName, Deck2Pdf::class) {
+            dependsOn(asciidoctorRevealJs)
 
-        classpath = pdfConfiguration
-        mainClass = "me.champeau.deck2pdf.Main"
-        jvmArgs = listOf(
-            "--add-opens", "java.base/java.util=ALL-UNNAMED",
-            "--add-opens", "java.base/java.lang=ALL-UNNAMED",
-        )
+            deck2pdfClasspath.from(pdfConfiguration)
+            inputFile.fileProvider(asciidoctorRevealJs.map { it.outputDir.resolve("$htmlFilename.html") })
+            destinationFile.set(layout.buildDirectory.file("pdf/$htmlFilename-gradle-imaginate-slides.pdf"))
 
-        workingDir(asciidoctorRevealJs.map { it.outputDir })
-        val outDirPath = "../../pdf"
-        args = listOf("index.html", "$outDirPath/gradle-imaginate-slides.pdf", "--profile=revealjs")
-
-        inputs.dir(workingDir)
-        outputs.dir(workingDir.resolve(outDirPath))
-
-        doFirst {
-            val requiredJavaVersion = JavaVersion.VERSION_17
-            val wrongJavaVersionMessage =
-                "This build must be run with a JavaFX enabled JDK version $requiredJavaVersion."
-            try {
-                Class.forName("javafx.application.Application")
-                if (JavaVersion.current() != requiredJavaVersion) throw Exception(
-                    wrongJavaVersionMessage
-                )
-            } catch (ignore: Exception) {
-                throw Exception(wrongJavaVersionMessage)
+            doFirst {
+                val requiredJavaVersion = JavaVersion.toVersion(libs.versions.jvm.get().toInt())
+                val wrongJavaVersionMessage =
+                    "This build must be run with a JavaFX enabled JDK version $requiredJavaVersion."
+                try {
+                    Class.forName("javafx.application.Application")
+                    if (JavaVersion.current() != requiredJavaVersion) throw Exception(
+                        wrongJavaVersionMessage
+                    )
+                } catch (ignore: Exception) {
+                    throw Exception(wrongJavaVersionMessage)
+                }
             }
         }
+    }
+    val pdf = register("exportPdfs") {
+        dependsOn(pdfTasks)
     }
     val html = register("zipHtml", Zip::class) {
         archiveBaseName = "gradle-imaginate-slides"
@@ -159,8 +201,8 @@ gitPublish {
     branch = "gh-pages"
     contents {
         from(tasks.asciidoctorRevealJs)
-        from(files(layout.buildDirectory.file("pdf/gradle-imaginate-slides.pdf")) {
-            builtBy(tasks.named("exportPdf"))
+        from(files(layout.buildDirectory.dir("pdf")) {
+            builtBy(tasks.named("exportPdfs"))
         })
     }
     commitMessage = when (val sha = System.getenv("GITHUB_SHA")) {

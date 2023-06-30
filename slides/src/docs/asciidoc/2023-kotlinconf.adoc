@@ -16,7 +16,7 @@ link:https://gradle.github.io/imaginate/[gradle.github.io/imaginate, window=_bla
 
 link:https://youtu.be/88FJwx8Yf3o?t=18545[video, window=_blank]
 -
-link:https://gradle.github.io/imaginate/gradle-imaginate-slides.pdf[pdf, window=_blank]
+link:https://gradle.github.io/imaginate/2023-kotlinconf-gradle-imaginate-slides.pdf[pdf, window=_blank]
 -
 link:https://github.com/gradle/imaginate[sources, window=_blank]
 

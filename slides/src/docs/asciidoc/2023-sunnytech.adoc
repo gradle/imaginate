@@ -1,0 +1,35 @@
+:source-highlighter: highlightjs
+:highlightjs-languages: java, groovy, kotlin, toml, json, xml, properties, shell
+:title-slide-background-image: gradle/intro.png
+:title-slide-background-size: cover
+:title-slide-background-color: #02303a
+:hide-uri-scheme:
+:linkattrs:
+
+= Kotlin, one language to build them all!
+
+Paul Merlin
+
+image::sunnytech/logo-sunnytech.svg[width=20%, align="right"]
+
+link:https://gradle.github.io/imaginate/[gradle.github.io/imaginate, window=_blank]
+
+link:https://gradle.github.io/imaginate/2023-sunnytech-gradle-imaginate-slides.pdf[pdf, window=_blank]
+-
+link:https://github.com/gradle/imaginate[sources, window=_blank]
+
+include::chapters/_1_agenda_sunnytech.adoc[]
+
+include::chapters/_2_who_sunnytech.adoc[]
+
+include::chapters/_5_what_sunnytech.adoc[]
+
+include::chapters/_10_imaginate.adoc[]
+
+include::chapters/_20_build_logic.adoc[]
+
+include::chapters/_40_whats_next_sunnytech.adoc[]
+
+include::chapters/_90_closing.adoc[]
+
+include::chapters/_100_thank_you_sunnytech.adoc[]

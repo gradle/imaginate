@@ -13,5 +13,5 @@ runs:
       uses: actions/upload-artifact@v3
       with:
         name: imaginate-web-htdocs
-        path: applications/web-app/build/dist/js/productionExecutable
+        path: applications/web-app/build/distributions
         if-no-files-found: error

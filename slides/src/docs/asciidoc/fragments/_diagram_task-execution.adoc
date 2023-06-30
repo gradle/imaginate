@@ -1,0 +1,55 @@
+[plantuml]
+....
+@startuml
+!theme spacelab
+<style>
+activityDiagram {
+  BackgroundColor transparent
+  FontName Helvetica
+  FontSize 16
+  FontColor 02303a
+  LineColor 02303a
+  diamond {
+    BackgroundColor 02303a
+    FontColor white
+  }
+}
+</style>
+://Inputs// verification;
+if(Changed?) then (yes)
+    label space_1
+    label space_2
+    label space_3
+    label space_4
+    label space_5
+    label space_6
+    label space_7
+    label lookup
+    :Lookup in //build cache//;
+    label space_201
+    if(Available?) then (no)
+        label space_300
+        #1ba8cb :EXECUTION;
+        :Caching outputs;
+        detach
+    else(yes)
+        label space_400
+        #1ba8cb :FROM-CACHE;
+        detach
+    endif
+else (no)
+    label space_100
+    :Local //outputs// verification;
+    label space_101
+    label space_102
+    if(Changed?) then (yes)
+        label space_200
+        goto lookup
+    else(no)
+        label space_500
+        #1ba8cb :UP-TO-DATE;
+        detach
+    endif
+endif
+@enduml
+....

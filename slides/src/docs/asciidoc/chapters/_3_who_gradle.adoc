@@ -38,10 +38,31 @@ image::logo-gradle-enterprise.svg[role=product-logo-as-title]
 
 Gradle Enterprise, commercial product, is the first Developer Productivity Engineering (DPE) integrated solution.
 
-image::gradle/ge-1.png[width=70%]
+image::gradle/ge-4.png[width=55%]
+
+[cols="^.^1,^.^1,^.^1,^.^1,^.^1",frame=none,grid=none,role=who-ge]
+|===
+a|image::logo-gradle-elephant.svg[]
+
+Gradle
+a|image::logo-android-studio.png[]
+
+Android
+a|image::logo-maven.svg[]
+
+Maven
+a|image::logo-bazel.svg[]
+
+Bazel
+a|image::logo-sbt.svg[]
+
+Scala (2023)
+|===
 
 [.notes]
 --
+make builds and tests faster
+make problem research more efficient
 metadata of all the builds +
 outputs of all the builds +
 observability: scans, performance trends, test dashboard etc... +
@@ -54,16 +75,22 @@ image::gradle/bg-1.png[background, size=cover]
 
 DPE is an emerging software practice that relies on acceleration technologies and data analysis to improve developer productivity.
 
-[cols="<.^1,^.^1",frame=none,grid=none]
+[cols="^.^2,^.^1",frame=none,grid=none]
 |===
-a|
-* make builds and tests faster
-* make problem research more efficient
-
-a|image::dpe-showdown.jpeg[]
+a|image:dpe-handbook.webp[width=35%] image:dpe-maturity-model.webp[width=35%]
 
 [.small]
-https://twitter.com/DpeShowdown
+https://gradle.com/developer-productivity-engineering
+a|image::dpe-summit.webp[]
+
+[.small]
+https://dpesummit.com
+
+image::dpe-showdown.jpeg[]
+
+[.small]
+link:https://www.youtube.com/playlist?list=PLLQbIfXVLZqG0_Hg_yHLCrphP2gmhNZE1[DPE Lowdown - Youtube Playlist] +
+link:https://www.youtube.com/playlist?list=PLLQbIfXVLZqHiRLgGIsFI9D5CRhhjCSAi[DPE Showdown - Youtube Playlist]
 |===
 
 
@@ -75,7 +102,7 @@ Two shows
 * showdown: game show with multiple participants
 * lowdown: face to face interviews
 
-How Netflix, Microsoft, LinkedIn and other teams do DPE?
+How Netflix, Google, Slack, LinkedIn and other teams do DPE?
 --
 
 
