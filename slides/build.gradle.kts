@@ -10,12 +10,14 @@ plugins {
 }
 
 repositories {
-    mavenCentral()
-    maven(url = "https://jcenter.bintray.com/") {
+    maven {
+        url = uri("https://repo.gradle.org/gradle/libs/")
         content {
             includeModule("me.champeau.deck2pdf", "deck2pdf")
+            includeModule("org.ysb33r.gradle", "grolifant")
         }
     }
+    mavenCentral()
     ruby {
         gems()
     }
