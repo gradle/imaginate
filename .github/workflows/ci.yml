@@ -89,14 +89,14 @@ jobs:
         run: xvfb-run ./gradlew --stacktrace :slides:build
 
       - name: Upload Slides HTML
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: gradle-imaginate-slides-html
           path: slides/build/distributions/gradle-imaginate-slides.zip
           if-no-files-found: error
 
       - name: Upload Slides PDF
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: gradle-imaginate-slides-pdf
           path: slides/build/pdf/
